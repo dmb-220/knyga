@@ -2225,6 +2225,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38583,21 +38585,60 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "container-fluid" }, [
-          _vm._m(1),
+          _c("div", { staticClass: "card" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-body text-center" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-app",
+                    attrs: { tag: "a", to: "/saskaitos" }
+                  },
+                  [
+                    _c("i", { staticClass: "fa fa-edit" }),
+                    _vm._v(" Sąskaitos\n                    ")
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _vm._m(4),
+                _vm._v(" "),
+                _vm._m(5),
+                _vm._v(" "),
+                _vm._m(6),
+                _vm._v(" "),
+                _vm._m(7)
+              ],
+              1
+            )
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "card" }, [
-            _vm._m(2),
+            _vm._m(8),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _vm._m(9),
+            _vm._v(" "),
+            _c("hr"),
             _vm._v(" "),
             _c("div", { staticClass: "card-body text-center" }, [
               _c("table", { staticClass: "table table-sm" }, [
-                _vm._m(3),
+                _vm._m(10),
                 _vm._v(" "),
                 _c(
                   "tbody",
                   [
-                    _vm._m(4),
+                    _vm._m(11),
                     _vm._v(" "),
-                    _vm._m(5),
+                    _vm._m(12),
                     _vm._v(" "),
                     _vm._l(_vm.row, function(qua, key) {
                       return _c("tr", { key: key }, [
@@ -38641,9 +38682,9 @@ var render = function() {
                       ])
                     }),
                     _vm._v(" "),
-                    _vm._m(6),
+                    _vm._m(13),
                     _vm._v(" "),
-                    _vm._m(7)
+                    _vm._m(14)
                   ],
                   2
                 )
@@ -38672,70 +38713,62 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h3", { staticClass: "card-title" }, [_vm._v("Valdymas")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body text-center" }, [
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-edit" }),
-          _vm._v(" Edit\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-play" }),
-          _vm._v(" Play\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-repeat" }),
-          _vm._v(" Repeat\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-pause" }),
-          _vm._v(" Pause\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-save" }),
-          _vm._v(" Save\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("span", { staticClass: "badge bg-yellow" }, [_vm._v("3")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-bullhorn" }),
-          _vm._v(" Notifications\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("span", { staticClass: "badge bg-green" }, [_vm._v("300")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-barcode" }),
-          _vm._v(" Products\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("span", { staticClass: "badge bg-purple" }, [_vm._v("891")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-users" }),
-          _vm._v(" Users\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("span", { staticClass: "badge bg-teal" }, [_vm._v("67")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-inbox" }),
-          _vm._v(" Orders\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-envelope" }),
-          _vm._v(" Inbox\n                    ")
-        ])
-      ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Valdymas")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "btn btn-app" }, [
+      _c("i", { staticClass: "fa fa-play" }),
+      _vm._v(" Įmonės\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "btn btn-app" }, [
+      _c("i", { staticClass: "fa fa-repeat" }),
+      _vm._v(" Bankas\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "btn btn-app" }, [
+      _c("i", { staticClass: "fa fa-pause" }),
+      _vm._v(" Kasa\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "btn btn-app" }, [
+      _c("i", { staticClass: "fa fa-save" }),
+      _vm._v(" Skolos\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "btn btn-app" }, [
+      _c("i", { staticClass: "fa fa-inbox" }),
+      _vm._v("Ūkininko duomenys\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "btn btn-app" }, [
+      _c("i", { staticClass: "fa fa-envelope" }),
+      _vm._v(" Veiklos ataskaita\n                    ")
     ])
   },
   function() {
@@ -38746,6 +38779,84 @@ var staticRenderFns = [
       _c("h3", { staticClass: "card-title" }, [
         _vm._v("PINIGŲ, PIRKIMO IR PARDAVIMO OPERACIJOS")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-group" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Sausis")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Vasaris")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Kovas")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Balandis")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Gegužė")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Birželis")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Liepa")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Rugpjūtis")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Rugsėjis")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Spalis")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Lapkritis")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "button" } },
+        [_vm._v("Gruodis")]
+      )
     ])
   },
   function() {

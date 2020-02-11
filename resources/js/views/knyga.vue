@@ -16,39 +16,26 @@
                 </div>
 
                 <div class="card-body text-center">
-                    <a class="btn btn-app">
+                    <router-link tag="a" to="/saskaitos" class="btn btn-app">
                         <i class="fa fa-edit"></i> Sąskaitos
-                    </a>
+                    </router-link>
                     <a class="btn btn-app">
                         <i class="fa fa-play"></i> Įmonės
                     </a>
                     <a class="btn btn-app">
-                        <i class="fa fa-repeat"></i> Repeat
+                        <i class="fa fa-repeat"></i> Bankas
                     </a>
                     <a class="btn btn-app">
-                        <i class="fa fa-pause"></i> Pause
+                        <i class="fa fa-pause"></i> Kasa
                     </a>
                     <a class="btn btn-app">
-                        <i class="fa fa-save"></i> Save
+                        <i class="fa fa-save"></i> Skolos
                     </a>
                     <a class="btn btn-app">
-                        <span class="badge bg-yellow">3</span>
-                        <i class="fa fa-bullhorn"></i> Notifications
+                        <i class="fa fa-inbox"></i>Ūkininko duomenys
                     </a>
                     <a class="btn btn-app">
-                        <span class="badge bg-green">300</span>
-                        <i class="fa fa-barcode"></i> Products
-                    </a>
-                    <a class="btn btn-app">
-                        <span class="badge bg-purple">891</span>
-                        <i class="fa fa-users"></i> Users
-                    </a>
-                    <a class="btn btn-app">
-                        <span class="badge bg-teal">67</span>
-                        <i class="fa fa-inbox"></i> Orders
-                    </a>
-                    <a class="btn btn-app">
-                        <i class="fa fa-envelope"></i> Inbox
+                        <i class="fa fa-envelope"></i> Veiklos ataskaita
                     </a>
                 </div>
                 <!-- /.card-body -->
@@ -57,7 +44,22 @@
                 <div class="card-header">
                     <h3 class="card-title">PINIGŲ, PIRKIMO IR PARDAVIMO OPERACIJOS</h3>
                 </div>
-
+                <hr>
+                <div class="btn-group">
+                        <button type="button" class="btn btn-default">Sausis</button>
+                        <button type="button" class="btn btn-default">Vasaris</button>
+                        <button type="button" class="btn btn-default">Kovas</button>
+                        <button type="button" class="btn btn-default">Balandis</button>
+                        <button type="button" class="btn btn-default">Gegužė</button>
+                        <button type="button" class="btn btn-default">Birželis</button>
+                        <button type="button" class="btn btn-default">Liepa</button>
+                        <button type="button" class="btn btn-default">Rugpjūtis</button>
+                        <button type="button" class="btn btn-default">Rugsėjis</button>
+                        <button type="button" class="btn btn-default">Spalis</button>
+                        <button type="button" class="btn btn-default">Lapkritis</button>
+                        <button type="button" class="btn btn-default">Gruodis</button>
+                      </div>
+                      <hr>
                 <div class="card-body text-center">
                     <table class="table table-sm">
                         <thead>
