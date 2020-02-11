@@ -1,5 +1,4 @@
 <template>
-<div>
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -8,7 +7,6 @@
                 </div>
             </div>
         </div>
-        <div class="row">
             <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
@@ -19,9 +17,9 @@
                     <router-link tag="a" to="/saskaitos" class="btn btn-app">
                         <i class="fa fa-edit"></i> Sąskaitos
                     </router-link>
-                    <a class="btn btn-app">
+                    <router-link tag="a" to="/imones" class="btn btn-app">
                         <i class="fa fa-play"></i> Įmonės
-                    </a>
+                    </router-link>
                     <a class="btn btn-app">
                         <i class="fa fa-repeat"></i> Bankas
                     </a>
@@ -195,8 +193,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 </div>
 </template>
 
