@@ -1,5 +1,8 @@
 <template>
+<<<<<<< HEAD
 <div>
+=======
+>>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -8,7 +11,10 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
         <div class="row">
+=======
+>>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
             <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
@@ -16,6 +22,7 @@
                 </div>
 
                 <div class="card-body text-center">
+<<<<<<< HEAD
                     <a class="btn btn-app">
                         <i class="fa fa-edit"></i> Edit
                     </a>
@@ -49,6 +56,28 @@
                     </a>
                     <a class="btn btn-app">
                         <i class="fa fa-envelope"></i> Inbox
+=======
+                    <router-link tag="a" to="/saskaitos" class="btn btn-app">
+                        <i class="fa fa-edit"></i> Sąskaitos
+                    </router-link>
+                    <router-link tag="a" to="/imones" class="btn btn-app">
+                        <i class="fa fa-play"></i> Įmonės
+                    </router-link>
+                    <a class="btn btn-app">
+                        <i class="fa fa-repeat"></i> Bankas
+                    </a>
+                    <a class="btn btn-app">
+                        <i class="fa fa-pause"></i> Kasa
+                    </a>
+                    <a class="btn btn-app">
+                        <i class="fa fa-save"></i> Skolos
+                    </a>
+                    <a class="btn btn-app">
+                        <i class="fa fa-inbox"></i>Ūkininko duomenys
+                    </a>
+                    <a class="btn btn-app">
+                        <i class="fa fa-envelope"></i> Veiklos ataskaita
+>>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
                     </a>
                 </div>
                 <!-- /.card-body -->
@@ -57,7 +86,26 @@
                 <div class="card-header">
                     <h3 class="card-title">PINIGŲ, PIRKIMO IR PARDAVIMO OPERACIJOS</h3>
                 </div>
+<<<<<<< HEAD
 
+=======
+                <hr>
+                <div class="btn-group">
+                        <button type="button" class="btn btn-default">Sausis</button>
+                        <button type="button" class="btn btn-default">Vasaris</button>
+                        <button type="button" class="btn btn-default">Kovas</button>
+                        <button type="button" class="btn btn-default">Balandis</button>
+                        <button type="button" class="btn btn-default">Gegužė</button>
+                        <button type="button" class="btn btn-default">Birželis</button>
+                        <button type="button" class="btn btn-default">Liepa</button>
+                        <button type="button" class="btn btn-default">Rugpjūtis</button>
+                        <button type="button" class="btn btn-default">Rugsėjis</button>
+                        <button type="button" class="btn btn-default">Spalis</button>
+                        <button type="button" class="btn btn-default">Lapkritis</button>
+                        <button type="button" class="btn btn-default">Gruodis</button>
+                      </div>
+                      <hr>
+>>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
                 <div class="card-body text-center">
                     <table class="table table-sm">
                         <thead>
@@ -193,8 +241,11 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
     </div>
 </div>
+=======
+>>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
 </div>
 </template>
 

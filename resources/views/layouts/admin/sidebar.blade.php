@@ -26,6 +26,7 @@
 
                 <li class="nav-item">
                     <router-link tag="a" to="/" class="nav-link">
+<<<<<<< HEAD
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Į pradžią</p>
                     </router-link>
@@ -60,6 +61,21 @@
                 <li class="nav-item">
                     <router-link tag="a" to="/users" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
+=======
+                        <i class="nav-icon fas fa-home"></i>
+                        <p>Į pradžią</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link tag="a" to="/knyga" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>Žalia knyga</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link tag="a" to="/users" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+>>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
                         <p>Vartotojai</p>
                     </router-link>
                 </li>

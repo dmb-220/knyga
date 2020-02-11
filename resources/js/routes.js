@@ -15,6 +15,13 @@ let routes = [
         component: require('./views/saskaitos').default
     },
     {
+<<<<<<< HEAD
+=======
+        path: '/imones',
+        component: require('./views/imones').default
+    },
+    {
+>>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
         path: '/knyga',
         component: require('./views/knyga').default
     }
