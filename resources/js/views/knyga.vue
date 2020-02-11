@@ -17,10 +17,10 @@
 
                 <div class="card-body text-center">
                     <a class="btn btn-app">
-                        <i class="fa fa-edit"></i> Edit
+                        <i class="fa fa-edit"></i> Sąskaitos
                     </a>
                     <a class="btn btn-app">
-                        <i class="fa fa-play"></i> Play
+                        <i class="fa fa-play"></i> Įmonės
                     </a>
                     <a class="btn btn-app">
                         <i class="fa fa-repeat"></i> Repeat
