@@ -10,46 +10,10 @@
         <div class="container-fluid">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Duomenų įvedimas</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form class="form-horizontal">
-                <div class="card-body">
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Pavdinimas:</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Įmonės kodas:</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">PVM kodas:</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-info">Išsaugoti</button>
-                </div>
-                <!-- /.card-footer -->
-              </form>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="card">
-              <div class="card-header">
                 <h3 class="card-title">Įmonių sąrašas</h3>
               </div>
               <div class="card-body">
-              Duomenų nerasta
+              {{imones}}
               </div>
             </div>
         </div>
@@ -57,25 +21,35 @@
 </template>
 
 <script>
-
     export default {
-
         data() {
-
             return {
-                
+                imones: [],
             }
 
         },
 
 
         created() {
-            
+          this.getData()
         },
 
         methods: {
-            
-    }
+           getData () {
+            //this.isLoading = true
+            this.axios
+            .get('/imones')
+            .then(response => {
+                //this.isLoading = false
+                this.imones = response.data.imones;
+                console.log(response.data.imones);
+            })
+            .catch( err => {
+                console.log("GET:");
+                console.log(err.message);
+                })
+            }, 
+        }
     }
 
 </script>
