@@ -2041,12 +2041,134 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      imones: []
+      imones_sukurimas: {
+        imones_pavadinimas: '',
+        imones_kodas: '',
+        pvm_kodas: ''
+      },
+      imones: [],
+      fields: [{
+        key: 'id',
+        label: 'ID',
+        sortable: true,
+        sortDirection: 'desc'
+      }, {
+        key: 'imones_pavadinimas',
+        label: 'Įmonės pavadinimas',
+        sortable: true,
+        "class": 'text-center'
+      }, {
+        key: 'imones_kodas',
+        label: 'Įmonės kodas',
+        sortable: false
+      }, {
+        key: 'pvm_kodas',
+        label: 'PVM kodas',
+        sortable: false
+      }, {
+        key: 'actions',
+        label: 'Veiksmai'
+      }],
+      totalRows: 1,
+      currentPage: 1,
+      perPage: 5,
+      pageOptions: [5, 10, 15, 25, 50, 100],
+      sortBy: '',
+      sortDesc: false,
+      sortDirection: 'asc',
+      filter: null,
+      filterOn: []
     };
   },
+  mounted: function mounted() {},
   created: function created() {
     this.getData();
   },
@@ -2057,11 +2179,40 @@ __webpack_require__.r(__webpack_exports__);
       //this.isLoading = true
       this.axios.get('/imones').then(function (response) {
         //this.isLoading = false
-        _this.imones = response.data.imones;
+        _this.imones = response.data.imones; //sukaiciuojam kiek irasu, puslapiavimui
+
+        _this.totalRows = _this.imones.length;
         console.log(response.data.imones);
       })["catch"](function (err) {
         console.log("GET:");
         console.log(err.message);
+      });
+    },
+    imones_post: function imones_post() {
+      var _this2 = this;
+
+      axios.post("/imones/store", {
+        pavadinimas: this.imones_sukurimas.imones_pavadinimas,
+        kodas: this.imones_sukurimas.imones_kodas,
+        pvm: this.imones_sukurimas.pvm_kodas
+      }).then(function (response) {
+        console.log(response.data.status);
+
+        _this2.getData();
+      })["catch"](function (err) {
+        console.log("POST:");
+        console.log(err.message);
+      });
+    },
+    imoneOk: function imoneOk(bvModalEvt) {
+      var _this3 = this;
+
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      this.imones_post(); // Trigger submit handler
+
+      this.$nextTick(function () {
+        _this3.$bvModal.hide('imoniu_ikelimas');
       });
     }
   }
@@ -2078,39 +2229,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2449,28 +2567,20 @@ __webpack_require__.r(__webpack_exports__);
         pvm: this.imones_sukurimas.pvm_kodas
       }).then(function (response) {
         console.log(response.data.status); //this.getData()
-      });
-    },
-    imoneOk: function imoneOk(bvModalEvt) {
-      var _this2 = this;
-
-      // Prevent modal from closing
-      bvModalEvt.preventDefault();
-      this.imones_post(); // Trigger submit handler
-
-      this.$nextTick(function () {
-        _this2.$bvModal.hide('imoniu_ikelimas');
+      })["catch"](function (err) {
+        console.log("POST:");
+        console.log(err.message);
       });
     },
     handleOk: function handleOk(bvModalEvt) {
-      var _this3 = this;
+      var _this2 = this;
 
       // Prevent modal from closing
       bvModalEvt.preventDefault(); //this.imones_post();
       // Trigger submit handler
 
       this.$nextTick(function () {
-        _this3.$bvModal.hide('saskaitu_ikelimas');
+        _this2.$bvModal.hide('saskaitu_ikelimas');
       });
     }
   }
@@ -72811,21 +72921,310 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "content-header" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "card" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _vm._v(
-            "\r\n              " + _vm._s(_vm.imones) + "\r\n              "
+  return _c(
+    "div",
+    { staticClass: "content-header" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "b-modal",
+                      rawName: "v-b-modal.imoniu_ikelimas",
+                      modifiers: { imoniu_ikelimas: true }
+                    }
+                  ],
+                  staticClass: "btn btn-info",
+                  attrs: { type: "button" }
+                },
+                [_vm._v("Nauja įmonė")]
+              ),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                [
+                  _c(
+                    "b-col",
+                    { staticClass: "my-1", attrs: { sm: "5", md: "6" } },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          staticClass: "mb-0",
+                          attrs: {
+                            label: "Rodyti:",
+                            "label-cols-sm": "6",
+                            "label-cols-md": "4",
+                            "label-cols-lg": "3",
+                            "label-align-sm": "right",
+                            "label-size": "sm",
+                            "label-for": "perPageSelect"
+                          }
+                        },
+                        [
+                          _c("b-form-select", {
+                            attrs: {
+                              id: "perPageSelect",
+                              size: "sm",
+                              options: _vm.pageOptions
+                            },
+                            model: {
+                              value: _vm.perPage,
+                              callback: function($$v) {
+                                _vm.perPage = $$v
+                              },
+                              expression: "perPage"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "my-1", attrs: { sm: "7", md: "6" } },
+                    [
+                      _c("b-pagination", {
+                        staticClass: "my-0",
+                        attrs: {
+                          "total-rows": _vm.totalRows,
+                          "per-page": _vm.perPage,
+                          align: "fill",
+                          size: "sm"
+                        },
+                        model: {
+                          value: _vm.currentPage,
+                          callback: function($$v) {
+                            _vm.currentPage = $$v
+                          },
+                          expression: "currentPage"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-table", {
+                attrs: {
+                  "show-empty": "",
+                  small: "",
+                  stacked: "md",
+                  items: _vm.imones,
+                  fields: _vm.fields,
+                  "current-page": _vm.currentPage,
+                  "per-page": _vm.perPage,
+                  "sort-by": _vm.sortBy,
+                  "sort-desc": _vm.sortDesc,
+                  "sort-direction": _vm.sortDirection
+                },
+                on: {
+                  "update:sortBy": function($event) {
+                    _vm.sortBy = $event
+                  },
+                  "update:sort-by": function($event) {
+                    _vm.sortBy = $event
+                  },
+                  "update:sortDesc": function($event) {
+                    _vm.sortDesc = $event
+                  },
+                  "update:sort-desc": function($event) {
+                    _vm.sortDesc = $event
+                  }
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "cell(name)",
+                    fn: function(row) {
+                      return [
+                        _vm._v(
+                          "\r\n                    " +
+                            _vm._s(row.value.first) +
+                            " " +
+                            _vm._s(row.value.last) +
+                            "\r\n                "
+                        )
+                      ]
+                    }
+                  },
+                  {
+                    key: "cell(actions)",
+                    fn: function(row) {
+                      return [
+                        _c(
+                          "b-button",
+                          {
+                            staticClass: "mr-1",
+                            attrs: { size: "sm", variant: "info" }
+                          },
+                          [
+                            _vm._v(
+                              "\r\n                    Redaguoti\r\n                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-button",
+                          { attrs: { variant: "danger", size: "sm" } },
+                          [
+                            _vm._v(
+                              "\r\n                    Ištrinti\r\n                    "
+                            )
+                          ]
+                        )
+                      ]
+                    }
+                  }
+                ])
+              })
+            ],
+            1
           )
         ])
-      ])
-    ])
-  ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            id: "imoniu_ikelimas",
+            size: "lg",
+            title: "Įmonių įkėlimas",
+            "ok-title": "Išsaugoti",
+            "cancel-title": "Uždaryti",
+            "no-close-on-esc": "",
+            "no-close-on-backdrop": ""
+          },
+          on: { ok: _vm.imoneOk }
+        },
+        [
+          _c("form", { staticClass: "form-horizontal" }, [
+            _c("div", { staticClass: "form-group row" }, [
+              _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                _vm._v("Pavadinimas:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-9" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.imones_sukurimas.imones_pavadinimas,
+                      expression: "imones_sukurimas.imones_pavadinimas"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.imones_sukurimas.imones_pavadinimas },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.imones_sukurimas,
+                        "imones_pavadinimas",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                _vm._v("Įmonės kodas:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-9" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.imones_sukurimas.imones_kodas,
+                      expression: "imones_sukurimas.imones_kodas"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.imones_sukurimas.imones_kodas },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.imones_sukurimas,
+                        "imones_kodas",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                _vm._v("PVM kodas:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-9" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.imones_sukurimas.pvm_kodas,
+                      expression: "imones_sukurimas.pvm_kodas"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.imones_sukurimas.pvm_kodas },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.imones_sukurimas,
+                        "pvm_kodas",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ])
+            ])
+          ])
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -72896,24 +73295,6 @@ var render = function() {
               [
                 _c("i", { staticClass: "fa fa-edit" }),
                 _vm._v(" Įkelti sąskaitą\n                    ")
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                directives: [
-                  {
-                    name: "b-modal",
-                    rawName: "v-b-modal.imoniu_ikelimas",
-                    modifiers: { imoniu_ikelimas: true }
-                  }
-                ],
-                staticClass: "btn btn-app"
-              },
-              [
-                _c("i", { staticClass: "fa fa-play" }),
-                _vm._v(" Nauja įmonė\n                    ")
               ]
             ),
             _vm._v(" "),
@@ -73054,53 +73435,68 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-sm-9" }, [
-                    _c("div", { staticClass: "input-group" }, [
-                      _c("div", { staticClass: "input-group-prepend" }, [
-                        _c("span", { staticClass: "input-group-text" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.imone,
-                                expression: "imone"
-                              }
-                            ],
-                            attrs: { type: "checkbox" },
-                            domProps: {
-                              checked: Array.isArray(_vm.imone)
-                                ? _vm._i(_vm.imone, null) > -1
-                                : _vm.imone
-                            },
-                            on: {
-                              change: function($event) {
-                                var $$a = _vm.imone,
-                                  $$el = $event.target,
-                                  $$c = $$el.checked ? true : false
-                                if (Array.isArray($$a)) {
-                                  var $$v = null,
-                                    $$i = _vm._i($$a, $$v)
-                                  if ($$el.checked) {
-                                    $$i < 0 && (_vm.imone = $$a.concat([$$v]))
+                    _c(
+                      "div",
+                      { staticClass: "input-group" },
+                      [
+                        _c("div", { staticClass: "input-group-prepend" }, [
+                          _c("span", { staticClass: "input-group-text" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.imone,
+                                  expression: "imone"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: Array.isArray(_vm.imone)
+                                  ? _vm._i(_vm.imone, null) > -1
+                                  : _vm.imone
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.imone,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 && (_vm.imone = $$a.concat([$$v]))
+                                    } else {
+                                      $$i > -1 &&
+                                        (_vm.imone = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
+                                    }
                                   } else {
-                                    $$i > -1 &&
-                                      (_vm.imone = $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1)))
+                                    _vm.imone = $$c
                                   }
-                                } else {
-                                  _vm.imone = $$c
                                 }
                               }
-                            }
-                          })
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm.imone
-                        ? _c(
-                            "select",
-                            {
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm.imone
+                          ? _c("b-form-select", {
+                              attrs: {
+                                options: _vm.imones,
+                                "value-field": "id",
+                                "text-field": "imones_pavadinimas"
+                              },
+                              model: {
+                                value: _vm.imones_pavadinimas,
+                                callback: function($$v) {
+                                  _vm.imones_pavadinimas = $$v
+                                },
+                                expression: "imones_pavadinimas"
+                              }
+                            })
+                          : _c("input", {
                               directives: [
                                 {
                                   name: "model",
@@ -73109,65 +73505,21 @@ var render = function() {
                                   expression: "imones_pavadinimas"
                                 }
                               ],
-                              staticClass: "custom-select",
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.imones_pavadinimas },
                               on: {
-                                change: function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.imones_pavadinimas = $event.target
-                                    .multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.imones_pavadinimas = $event.target.value
                                 }
                               }
-                            },
-                            [
-                              _c("option", { attrs: { selected: "" } }, [
-                                _vm._v("Open this select menu")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "1" } }, [
-                                _vm._v("One")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "2" } }, [
-                                _vm._v("Two")
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "3" } }, [
-                                _vm._v("Three")
-                              ])
-                            ]
-                          )
-                        : _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.imones_pavadinimas,
-                                expression: "imones_pavadinimas"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.imones_pavadinimas },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.imones_pavadinimas = $event.target.value
-                              }
-                            }
-                          })
-                    ])
+                            })
+                      ],
+                      1
+                    )
                   ])
                 ]),
                 _vm._v(" "),
@@ -73250,129 +73602,6 @@ var render = function() {
                 ])
               ]
             )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "b-modal",
-          {
-            attrs: {
-              id: "imoniu_ikelimas",
-              size: "lg",
-              title: "Įmonių įkėlimas",
-              "ok-title": "Išsaugoti",
-              "cancel-title": "Uždaryti",
-              "no-close-on-esc": "",
-              "no-close-on-backdrop": ""
-            },
-            on: { ok: _vm.imoneOk }
-          },
-          [
-            _c("form", { staticClass: "form-horizontal" }, [
-              _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-                  _vm._v("Pavadinimas:")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.imones_sukurimas.imones_pavadinimas,
-                        expression: "imones_sukurimas.imones_pavadinimas"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: {
-                      value: _vm.imones_sukurimas.imones_pavadinimas
-                    },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.imones_sukurimas,
-                          "imones_pavadinimas",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-                  _vm._v("Įmonės kodas:")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.imones_sukurimas.imones_kodas,
-                        expression: "imones_sukurimas.imones_kodas"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.imones_sukurimas.imones_kodas },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.imones_sukurimas,
-                          "imones_kodas",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-                  _vm._v("PVM kodas:")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.imones_sukurimas.pvm_kodas,
-                        expression: "imones_sukurimas.pvm_kodas"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.imones_sukurimas.pvm_kodas },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.imones_sukurimas,
-                          "pvm_kodas",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
-              ])
-            ])
           ]
         ),
         _vm._v(" "),

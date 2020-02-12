@@ -17,9 +17,6 @@
                     <a v-b-modal.saskaitu_ikelimas class="btn btn-app">
                         <i class="fa fa-edit"></i> Įkelti sąskaitą
                     </a>
-                    <a v-b-modal.imoniu_ikelimas class="btn btn-app">
-                        <i class="fa fa-play"></i> Nauja įmonė
-                    </a>
                     <a class="btn btn-app">
                         <i class="fa fa-repeat"></i> Bankas
                     </a>
@@ -85,12 +82,11 @@
                             <input v-model="imone" type="checkbox">
                             </span>
                         </div>
-                    <select v-if="imone" v-model="imones_pavadinimas" class="custom-select">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                        <b-form-select v-if="imone" v-model="imones_pavadinimas" 
+                        :options="imones"
+                        value-field="id"
+                        text-field="imones_pavadinimas">
+                        </b-form-select>
                     <input v-else type="text" v-model="imones_pavadinimas" class="form-control">
                     </div>
                         </div>
@@ -133,35 +129,6 @@
                     </div>
                 </form>
                 </b-modal>
-
-                <b-modal id="imoniu_ikelimas" size="lg" title="Įmonių įkėlimas"
-                    ok-title="Išsaugoti"
-                    cancel-title="Uždaryti"
-                    no-close-on-esc
-                    no-close-on-backdrop
-                    @ok="imoneOk">
-                    <form class="form-horizontal">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Pavadinimas:</label>
-                            <div class="col-sm-9">
-                            <input type="text" v-model="imones_sukurimas.imones_pavadinimas" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Įmonės kodas:</label>
-                            <div class="col-sm-9">
-                            <input type="text" v-model="imones_sukurimas.imones_kodas" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">PVM kodas:</label>
-                            <div class="col-sm-9">
-                            <input type="text" v-model='imones_sukurimas.pvm_kodas' class="form-control">
-                            </div>
-                        </div>
-                    </form>
-                </b-modal>
-
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">PINIGŲ, PIRKIMO IR PARDAVIMO OPERACIJOS</h3>
@@ -382,18 +349,12 @@
                     console.log(response.data.status)
                     //this.getData()
                 })
-                
-            },
-            
-            imoneOk(bvModalEvt) {
-                // Prevent modal from closing
-                bvModalEvt.preventDefault()
-                this.imones_post();
-                // Trigger submit handler
-                this.$nextTick(() => {
-                this.$bvModal.hide('imoniu_ikelimas')
+                .catch( err => {
+                console.log("POST:");
+                console.log(err.message);
                 })
-            },   
+            },
+              
             handleOk(bvModalEvt) {
                 // Prevent modal from closing
                 bvModalEvt.preventDefault()
