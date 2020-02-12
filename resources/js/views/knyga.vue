@@ -14,12 +14,12 @@
                 </div>
 
                 <div class="card-body text-center">
-                    <router-link tag="a" to="/saskaitos" class="btn btn-app">
-                        <i class="fa fa-edit"></i> Sąskaitos
-                    </router-link>
-                    <router-link tag="a" to="/imones" class="btn btn-app">
-                        <i class="fa fa-play"></i> Įmonės
-                    </router-link>
+                    <a v-b-modal.saskaitu_ikelimas class="btn btn-app">
+                        <i class="fa fa-edit"></i> Įkelti sąskaitą
+                    </a>
+                    <a v-b-modal.imoniu_ikelimas class="btn btn-app">
+                        <i class="fa fa-play"></i> Nauja įmonė
+                    </a>
                     <a class="btn btn-app">
                         <i class="fa fa-repeat"></i> Bankas
                     </a>
@@ -38,6 +38,126 @@
                 </div>
                 <!-- /.card-body -->
             </div>
+            
+            <b-modal id="saskaitu_ikelimas" size="lg" title="Sąskaitų įkėlimas"
+                @ok="handleOk"
+                @show="resetModal"
+                @hidden="resetModal">
+                    <form class="form-horizontal" @submit.stop.prevent="handleSubmit">
+                        <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Operacija:</label>
+                        <div class="col-sm-9">
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option1">
+                            <label class="form-check-label">Pardavimai</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option1">
+                            <label class="form-check-label">Pirkimai</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Pinigai:</label>
+                        <div class="col-sm-9">
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2">
+                            <label class="form-check-label">Kasa</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2">
+                            <label class="form-check-label">Bankas</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2">
+                            <label class="form-check-label">Skola</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Imonė:</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                            <input v-model="imone" type="checkbox">
+                            </span>
+                        </div>
+                    <select v-if="imone" v-model="imones_pavadinimas" class="custom-select">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <input v-else type="text" v-model="imones_pavadinimas" class="form-control">
+                    </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Data:</label>
+                        <div class="col-sm-9">
+                        <input type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Sąskaitos numeris:</label>
+                        <div class="col-sm-9">
+                        <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Op. pavadinimas:</label>
+                        <div class="col-sm-9">
+                        <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Kiekis, mat. vnt:</label>
+                        <div class="col-sm-9">
+                        <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Suma:</label>
+                        <div class="col-sm-9">
+                        <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">PVM:</label>
+                        <div class="col-sm-9">
+                        <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </form>
+                </b-modal>
+
+                <b-modal id="imoniu_ikelimas" size="lg" title="Įmonių įkėlimas"
+                    @ok="handleOk"
+                    @show="resetModal"
+                    @hidden="resetModal">
+                    <form class="form-horizontal">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Pavdinimas:</label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Įmonės kodas:</label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">PVM kodas:</label>
+                            <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </b-modal>
+
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">PINIGŲ, PIRKIMO IR PARDAVIMO OPERACIJOS</h3>
@@ -210,6 +330,13 @@
 
             return {
                 row: ['1', '2', '3', '4', '5', '6', '7'],
+                //ivesti, arba pasirinkti imonę is saraso
+                //ivedus, nauj1 imone, ja irasyti i duomenu baze, ir priskirti jai ID
+                imone: true,
+                imones_pavadinimas: "",
+                name: '',
+                nameState: null,
+                submittedNames: []
             }
 
         },
@@ -220,6 +347,24 @@
         },
 
         methods: {
+            resetModal() {
+        this.name = ''
+        this.nameState = null
+      },
+      handleOk(bvModalEvt) {
+        // Prevent modal from closing
+        bvModalEvt.preventDefault()
+        // Trigger submit handler
+        this.handleSubmit()
+      },
+      handleSubmit() {
+        // Push the name to submitted names
+        this.submittedNames.push(this.name)
+        // Hide the modal manually
+        this.$nextTick(() => {
+          this.$bvModal.hide('saskaitu_ikelimas')
+        })
+      }
             
     }
     }
