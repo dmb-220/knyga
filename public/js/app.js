@@ -2043,10 +2043,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      imones: []
+    };
   },
-  created: function created() {},
-  methods: {}
+  created: function created() {
+    this.getData();
+  },
+  methods: {
+    getData: function getData() {
+      var _this = this;
+
+      //this.isLoading = true
+      this.axios.get('/imones').then(function (response) {
+        //this.isLoading = false
+        _this.imones = response.data.imones;
+        console.log(response.data.imones);
+      })["catch"](function (err) {
+        console.log("GET:");
+        console.log(err.message);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2384,12 +2402,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       row: ['1', '2', '3', '4', '5', '6', '7'],
+      imones_sukurimas: {
+        imones_pavadinimas: '',
+        imones_kodas: '',
+        pvm_kodas: ''
+      },
       //ivesti, arba pasirinkti imonę is saraso
       //ivedus, nauj1 imone, ja irasyti i duomenu baze, ir priskirti jai ID
+      imones: [],
       imone: true,
       imones_pavadinimas: "",
       name: '',
@@ -2397,26 +2425,52 @@ __webpack_require__.r(__webpack_exports__);
       submittedNames: []
     };
   },
-  created: function created() {},
+  created: function created() {
+    this.getData();
+  },
   methods: {
-    resetModal: function resetModal() {
-      this.name = '';
-      this.nameState = null;
-    },
-    handleOk: function handleOk(bvModalEvt) {
-      // Prevent modal from closing
-      bvModalEvt.preventDefault(); // Trigger submit handler
-
-      this.handleSubmit();
-    },
-    handleSubmit: function handleSubmit() {
+    getData: function getData() {
       var _this = this;
 
-      // Push the name to submitted names
-      this.submittedNames.push(this.name); // Hide the modal manually
+      //this.isLoading = true
+      this.axios.get('/imones').then(function (response) {
+        //this.isLoading = false
+        _this.imones = response.data.imones;
+        console.log(response.data.imones);
+      })["catch"](function (err) {
+        console.log("GET:");
+        console.log(err.message);
+      });
+    },
+    imones_post: function imones_post() {
+      axios.post("/imones/store", {
+        pavadinimas: this.imones_sukurimas.imones_pavadinimas,
+        kodas: this.imones_sukurimas.imones_kodas,
+        pvm: this.imones_sukurimas.pvm_kodas
+      }).then(function (response) {
+        console.log(response.data.status); //this.getData()
+      });
+    },
+    imoneOk: function imoneOk(bvModalEvt) {
+      var _this2 = this;
+
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      this.imones_post(); // Trigger submit handler
 
       this.$nextTick(function () {
-        _this.$bvModal.hide('saskaitu_ikelimas');
+        _this2.$bvModal.hide('imoniu_ikelimas');
+      });
+    },
+    handleOk: function handleOk(bvModalEvt) {
+      var _this3 = this;
+
+      // Prevent modal from closing
+      bvModalEvt.preventDefault(); //this.imones_post();
+      // Trigger submit handler
+
+      this.$nextTick(function () {
+        _this3.$bvModal.hide('saskaitu_ikelimas');
       });
     }
   }
@@ -72757,33 +72811,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "content-header" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "card" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _vm._v("\n              " + _vm._s(_vm.imones) + "\n              ")
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content-header" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row mb-2" }, [
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("h1", { staticClass: "m-0 text-dark" }, [_vm._v("Įmonės")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("h3", { staticClass: "card-title" }, [_vm._v("Įmonių sąrašas")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _vm._v("\n              Duomenų nerasta\n              ")
-          ])
+    return _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "row mb-2" }, [
+        _c("div", { staticClass: "col-sm-6" }, [
+          _c("h1", { staticClass: "m-0 text-dark" }, [_vm._v("Įmonės")])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Įmonių sąrašas")])
     ])
   }
 ]
@@ -72873,13 +72933,13 @@ var render = function() {
             attrs: {
               id: "saskaitu_ikelimas",
               size: "lg",
-              title: "Sąskaitų įkėlimas"
+              title: "Sąskaitų įkėlimas",
+              "ok-title": "Išsaugoti",
+              "cancel-title": "Uždaryti",
+              "no-close-on-esc": "",
+              "no-close-on-backdrop": ""
             },
-            on: {
-              ok: _vm.handleOk,
-              show: _vm.resetModal,
-              hidden: _vm.resetModal
-            }
+            on: { ok: _vm.handleOk }
           },
           [
             _c(
@@ -73197,25 +73257,48 @@ var render = function() {
             attrs: {
               id: "imoniu_ikelimas",
               size: "lg",
-              title: "Įmonių įkėlimas"
+              title: "Įmonių įkėlimas",
+              "ok-title": "Išsaugoti",
+              "cancel-title": "Uždaryti",
+              "no-close-on-esc": "",
+              "no-close-on-backdrop": ""
             },
-            on: {
-              ok: _vm.handleOk,
-              show: _vm.resetModal,
-              hidden: _vm.resetModal
-            }
+            on: { ok: _vm.imoneOk }
           },
           [
             _c("form", { staticClass: "form-horizontal" }, [
               _c("div", { staticClass: "form-group row" }, [
                 _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-                  _vm._v("Pavdinimas:")
+                  _vm._v("Pavadinimas:")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-9" }, [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.imones_sukurimas.imones_pavadinimas,
+                        expression: "imones_sukurimas.imones_pavadinimas"
+                      }
+                    ],
                     staticClass: "form-control",
-                    attrs: { type: "text" }
+                    attrs: { type: "text" },
+                    domProps: {
+                      value: _vm.imones_sukurimas.imones_pavadinimas
+                    },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.imones_sukurimas,
+                          "imones_pavadinimas",
+                          $event.target.value
+                        )
+                      }
+                    }
                   })
                 ])
               ]),
@@ -73227,8 +73310,29 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-9" }, [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.imones_sukurimas.imones_kodas,
+                        expression: "imones_sukurimas.imones_kodas"
+                      }
+                    ],
                     staticClass: "form-control",
-                    attrs: { type: "text" }
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.imones_sukurimas.imones_kodas },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.imones_sukurimas,
+                          "imones_kodas",
+                          $event.target.value
+                        )
+                      }
+                    }
                   })
                 ])
               ]),
@@ -73240,8 +73344,29 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-9" }, [
                   _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.imones_sukurimas.pvm_kodas,
+                        expression: "imones_sukurimas.pvm_kodas"
+                      }
+                    ],
                     staticClass: "form-control",
-                    attrs: { type: "text" }
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.imones_sukurimas.pvm_kodas },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.imones_sukurimas,
+                          "pvm_kodas",
+                          $event.target.value
+                        )
+                      }
+                    }
                   })
                 ])
               ])

@@ -13,7 +13,7 @@
                 <h3 class="card-title">Įmonių sąrašas</h3>
               </div>
               <div class="card-body">
-              Duomenų nerasta
+              {{imones}}
               </div>
             </div>
         </div>
@@ -21,25 +21,35 @@
 </template>
 
 <script>
-
     export default {
-
         data() {
-
             return {
-                
+                imones: [],
             }
 
         },
 
 
         created() {
-            
+          this.getData()
         },
 
         methods: {
-            
-    }
+           getData () {
+            //this.isLoading = true
+            this.axios
+            .get('/imones')
+            .then(response => {
+                //this.isLoading = false
+                this.imones = response.data.imones;
+                console.log(response.data.imones);
+            })
+            .catch( err => {
+                console.log("GET:");
+                console.log(err.message);
+                })
+            }, 
+        }
     }
 
 </script>

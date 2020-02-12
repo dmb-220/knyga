@@ -40,9 +40,11 @@
             </div>
             
             <b-modal id="saskaitu_ikelimas" size="lg" title="Sąskaitų įkėlimas"
-                @ok="handleOk"
-                @show="resetModal"
-                @hidden="resetModal">
+                ok-title="Išsaugoti"
+                cancel-title="Uždaryti"
+                no-close-on-esc
+                no-close-on-backdrop
+                @ok="handleOk">
                     <form class="form-horizontal" @submit.stop.prevent="handleSubmit">
                         <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Operacija:</label>
@@ -133,26 +135,28 @@
                 </b-modal>
 
                 <b-modal id="imoniu_ikelimas" size="lg" title="Įmonių įkėlimas"
-                    @ok="handleOk"
-                    @show="resetModal"
-                    @hidden="resetModal">
+                    ok-title="Išsaugoti"
+                    cancel-title="Uždaryti"
+                    no-close-on-esc
+                    no-close-on-backdrop
+                    @ok="imoneOk">
                     <form class="form-horizontal">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Pavdinimas:</label>
+                            <label class="col-sm-3 col-form-label">Pavadinimas:</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control">
+                            <input type="text" v-model="imones_sukurimas.imones_pavadinimas" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Įmonės kodas:</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control">
+                            <input type="text" v-model="imones_sukurimas.imones_kodas" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">PVM kodas:</label>
                             <div class="col-sm-9">
-                            <input type="text" class="form-control">
+                            <input type="text" v-model='imones_sukurimas.pvm_kodas' class="form-control">
                             </div>
                         </div>
                     </form>
@@ -330,8 +334,14 @@
 
             return {
                 row: ['1', '2', '3', '4', '5', '6', '7'],
+                imones_sukurimas: {
+                    imones_pavadinimas: '',
+                    imones_kodas: '',
+                    pvm_kodas: ''
+                },
                 //ivesti, arba pasirinkti imonę is saraso
                 //ivedus, nauj1 imone, ja irasyti i duomenu baze, ir priskirti jai ID
+                imones: [],
                 imone: true,
                 imones_pavadinimas: "",
                 name: '',
@@ -343,29 +353,56 @@
 
 
         created() {
-            
+            this.getData()
         },
 
         methods: {
-            resetModal() {
-        this.name = ''
-        this.nameState = null
-      },
-      handleOk(bvModalEvt) {
-        // Prevent modal from closing
-        bvModalEvt.preventDefault()
-        // Trigger submit handler
-        this.handleSubmit()
-      },
-      handleSubmit() {
-        // Push the name to submitted names
-        this.submittedNames.push(this.name)
-        // Hide the modal manually
-        this.$nextTick(() => {
-          this.$bvModal.hide('saskaitu_ikelimas')
-        })
-      }
+            getData () {
+            //this.isLoading = true
+            this.axios
+            .get('/imones')
+            .then(response => {
+                //this.isLoading = false
+                this.imones = response.data.imones;
+                console.log(response.data.imones);
+            })
+            .catch( err => {
+                console.log("GET:");
+                console.log(err.message);
+                })
+            },
+            imones_post(){
+                axios
+                .post(`/imones/store`, {
+                    pavadinimas: this.imones_sukurimas.imones_pavadinimas,
+                    kodas: this.imones_sukurimas.imones_kodas,
+                    pvm: this.imones_sukurimas.pvm_kodas
+                    })
+                .then(response => {
+                    console.log(response.data.status)
+                    //this.getData()
+                })
+                
+            },
             
-    }
+            imoneOk(bvModalEvt) {
+                // Prevent modal from closing
+                bvModalEvt.preventDefault()
+                this.imones_post();
+                // Trigger submit handler
+                this.$nextTick(() => {
+                this.$bvModal.hide('imoniu_ikelimas')
+                })
+            },   
+            handleOk(bvModalEvt) {
+                // Prevent modal from closing
+                bvModalEvt.preventDefault()
+                //this.imones_post();
+                // Trigger submit handler
+                this.$nextTick(() => {
+                this.$bvModal.hide('saskaitu_ikelimas')
+                })
+            },        
+        }
     }
 </script>
