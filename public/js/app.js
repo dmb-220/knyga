@@ -2010,8 +2010,6 @@ module.exports = {
 
 /***/ }),
 
-<<<<<<< HEAD
-=======
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/imones.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/imones.vue?vue&type=script&lang=js& ***!
@@ -2089,7 +2087,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/knyga.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/knyga.vue?vue&type=script&lang=js& ***!
@@ -2303,11 +2300,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
-//
-//
-=======
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2333,11 +2325,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {};
-=======
 //
 //
 //
@@ -2450,7 +2437,6 @@ __webpack_require__.r(__webpack_exports__);
       imone: true,
       imones_pavadinimas: ""
     };
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
   },
   created: function created() {},
   methods: {}
@@ -7169,11 +7155,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-<<<<<<< HEAD
 exports.push([module.i, "\n.table > thead > tr > th {\r\n     vertical-align: middle;\n}\r\n", ""]);
-=======
-exports.push([module.i, "\n.table > thead > tr > th {\n     vertical-align: middle;\n}\n", ""]);
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
 
 // exports
 
@@ -38764,8 +38746,6 @@ render._withStripped = true
 
 /***/ }),
 
-<<<<<<< HEAD
-=======
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/imones.vue?vue&type=template&id=0b537730&":
 /*!****************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/imones.vue?vue&type=template&id=0b537730& ***!
@@ -38865,7 +38845,7 @@ var staticRenderFns = [
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _vm._v("\n              Duomenų nerasta\n              ")
+            _vm._v("\r\n              Duomenų nerasta\r\n              ")
           ])
         ])
       ])
@@ -38878,7 +38858,6 @@ render._withStripped = true
 
 /***/ }),
 
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/knyga.vue?vue&type=template&id=536cc561&":
 /*!***************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/knyga.vue?vue&type=template&id=536cc561& ***!
@@ -38894,80 +38873,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-<<<<<<< HEAD
-  return _c("div", [
-    _c("div", { staticClass: "content-header" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "container-fluid" }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _c("div", { staticClass: "card" }, [
-            _vm._m(2),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body text-center" }, [
-              _c("table", { staticClass: "table table-sm" }, [
-                _vm._m(3),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _vm._l(_vm.row, function(qua, key) {
-                      return _c("tr", { key: key }, [
-                        _c("td", [_vm._v(_vm._s(qua))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("1/31")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Mokėjimas banke")]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("Paėmimas savo reikėms")]),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td", [_vm._v("1522,37")]),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td")
-                      ])
-                    }),
-                    _vm._v(" "),
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _vm._m(7)
-                  ],
-                  2
-                )
-              ])
-            ])
-=======
   return _c("div", { staticClass: "content-header" }, [
     _vm._m(0),
     _vm._v(" "),
@@ -39085,7 +38990,6 @@ var render = function() {
               ],
               2
             )
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
           ])
         ])
       ])
@@ -39109,72 +39013,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-<<<<<<< HEAD
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h3", { staticClass: "card-title" }, [_vm._v("Valdymas")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body text-center" }, [
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-edit" }),
-          _vm._v(" Edit\r\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-play" }),
-          _vm._v(" Play\r\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-repeat" }),
-          _vm._v(" Repeat\r\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-pause" }),
-          _vm._v(" Pause\r\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-save" }),
-          _vm._v(" Save\r\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("span", { staticClass: "badge bg-yellow" }, [_vm._v("3")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-bullhorn" }),
-          _vm._v(" Notifications\r\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("span", { staticClass: "badge bg-green" }, [_vm._v("300")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-barcode" }),
-          _vm._v(" Products\r\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("span", { staticClass: "badge bg-purple" }, [_vm._v("891")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-users" }),
-          _vm._v(" Users\r\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("span", { staticClass: "badge bg-teal" }, [_vm._v("67")]),
-          _vm._v(" "),
-          _c("i", { staticClass: "fa fa-inbox" }),
-          _vm._v(" Orders\r\n                    ")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn btn-app" }, [
-          _c("i", { staticClass: "fa fa-envelope" }),
-          _vm._v(" Inbox\r\n                    ")
-        ])
-      ])
-=======
     return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title" }, [_vm._v("Valdymas")])
     ])
@@ -39222,7 +39060,6 @@ var staticRenderFns = [
     return _c("a", { staticClass: "btn btn-app" }, [
       _c("i", { staticClass: "fa fa-envelope" }),
       _vm._v(" Veiklos ataskaita\n                    ")
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
     ])
   },
   function() {
@@ -39239,8 +39076,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-<<<<<<< HEAD
-=======
     return _c("div", { staticClass: "btn-group" }, [
       _c(
         "button",
@@ -39319,7 +39154,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
     return _c("thead", [
       _c("tr", [
         _c("th", { attrs: { rowspan: "3" } }, [_vm._v("Eil. nr.")]),
@@ -39552,11 +39386,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-<<<<<<< HEAD
-  return _c("div")
-}
-var staticRenderFns = []
-=======
   return _c("div", { staticClass: "content-header" }, [
     _vm._m(0),
     _vm._v(" "),
@@ -39884,13 +39713,12 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
-          _vm._v("\n              Duomenų nerasta\n              ")
+          _vm._v("\r\n              Duomenų nerasta\r\n              ")
         ])
       ])
     ])
   }
 ]
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
 render._withStripped = true
 
 
@@ -55455,12 +55283,9 @@ var routes = [{
   path: '/saskaitos',
   component: __webpack_require__(/*! ./views/saskaitos */ "./resources/js/views/saskaitos.vue")["default"]
 }, {
-<<<<<<< HEAD
-=======
   path: '/imones',
   component: __webpack_require__(/*! ./views/imones */ "./resources/js/views/imones.vue")["default"]
 }, {
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
   path: '/knyga',
   component: __webpack_require__(/*! ./views/knyga */ "./resources/js/views/knyga.vue")["default"]
 }];
@@ -55806,8 +55631,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-<<<<<<< HEAD
-=======
 /***/ "./resources/js/views/imones.vue":
 /*!***************************************!*\
   !*** ./resources/js/views/imones.vue ***!
@@ -55877,7 +55700,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
 /***/ "./resources/js/views/knyga.vue":
 /*!**************************************!*\
   !*** ./resources/js/views/knyga.vue ***!
@@ -56121,13 +55943,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 __webpack_require__(/*! D:\wamp64\www\1-1\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! D:\wamp64\www\1-1\resources\sass\app.scss */"./resources/sass/app.scss");
-=======
-__webpack_require__(/*! C:\wamp64\www\AdminLTE3\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\AdminLTE3\resources\sass\app.scss */"./resources/sass/app.scss");
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
 
 
 /***/ })

@@ -1,7 +1,4 @@
 <template>
-<<<<<<< HEAD
-
-=======
 <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -107,7 +104,6 @@
             </div>
         </div>
 </div>
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
 </template>
 
 <script>
@@ -117,14 +113,10 @@
         data() {
 
             return {
-<<<<<<< HEAD
-                
-=======
                 //ivesti, arba pasirinkti imonę is saraso
                 //ivedus, nauj1 imone, ja irasyti i duomenu baze, ir priskirti jai ID
                 imone: true,
                 imones_pavadinimas: "",
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
             }
 
         },

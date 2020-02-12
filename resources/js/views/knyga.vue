@@ -1,8 +1,4 @@
 <template>
-<<<<<<< HEAD
-<div>
-=======
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -11,10 +7,6 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-        <div class="row">
-=======
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
             <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
@@ -22,41 +14,6 @@
                 </div>
 
                 <div class="card-body text-center">
-<<<<<<< HEAD
-                    <a class="btn btn-app">
-                        <i class="fa fa-edit"></i> Edit
-                    </a>
-                    <a class="btn btn-app">
-                        <i class="fa fa-play"></i> Play
-                    </a>
-                    <a class="btn btn-app">
-                        <i class="fa fa-repeat"></i> Repeat
-                    </a>
-                    <a class="btn btn-app">
-                        <i class="fa fa-pause"></i> Pause
-                    </a>
-                    <a class="btn btn-app">
-                        <i class="fa fa-save"></i> Save
-                    </a>
-                    <a class="btn btn-app">
-                        <span class="badge bg-yellow">3</span>
-                        <i class="fa fa-bullhorn"></i> Notifications
-                    </a>
-                    <a class="btn btn-app">
-                        <span class="badge bg-green">300</span>
-                        <i class="fa fa-barcode"></i> Products
-                    </a>
-                    <a class="btn btn-app">
-                        <span class="badge bg-purple">891</span>
-                        <i class="fa fa-users"></i> Users
-                    </a>
-                    <a class="btn btn-app">
-                        <span class="badge bg-teal">67</span>
-                        <i class="fa fa-inbox"></i> Orders
-                    </a>
-                    <a class="btn btn-app">
-                        <i class="fa fa-envelope"></i> Inbox
-=======
                     <router-link tag="a" to="/saskaitos" class="btn btn-app">
                         <i class="fa fa-edit"></i> Sąskaitos
                     </router-link>
@@ -77,7 +34,6 @@
                     </a>
                     <a class="btn btn-app">
                         <i class="fa fa-envelope"></i> Veiklos ataskaita
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
                     </a>
                 </div>
                 <!-- /.card-body -->
@@ -86,9 +42,6 @@
                 <div class="card-header">
                     <h3 class="card-title">PINIGŲ, PIRKIMO IR PARDAVIMO OPERACIJOS</h3>
                 </div>
-<<<<<<< HEAD
-
-=======
                 <hr>
                 <div class="btn-group">
                         <button type="button" class="btn btn-default">Sausis</button>
@@ -105,7 +58,6 @@
                         <button type="button" class="btn btn-default">Gruodis</button>
                       </div>
                       <hr>
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
                 <div class="card-body text-center">
                     <table class="table table-sm">
                         <thead>
@@ -241,11 +193,6 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-    </div>
-</div>
-=======
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
 </div>
 </template>
 

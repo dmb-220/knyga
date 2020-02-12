@@ -26,42 +26,6 @@
 
                 <li class="nav-item">
                     <router-link tag="a" to="/" class="nav-link">
-<<<<<<< HEAD
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Į pradžią</p>
-                    </router-link>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a class="nav-link nav-dropdown-toggle">
-                    <i class="nav-icon fas fa-book"></i>
-                    <p>Žalia knyga
-                    <i class="fa fa-angle-left right"></i></p> 
-                    </a>                
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <router-link tag="a" to="/knyga" class="nav-link">
-                                <i class="fa fa-play nav-icon"></i>
-                                <p>Knyga</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                        <router-link tag="a" to="/saskaitos" class="nav-link">
-                            <i class="fa fa-play nav-icon"></i>
-                            <p>Sąskaitos</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                        <router-link tag="a" to="/imones" class="nav-link">
-                            <i class="fa fa-play nav-icon"></i>
-                            <p>Įmonės</p>
-                            </router-link>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <router-link tag="a" to="/users" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-=======
                         <i class="nav-icon fas fa-home"></i>
                         <p>Į pradžią</p>
                     </router-link>
@@ -75,7 +39,6 @@
                 <li class="nav-item">
                     <router-link tag="a" to="/users" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
->>>>>>> da0d69db4426fed78086f1669fd6c0f31104199d
                         <p>Vartotojai</p>
                     </router-link>
                 </li>
