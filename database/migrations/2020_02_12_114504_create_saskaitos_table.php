@@ -15,6 +15,16 @@ class CreateSaskaitosTable extends Migration
     {
         Schema::create('saskaitos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('ukininkas_id');
+            $table->integer('operacija');
+            $table->integer('pinigai');
+            $table->unsignedBigInteger('imones_id');
+            $table->text('data');
+            $table->string('numeris');
+            $table->text('op_pavadinimas');
+            $table->string('kiekis');
+            $table->float('suma', 8, 2);
+            $table->float('pvm', 8, 2);
             $table->timestamps();
         });
     }

@@ -29,7 +29,6 @@ Route::get('/adm/', function () {
 
 });
 
-//Route::resource('/imones', 'ImonesController');
 Route::prefix('/imones')->group(function () {
     Route::get('', 'ImonesController@index');
     Route::get('{imones}', 'ImonesController@show');
@@ -37,7 +36,13 @@ Route::prefix('/imones')->group(function () {
     Route::patch('{imones}', 'ImonesController@update');
     Route::delete('{imones}/destroy', 'ImonesController@destroy');
 });
-Route::resource('/saskaitos', 'SaskaitosController');
+Route::prefix('/saskaitos')->group(function () {
+    Route::get('', 'SaskaitosController@index');
+    Route::get('{saskaitos}', 'SaskaitosController@show');
+    Route::post('store', 'SaskaitosController@store');
+    Route::patch('{saskaitos}', 'SaskaitosController@update');
+    Route::delete('{saskaitos}/destroy', 'SaskaitosController@destroy');
+});
 
 Route::get('/users', 'UsersController@index');
 Route::post('/users', 'UsersController@create');

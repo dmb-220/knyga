@@ -47,11 +47,11 @@
                         <label class="col-sm-3 col-form-label">Operacija:</label>
                         <div class="col-sm-9">
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option1">
+                            <input class="form-check-input" type="radio" v-model='saskaitos.operacija' value="1">
                             <label class="form-check-label">Pardavimai</label>
                             </div>
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option1">
+                            <input class="form-check-input" type="radio" v-model='saskaitos.operacija' value="2">
                             <label class="form-check-label">Pirkimai</label>
                             </div>
                         </div>
@@ -60,15 +60,15 @@
                         <label class="col-sm-3 col-form-label">Pinigai:</label>
                         <div class="col-sm-9">
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2">
+                            <input class="form-check-input" type="radio" v-model='saskaitos.pinigai' value="1">
                             <label class="form-check-label">Kasa</label>
                             </div>
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2">
+                            <input class="form-check-input" type="radio" v-model='saskaitos.pinigai' value="2">
                             <label class="form-check-label">Bankas</label>
                             </div>
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2">
+                            <input class="form-check-input" type="radio" v-model='saskaitos.pinigai' value="3">
                             <label class="form-check-label">Skola</label>
                             </div>
                         </div>
@@ -77,54 +77,55 @@
                         <label class="col-sm-3 col-form-label">Imonė:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                            <input v-model="imone" type="checkbox">
-                            </span>
-                        </div>
-                        <b-form-select v-if="imone" v-model="imones_pavadinimas" 
-                        :options="imones"
-                        value-field="id"
-                        text-field="imones_pavadinimas">
-                        </b-form-select>
-                    <input v-else type="text" v-model="imones_pavadinimas" class="form-control">
-                    </div>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                <input v-model="saskaitos.imone" type="checkbox">
+                                </span>
+                            </div>
+                            <b-form-select v-if="saskaitos.imone" v-model="saskaitos.imones_pavadinimas" 
+                            :options="imones"
+                            value-field="id"
+                            text-field="imones_pavadinimas">
+                            </b-form-select>
+                            <!-- PAdaryti 3 input ivesti naujai imonei, arba issokanti langa kur ivesime imone nauja -->
+                            <input v-else type="text" v-model="saskaitos.imones_pavadinimas" class="form-control">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Data:</label>
                         <div class="col-sm-9">
-                        <input type="date" class="form-control">
+                        <input type="date" v-model='saskaitos.data' class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Sąskaitos numeris:</label>
                         <div class="col-sm-9">
-                        <input type="text" class="form-control">
+                        <input type="text" v-model='saskaitos.numeris' class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Op. pavadinimas:</label>
                         <div class="col-sm-9">
-                        <input type="text" class="form-control">
+                        <input type="text" v-model='saskaitos.op_pavadinimas' class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Kiekis, mat. vnt:</label>
                         <div class="col-sm-9">
-                        <input type="text" class="form-control">
+                        <input type="text" v-model='saskaitos.kiekis' class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Suma:</label>
                         <div class="col-sm-9">
-                        <input type="text" class="form-control">
+                        <input type="text" v-model='saskaitos.suma' class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">PVM:</label>
                         <div class="col-sm-9">
-                        <input type="text" class="form-control">
+                        <input type="text" v-model='saskaitos.pvm' class="form-control">
                         </div>
                     </div>
                 </form>
@@ -306,11 +307,21 @@
                     imones_kodas: '',
                     pvm_kodas: ''
                 },
+                saskaitos: {
+                    imone: true,
+                    operacija: '',
+                    pinigai: '',
+                    imones_pavadinimas: '',
+                    data: '',
+                    numeris: '',
+                    op_pavadinimas: '',
+                    kiekis: '',
+                    suma: '',
+                    pvm: ''
+                },
                 //ivesti, arba pasirinkti imonę is saraso
                 //ivedus, nauj1 imone, ja irasyti i duomenu baze, ir priskirti jai ID
                 imones: [],
-                imone: true,
-                imones_pavadinimas: "",
                 name: '',
                 nameState: null,
                 submittedNames: []
@@ -338,7 +349,29 @@
                 console.log(err.message);
                 })
             },
-            imones_post(){
+            saskaitos_post(){
+                axios
+                .post(`/saskaitos/store`, {
+                    operacija: this.saskaitos.operacija,
+                    pinigai: this.saskaitos.pinigai,
+                    imones_pavadinimas: this.saskaitos.imones_pavadinimas,
+                    data: this.saskaitos.data,
+                    numeris: this.saskaitos.numeris,
+                    op_pavadinimas: this.saskaitos.op_pavadinimas,
+                    kiekis: this.saskaitos.kiekis,
+                    suma: this.saskaitos.suma,
+                    pvm: this.saskaitos.pvm
+                    })
+                .then(response => {
+                    console.log(response.data.status)
+                    //this.getData()
+                })
+                .catch( err => {
+                console.log("POST:");
+                console.log(err.message);
+                })
+            },
+            /*imones_post(){
                 axios
                 .post(`/imones/store`, {
                     pavadinimas: this.imones_sukurimas.imones_pavadinimas,
@@ -353,12 +386,12 @@
                 console.log("POST:");
                 console.log(err.message);
                 })
-            },
+            },*/
               
             handleOk(bvModalEvt) {
                 // Prevent modal from closing
                 bvModalEvt.preventDefault()
-                //this.imones_post();
+                this.saskaitos_post();
                 // Trigger submit handler
                 this.$nextTick(() => {
                 this.$bvModal.hide('saskaitu_ikelimas')

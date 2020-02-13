@@ -14,7 +14,12 @@ class SaskaitosController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'status' => true,
+            'saskaitos' => Saskaitos::with(['imones' => function($q){
+                return $q->select('imones_pavadinimas');
+            }])->get(),
+        ]);
     }
 
     /**
@@ -35,7 +40,22 @@ class SaskaitosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $saskaitos = new Saskaitos;
+        $saskaitos->ukininkas_id = 1;
+        $saskaitos->operacija = $request->operacija;
+        $saskaitos->pinigai = $request->pinigai;
+        $saskaitos->imones_id = $request->imones_pavadinimas;
+        $saskaitos->data = $request->data;
+        $saskaitos->numeris = $request->numeris;
+        $saskaitos->op_pavadinimas = $request->op_pavadinimas;
+        $saskaitos->kiekis = $request->kiekis;
+        $saskaitos->suma = $request->suma;
+        $saskaitos->pvm = $request->pvm;
+        $saskaitos->save();
+
+        return response()->json([
+            'status' => true,
+        ]);
     }
 
     /**
