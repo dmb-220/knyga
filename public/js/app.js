@@ -74155,7 +74155,7 @@ var render = function() {
                             _vm._v(_vm._s(idx.suma))
                           ])
                         : idx.pinigai == 2 && idx.operacija == 1
-                        ? _c("td", { staticClass: "bg-warning" }, [
+                        ? _c("td", { staticClass: "bg-success" }, [
                             _vm._v(_vm._s(idx.suma))
                           ])
                         : _c("td"),
@@ -74618,11 +74618,11 @@ var render = function() {
                   fn: function(row) {
                     return [
                       _vm._v(
-                        "\n                    " +
+                        "\r\n                    " +
                           _vm._s(row.value.first) +
                           " " +
                           _vm._s(row.value.last) +
-                          "\n                "
+                          "\r\n                "
                       )
                     ]
                   }
@@ -74639,7 +74639,7 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                    Redaguoti\n                    "
+                            "\r\n                    Redaguoti\r\n                    "
                           )
                         ]
                       ),
@@ -74649,7 +74649,7 @@ var render = function() {
                         { attrs: { variant: "danger", size: "sm" } },
                         [
                           _vm._v(
-                            "\n                    Ištrinti\n                    "
+                            "\r\n                    Ištrinti\r\n                    "
                           )
                         ]
                       )
@@ -90923,8 +90923,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\AdminLTE3\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\AdminLTE3\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\wamp64\www\1-1\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\wamp64\www\1-1\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

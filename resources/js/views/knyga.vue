@@ -247,7 +247,7 @@
                             <td v-else> </td>
                             <!-- SKOLOS -->
                             <td class="bg-danger" v-if="idx.pinigai == 3 && idx.operacija == 1">{{ idx.suma }}</td>
-                            <td class="bg-warning" v-else-if="idx.pinigai == 2 && idx.operacija == 1">{{ idx.suma }}</td>
+                            <td class="bg-success" v-else-if="idx.pinigai == 2 && idx.operacija == 1">{{ idx.suma }}</td>
                             <td v-else> </td>
                             <td class="bg-danger" v-if="idx.pinigai == 3 && idx.operacija == 2">{{ idx.suma }}</td>
                             <td class="bg-success" v-else-if="idx.pinigai == 2 && idx.operacija == 2">{{ idx.suma }}</td>
