@@ -2229,6 +2229,19 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2527,8 +2540,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
-      row: ['1', '2', '3', '4', '5', '6', '7'],
+    var _ref;
+
+    return _ref = {
+      menesiai: ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis', 'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis'],
+      men: new Date().getMonth(),
+      metai: new Date().getFullYear(),
+      menuo: '',
       imones_sukurimas: {
         imones_pavadinimas: '',
         imones_kodas: '',
@@ -2548,17 +2566,46 @@ __webpack_require__.r(__webpack_exports__);
       },
       //ivesti, arba pasirinkti imonę is saraso
       //ivedus, nauj1 imone, ja irasyti i duomenu baze, ir priskirti jai ID
-      imones: [],
-      name: '',
-      nameState: null,
-      submittedNames: []
-    };
+      imones: []
+    }, _defineProperty(_ref, "saskaitos", []), _defineProperty(_ref, "name", ''), _defineProperty(_ref, "nameState", null), _defineProperty(_ref, "submittedNames", []), _ref;
+  },
+  computed: {
+    sortedData: function sortedData() {
+      function compare(a, b) {
+        if (a.data < b.data) return -1;
+        if (a.data > b.data) return 1;
+        return 0;
+      }
+
+      return this.saskaitos.sort(compare);
+    }
+  },
+  mounted: function mounted() {
+    this.menuo = this.men;
   },
   created: function created() {
-    this.getData();
+    this.getImones();
+    this.getSaskaitos();
   },
   methods: {
-    getData: function getData() {
+    pasirinkti_menesi: function pasirinkti_menesi(menesis) {
+      //DAR TIKRINTI IR METUS NES UZ 2019 TURI LEISTI RINKTI VISUS MENESIUS
+      if (menesis <= this.men) {
+        this.menuo = menesis;
+        this.$bvToast.toast("".concat(this.menesiai[menesis], " pasirinktas"), {
+          title: "Atlikta",
+          variant: "info",
+          solid: true
+        });
+      } else {
+        this.$bvToast.toast("".concat(this.menesiai[menesis], " negalite rinktis!"), {
+          title: "\u012Esp\u0117jimas",
+          variant: "warning",
+          solid: true
+        });
+      }
+    },
+    getImones: function getImones() {
       var _this = this;
 
       //this.isLoading = true
@@ -2571,7 +2618,28 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err.message);
       });
     },
+    getSaskaitos: function getSaskaitos() {
+      var _this2 = this;
+
+      this.axios.get('/saskaitos').then(function (response) {
+        _this2.saskaitos = response.data.saskaitos;
+
+        _this2.$bvToast.toast("Nauja s\u0105skaita \u012Fkelta", {
+          title: "Atlikta",
+          variant: "info",
+          solid: true
+        });
+      })["catch"](function (err) {
+        _this2.$bvToast.toast("Klaida: ".concat(err.message), {
+          title: "Klaida",
+          variant: "danger",
+          solid: true
+        });
+      });
+    },
     saskaitos_post: function saskaitos_post() {
+      var _this3 = this;
+
       axios.post("/saskaitos/store", {
         operacija: this.saskaitos.operacija,
         pinigai: this.saskaitos.pinigai,
@@ -2583,7 +2651,9 @@ __webpack_require__.r(__webpack_exports__);
         suma: this.saskaitos.suma,
         pvm: this.saskaitos.pvm
       }).then(function (response) {
-        console.log(response.data.status); //this.getData()
+        console.log(response.data.status);
+
+        _this3.getSaskaitos();
       })["catch"](function (err) {
         console.log("POST:");
         console.log(err.message);
@@ -2607,14 +2677,14 @@ __webpack_require__.r(__webpack_exports__);
         })
     },*/
     handleOk: function handleOk(bvModalEvt) {
-      var _this2 = this;
+      var _this4 = this;
 
       // Prevent modal from closing
       bvModalEvt.preventDefault();
       this.saskaitos_post(); // Trigger submit handler
 
       this.$nextTick(function () {
-        _this2.$bvModal.hide('saskaitu_ikelimas');
+        _this4.$bvModal.hide('saskaitu_ikelimas');
       });
     }
   }
@@ -2723,7 +2793,13 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Operacija',
         sortable: true,
         formatter: function formatter(value, key, item) {
-          return value ? 'Pirkimas' : 'Pardavimas';
+          if (value == 1) {
+            return "Pardavimas";
+          }
+
+          if (value == 2) {
+            return "Pirkimas";
+          }
         }
       }, {
         key: 'pinigai',
@@ -2743,7 +2819,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }, {
-        key: 'imones_id',
+        key: 'imones.imones_pavadinimas',
         label: 'Įmonės pavadinimas',
         sortable: true,
         "class": 'text-center'
@@ -73976,54 +74052,113 @@ var render = function() {
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
-          _vm._m(8),
+          _c(
+            "div",
+            { staticClass: "btn-group" },
+            _vm._l(_vm.menesiai, function(idx, key) {
+              return _c(
+                "button",
+                {
+                  key: key,
+                  staticClass: "btn",
+                  class: _vm.menuo == key ? "btn-info" : "btn-secondary",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.pasirinkti_menesi(key)
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(idx) +
+                      "\n                    "
+                  )
+                ]
+              )
+            }),
+            0
+          ),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
           _c("div", { staticClass: "card-body text-center" }, [
             _c("table", { staticClass: "table table-sm" }, [
-              _vm._m(9),
+              _vm._m(8),
               _vm._v(" "),
               _c(
                 "tbody",
                 [
+                  _vm._m(9),
+                  _vm._v(" "),
                   _vm._m(10),
                   _vm._v(" "),
-                  _vm._m(11),
-                  _vm._v(" "),
-                  _vm._l(_vm.row, function(qua, key) {
+                  _vm._l(_vm.sortedData, function(idx, key) {
                     return _c("tr", { key: key }, [
-                      _c("td", [_vm._v(_vm._s(qua))]),
+                      _c("td", [_vm._v(_vm._s(key + 1))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v("1/31")]),
+                      _c("td", [_vm._v(_vm._s(idx.data.split("-")[2]))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v("Mokėjimas banke")]),
+                      _c("td", [_vm._v(_vm._s(idx.numeris))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v("Paėmimas savo reikėms")]),
+                      _c("td", [_vm._v(_vm._s(idx.op_pavadinimas))]),
                       _vm._v(" "),
-                      _c("td"),
+                      _c("td", [_vm._v(_vm._s(idx.kiekis))]),
                       _vm._v(" "),
-                      _c("td"),
+                      idx.operacija == 2
+                        ? _c("td", [_vm._v(_vm._s(idx.suma))])
+                        : _c("td"),
                       _vm._v(" "),
-                      _c("td"),
+                      idx.operacija == 2
+                        ? _c("td", [_vm._v(_vm._s(idx.pvm))])
+                        : _c("td"),
                       _vm._v(" "),
-                      _c("td"),
+                      idx.operacija == 1
+                        ? _c("td", [_vm._v(_vm._s(idx.suma))])
+                        : _c("td"),
                       _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td"),
-                      _vm._v(" "),
-                      _c("td", [_vm._v("1522,37")]),
+                      idx.operacija == 1
+                        ? _c("td", [_vm._v(_vm._s(idx.pvm))])
+                        : _c("td"),
                       _vm._v(" "),
                       _c("td"),
                       _vm._v(" "),
-                      _c("td"),
+                      idx.pinigai == 1 && idx.operacija == 1
+                        ? _c("td", [_vm._v(_vm._s(idx.suma))])
+                        : _c("td"),
+                      _vm._v(" "),
+                      idx.pinigai == 1 && idx.operacija == 2
+                        ? _c("td", [_vm._v(_vm._s(idx.suma))])
+                        : _c("td"),
+                      _vm._v(" "),
+                      idx.pinigai == 2 && idx.operacija == 1
+                        ? _c("td", [_vm._v(_vm._s(idx.suma))])
+                        : _c("td"),
+                      _vm._v(" "),
+                      idx.pinigai == 2 && idx.operacija == 2
+                        ? _c("td", [_vm._v(_vm._s(idx.suma))])
+                        : _c("td"),
+                      _vm._v(" "),
+                      idx.pinigai == 3 && idx.operacija == 1
+                        ? _c("td", { staticClass: "bg-danger" }, [
+                            _vm._v(_vm._s(idx.suma))
+                          ])
+                        : idx.pinigai == 2 && idx.operacija == 1
+                        ? _c("td", { staticClass: "bg-warning" }, [
+                            _vm._v(_vm._s(idx.suma))
+                          ])
+                        : _c("td"),
+                      _vm._v(" "),
+                      idx.pinigai == 3 && idx.operacija == 2
+                        ? _c("td", { staticClass: "bg-danger" }, [
+                            _vm._v(_vm._s(idx.suma))
+                          ])
+                        : idx.pinigai == 2 && idx.operacija == 2
+                        ? _c("td", { staticClass: "bg-success" }, [
+                            _vm._v(_vm._s(idx.suma))
+                          ])
+                        : _c("td"),
                       _vm._v(" "),
                       _c("td"),
                       _vm._v(" "),
@@ -74033,9 +74168,9 @@ var render = function() {
                     ])
                   }),
                   _vm._v(" "),
-                  _vm._m(12),
+                  _vm._m(11),
                   _vm._v(" "),
-                  _vm._m(13)
+                  _vm._m(12)
                 ],
                 2
               )
@@ -74121,84 +74256,6 @@ var staticRenderFns = [
       _c("h3", { staticClass: "card-title" }, [
         _vm._v("PINIGŲ, PIRKIMO IR PARDAVIMO OPERACIJOS")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "btn-group" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Sausis")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Vasaris")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Kovas")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Balandis")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Gegužė")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Birželis")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Liepa")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Rugpjūtis")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Rugsėjis")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Spalis")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Lapkritis")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default", attrs: { type: "button" } },
-        [_vm._v("Gruodis")]
-      )
     ])
   },
   function() {

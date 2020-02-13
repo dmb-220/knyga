@@ -85,7 +85,8 @@ export default {
                 { key: 'id', label: 'ID', sortable: true, sortDirection: 'desc' },
                 { key: 'operacija', label: 'Operacija', sortable: true, 
                     formatter: (value, key, item) => {
-                        return value ? 'Pirkimas' : 'Pardavimas'
+                        if(value == 1){return "Pardavimas";}
+                        if(value == 2){return "Pirkimas";}
                         },
                     },
                 { key: 'pinigai', label: 'Pinigai', sortable: true,

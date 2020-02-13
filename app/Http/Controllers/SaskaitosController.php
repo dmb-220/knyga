@@ -17,7 +17,7 @@ class SaskaitosController extends Controller
         return response()->json([
             'status' => true,
             'saskaitos' => Saskaitos::with(['imones' => function($q){
-                return $q->select('imones_pavadinimas');
+                return $q->select(['id','imones_pavadinimas']);
             }])->get(),
         ]);
     }

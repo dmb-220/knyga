@@ -136,20 +136,12 @@
                 </div>
                 <hr>
                 <div class="btn-group">
-                        <button type="button" class="btn btn-default">Sausis</button>
-                        <button type="button" class="btn btn-default">Vasaris</button>
-                        <button type="button" class="btn btn-default">Kovas</button>
-                        <button type="button" class="btn btn-default">Balandis</button>
-                        <button type="button" class="btn btn-default">Gegužė</button>
-                        <button type="button" class="btn btn-default">Birželis</button>
-                        <button type="button" class="btn btn-default">Liepa</button>
-                        <button type="button" class="btn btn-default">Rugpjūtis</button>
-                        <button type="button" class="btn btn-default">Rugsėjis</button>
-                        <button type="button" class="btn btn-default">Spalis</button>
-                        <button type="button" class="btn btn-default">Lapkritis</button>
-                        <button type="button" class="btn btn-default">Gruodis</button>
-                      </div>
-                      <hr>
+                    <button v-for='(idx, key) in menesiai' :key='key' @click='pasirinkti_menesi(key)' type="button" class="btn"
+                    :class="menuo == key ? 'btn-info': 'btn-secondary'">
+                        {{ idx }}
+                    </button>
+                </div>
+                <hr>
                 <div class="card-body text-center">
                     <table class="table table-sm">
                         <thead>
@@ -225,24 +217,43 @@
                             <td></td>
                             <td></td> 
                         </tr>
-                        <tr v-for="(qua, key) in row" :key='key'>
-                            <td>{{ qua }}</td>
-                            <td>1/31</td>    
-                            <td>Mokėjimas banke</td>
-                            <td>Paėmimas savo reikėms</td>
+                        <tr v-for="(idx, key) in sortedData" :key='key'>
+                            <td>{{ key+1 }}</td>
+                            <td>{{idx.data.split('-')[2] }}</td>    
+                            <td>{{ idx.numeris }}</td>
+                            <td>{{ idx.op_pavadinimas }}</td>
+                            <td>{{ idx.kiekis }}</td>
+                            <!-- PIRKIMAS -->
+                            <td v-if="idx.operacija == 2">{{ idx.suma }}</td>
+                            <td v-else> </td>
+                            <td v-if="idx.operacija == 2">{{ idx.pvm }}</td>
+                            <td v-else> </td>
+                            <!-- PARDAVIMAS -->
+                            <td v-if="idx.operacija == 1">{{ idx.suma }}</td>
+                            <td v-else> </td>
+                            <td v-if="idx.operacija == 1">{{ idx.pvm }}</td>
+                            <td v-else> </td>
+
                             <td> </td>
+                            <!-- KASA -->
+                            <td v-if="idx.pinigai == 1 && idx.operacija == 1">{{ idx.suma }}</td>
+                            <td v-else> </td>
+                            <td v-if="idx.pinigai == 1 && idx.operacija == 2">{{ idx.suma }}</td>
+                            <td v-else> </td>
+                            <!-- BANKAS -->
+                            <td v-if="idx.pinigai == 2 && idx.operacija == 1">{{ idx.suma }}</td>
+                            <td v-else> </td>
+                            <td v-if="idx.pinigai == 2 && idx.operacija == 2">{{ idx.suma }}</td>
+                            <td v-else> </td>
+                            <!-- SKOLOS -->
+                            <td class="bg-danger" v-if="idx.pinigai == 3 && idx.operacija == 1">{{ idx.suma }}</td>
+                            <td class="bg-warning" v-else-if="idx.pinigai == 2 && idx.operacija == 1">{{ idx.suma }}</td>
+                            <td v-else> </td>
+                            <td class="bg-danger" v-if="idx.pinigai == 3 && idx.operacija == 2">{{ idx.suma }}</td>
+                            <td class="bg-success" v-else-if="idx.pinigai == 2 && idx.operacija == 2">{{ idx.suma }}</td>
+                            <td v-else> </td>
                             <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td>1522,37</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+
                             <td> </td> 
                             <td> </td> 
                         </tr> 
@@ -301,7 +312,11 @@
         data() {
 
             return {
-                row: ['1', '2', '3', '4', '5', '6', '7'],
+                menesiai: ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis', 'Liepa', 
+                'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis'],
+                men: new Date().getMonth(),
+                metai: new Date().getFullYear(),
+                menuo: '',
                 imones_sukurimas: {
                     imones_pavadinimas: '',
                     imones_kodas: '',
@@ -322,20 +337,54 @@
                 //ivesti, arba pasirinkti imonę is saraso
                 //ivedus, nauj1 imone, ja irasyti i duomenu baze, ir priskirti jai ID
                 imones: [],
+                saskaitos: [],
                 name: '',
                 nameState: null,
                 submittedNames: []
             }
 
         },
+        computed: {
+            sortedData: function() {
+            function compare(a, b) {
+                if (a.data < b.data)
+                return -1;
+                if (a.data > b.data)
+                return 1;
+                return 0;
+            }
 
+            return this.saskaitos.sort(compare);
+            }
+        },
+        mounted(){
+            this.menuo = this.men;
+        },
 
         created() {
-            this.getData()
+            this.getImones();
+            this.getSaskaitos();
         },
 
         methods: {
-            getData () {
+            pasirinkti_menesi(menesis){
+                //DAR TIKRINTI IR METUS NES UZ 2019 TURI LEISTI RINKTI VISUS MENESIUS
+                if(menesis <= this.men){
+                    this.menuo = menesis;
+                    this.$bvToast.toast(`${this.menesiai[menesis]} pasirinktas`, {
+                        title: `Atlikta`,
+                        variant: "info",
+                        solid: true
+                    })
+                }else{
+                   this.$bvToast.toast(`${this.menesiai[menesis]} negalite rinktis!`, {
+                        title: `Įspėjimas`,
+                        variant: "warning",
+                        solid: true
+                    }) 
+                }
+            },
+            getImones () {
             //this.isLoading = true
             this.axios
             .get('/imones')
@@ -347,6 +396,25 @@
             .catch( err => {
                 console.log("GET:");
                 console.log(err.message);
+                })
+            },
+            getSaskaitos () {
+            this.axios
+            .get('/saskaitos')
+            .then(response => {
+                this.saskaitos = response.data.saskaitos;
+                this.$bvToast.toast(`Nauja sąskaita įkelta`, {
+                    title: `Atlikta`,
+                    variant: "info",
+                    solid: true
+                })
+            })
+            .catch( err => {
+                 this.$bvToast.toast(`Klaida: ${err.message}`, {
+                        title: `Klaida`,
+                        variant: "danger",
+                        solid: true
+                    }) 
                 })
             },
             saskaitos_post(){
@@ -364,7 +432,7 @@
                     })
                 .then(response => {
                     console.log(response.data.status)
-                    //this.getData()
+                    this.getSaskaitos()
                 })
                 .catch( err => {
                 console.log("POST:");
