@@ -315,8 +315,9 @@
                 menesiai: ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis', 'Liepa', 
                 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis'],
                 men: new Date().getMonth(),
+                menuo: new Date().getMonth(),
                 metai: new Date().getFullYear(),
-                menuo: '',
+                set_metai: 2020,
                 imones_sukurimas: {
                     imones_pavadinimas: '',
                     imones_kodas: '',
@@ -369,19 +370,30 @@
         methods: {
             pasirinkti_menesi(menesis){
                 //DAR TIKRINTI IR METUS NES UZ 2019 TURI LEISTI RINKTI VISUS MENESIUS
-                if(menesis <= this.men){
+                if(this.metai == this.set_metai){
+                    if(menesis <= this.men){
+                        this.menuo = menesis;
+                        this.getSaskaitos ();
+                        this.$bvToast.toast(`${this.menesiai[menesis]} pasirinktas`, {
+                            title: `Atlikta`,
+                            variant: "info",
+                            solid: true
+                        })
+                    }else{
+                    this.$bvToast.toast(`${this.menesiai[menesis]} negalite rinktis!`, {
+                            title: `Įspėjimas`,
+                            variant: "warning",
+                            solid: true
+                        }) 
+                    }
+                }else{
                     this.menuo = menesis;
+                    this.getSaskaitos ();
                     this.$bvToast.toast(`${this.menesiai[menesis]} pasirinktas`, {
                         title: `Atlikta`,
                         variant: "info",
                         solid: true
                     })
-                }else{
-                   this.$bvToast.toast(`${this.menesiai[menesis]} negalite rinktis!`, {
-                        title: `Įspėjimas`,
-                        variant: "warning",
-                        solid: true
-                    }) 
                 }
             },
             getImones () {
@@ -400,14 +412,9 @@
             },
             getSaskaitos () {
             this.axios
-            .get('/saskaitos')
+            .get(`/saskaitos?menesis=${this.menuo+1}`)
             .then(response => {
                 this.saskaitos = response.data.saskaitos;
-                this.$bvToast.toast(`Nauja sąskaita įkelta`, {
-                    title: `Atlikta`,
-                    variant: "info",
-                    solid: true
-                })
             })
             .catch( err => {
                  this.$bvToast.toast(`Klaida: ${err.message}`, {
@@ -431,7 +438,11 @@
                     pvm: this.saskaitos.pvm
                     })
                 .then(response => {
-                    console.log(response.data.status)
+                    this.$bvToast.toast(`Nauja sąskaita įkelta`, {
+                        title: `Atlikta`,
+                        variant: "info",
+                        solid: true
+                    })
                     this.getSaskaitos()
                 })
                 .catch( err => {

@@ -19,7 +19,7 @@ class CreateSaskaitosTable extends Migration
             $table->integer('operacija');
             $table->integer('pinigai');
             $table->unsignedBigInteger('imones_id');
-            $table->text('data');
+            $table->date('data');
             $table->string('numeris');
             $table->text('op_pavadinimas');
             $table->string('kiekis');

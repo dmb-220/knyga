@@ -2545,8 +2545,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return _ref = {
       menesiai: ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis', 'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis'],
       men: new Date().getMonth(),
+      menuo: new Date().getMonth(),
       metai: new Date().getFullYear(),
-      menuo: '',
+      set_metai: 2020,
       imones_sukurimas: {
         imones_pavadinimas: '',
         imones_kodas: '',
@@ -2590,17 +2591,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     pasirinkti_menesi: function pasirinkti_menesi(menesis) {
       //DAR TIKRINTI IR METUS NES UZ 2019 TURI LEISTI RINKTI VISUS MENESIUS
-      if (menesis <= this.men) {
+      if (this.metai == this.set_metai) {
+        if (menesis <= this.men) {
+          this.menuo = menesis;
+          this.getSaskaitos();
+          this.$bvToast.toast("".concat(this.menesiai[menesis], " pasirinktas"), {
+            title: "Atlikta",
+            variant: "info",
+            solid: true
+          });
+        } else {
+          this.$bvToast.toast("".concat(this.menesiai[menesis], " negalite rinktis!"), {
+            title: "\u012Esp\u0117jimas",
+            variant: "warning",
+            solid: true
+          });
+        }
+      } else {
         this.menuo = menesis;
+        this.getSaskaitos();
         this.$bvToast.toast("".concat(this.menesiai[menesis], " pasirinktas"), {
           title: "Atlikta",
           variant: "info",
-          solid: true
-        });
-      } else {
-        this.$bvToast.toast("".concat(this.menesiai[menesis], " negalite rinktis!"), {
-          title: "\u012Esp\u0117jimas",
-          variant: "warning",
           solid: true
         });
       }
@@ -2621,14 +2633,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getSaskaitos: function getSaskaitos() {
       var _this2 = this;
 
-      this.axios.get('/saskaitos').then(function (response) {
+      this.axios.get("/saskaitos?menesis=".concat(this.menuo + 1)).then(function (response) {
         _this2.saskaitos = response.data.saskaitos;
-
-        _this2.$bvToast.toast("Nauja s\u0105skaita \u012Fkelta", {
-          title: "Atlikta",
-          variant: "info",
-          solid: true
-        });
       })["catch"](function (err) {
         _this2.$bvToast.toast("Klaida: ".concat(err.message), {
           title: "Klaida",
@@ -2651,7 +2657,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         suma: this.saskaitos.suma,
         pvm: this.saskaitos.pvm
       }).then(function (response) {
-        console.log(response.data.status);
+        _this3.$bvToast.toast("Nauja s\u0105skaita \u012Fkelta", {
+          title: "Atlikta",
+          variant: "info",
+          solid: true
+        });
 
         _this3.getSaskaitos();
       })["catch"](function (err) {

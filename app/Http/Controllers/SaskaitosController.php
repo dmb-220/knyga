@@ -12,13 +12,22 @@ class SaskaitosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $data = $request->all();
+
+        //reikia uzdeti kriteju kad rinkti ir pagal nustatytus metus
+        $query = Saskaitos::with(['imones']);
+        //jei nurodytas menesis
+        if(array_key_exists('menesis', $data) && $data['menesis']){
+            $query->whereMonth('data', $data['menesis']);
+        }
+        $saskaitos = $query->get();
+
         return response()->json([
             'status' => true,
-            'saskaitos' => Saskaitos::with(['imones' => function($q){
-                return $q->select(['id','imones_pavadinimas']);
-            }])->get(),
+            'saskaitos' => $saskaitos,
+            //'menesis' => $data['menesis']
         ]);
     }
 
