@@ -40,7 +40,7 @@ Route::prefix('/saskaitos')->group(function () {
     Route::get('', 'SaskaitosController@index');
     Route::get('{saskaitos}', 'SaskaitosController@show');
     Route::post('store', 'SaskaitosController@store');
-    Route::patch('{saskaitos}', 'SaskaitosController@update');
+    Route::patch('{saskaitos}/update', 'SaskaitosController@update');
     Route::delete('{saskaitos}/destroy', 'SaskaitosController@destroy');
 });
 

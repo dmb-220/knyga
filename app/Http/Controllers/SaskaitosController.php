@@ -75,7 +75,15 @@ class SaskaitosController extends Controller
      */
     public function show(Saskaitos $saskaitos)
     {
-        //
+        /*$query = Saskaitos::with(['imones']);
+        $query->where('id', $request->$saskaitos);
+        $saskaitos = $query->get();
+
+        return response()->json([
+            'status' => true,
+            'saskaitos' => $saskaitos,
+            //'menesis' => $data['menesis']
+        ]);*/
     }
 
     /**
@@ -98,7 +106,23 @@ class SaskaitosController extends Controller
      */
     public function update(Request $request, Saskaitos $saskaitos)
     {
-        //
+        $update = [
+            'operacija' => $request->operacija, 
+            'pinigai' => $request->pinigai,
+            'imones_id' => $request->imones_id,
+            'data' => $request->data,
+            'numeris' => $request->numeris,
+            'op_pavadinimas' => $request->op_pavadinimas,
+            'kiekis' => $request->kiekis,
+            'suma' => $request->suma,
+            'pvm' => $request->pvm
+        ];
+        Saskaitos::where('id',$saskaitos->id)->update($update);
+
+        return response()->json([
+            'status' => true,
+            //'saskaitos' => $request->all()
+        ]);
     }
 
     /**
@@ -109,6 +133,10 @@ class SaskaitosController extends Controller
      */
     public function destroy(Saskaitos $saskaitos)
     {
-        //
+        Saskaitos::where('id',$saskaitos->id)->delete();
+        return response()->json([
+            'status' => true,
+            //'saskaitos' => $request->all()
+        ]);
     }
 }

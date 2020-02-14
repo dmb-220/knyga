@@ -2554,7 +2554,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         pvm_kodas: ''
       },
       saskaitos: {
-        imone: true,
         operacija: '',
         pinigai: '',
         imones_pavadinimas: '',
@@ -2567,6 +2566,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       //ivesti, arba pasirinkti imonę is saraso
       //ivedus, nauj1 imone, ja irasyti i duomenu baze, ir priskirti jai ID
+      imone: true,
       imones: []
     }, _defineProperty(_ref, "saskaitos", []), _defineProperty(_ref, "name", ''), _defineProperty(_ref, "nameState", null), _defineProperty(_ref, "submittedNames", []), _ref;
   },
@@ -2789,10 +2789,119 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      saskaitos: [],
+      saskaitos: {
+        id: '',
+        operacija: '',
+        pinigai: '',
+        imones_pavadinimas: '',
+        data: '',
+        numeris: '',
+        op_pavadinimas: '',
+        kiekis: '',
+        suma: '',
+        pvm: ''
+      },
+      imone: true,
+      imones: [],
+      saskaita: [],
       fields: [{
         key: 'id',
         label: 'ID',
@@ -2874,22 +2983,102 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   created: function created() {
-    this.getData();
+    this.getSaskaitos();
+    this.getImones();
   },
   methods: {
-    getData: function getData() {
+    edit_invoice: function edit_invoice(row) {
+      this.$refs['edit_invoice'].show();
+      this.saskaitos.operacija = row.operacija;
+      this.saskaitos.pinigai = row.pinigai;
+      this.saskaitos.imones_pavadinimas = row.imones_id;
+      this.saskaitos.numeris = row.numeris;
+      this.saskaitos.data = row.data;
+      this.saskaitos.op_pavadinimas = row.op_pavadinimas;
+      this.saskaitos.kiekis = row.kiekis;
+      this.saskaitos.suma = row.suma;
+      this.saskaitos.pvm = row.pvm;
+      this.saskaitos.id = row.id; //console.log(row.id);
+    },
+    delete_invoice: function delete_invoice(row) {
       var _this = this;
+
+      axios["delete"]("/saskaitos/".concat(row.id, "/destroy"), {}).then(function (response) {
+        //console.log(response.data.saskaitos);
+        _this.$bvToast.toast("S\u0105skaitos duomenys i6trinti s\u0117kmingai", {
+          title: "Atlikta",
+          variant: "info",
+          solid: true
+        });
+
+        _this.getSaskaitos();
+      })["catch"](function (err) {
+        console.log("DELETE:");
+        console.log(err.message);
+      });
+    },
+    getImones: function getImones() {
+      var _this2 = this;
+
+      //this.isLoading = true
+      this.axios.get('/imones').then(function (response) {
+        //this.isLoading = false
+        _this2.imones = response.data.imones; //console.log(response.data.imones);
+      })["catch"](function (err) {
+        console.log("GET:");
+        console.log(err.message);
+      });
+    },
+    getSaskaitos: function getSaskaitos() {
+      var _this3 = this;
 
       //this.isLoading = true
       this.axios.get('/saskaitos').then(function (response) {
         //this.isLoading = false
-        _this.saskaitos = response.data.saskaitos; //sukaiciuojam kiek irasu, puslapiavimui
+        _this3.saskaita = response.data.saskaitos; //sukaiciuojam kiek irasu, puslapiavimui
 
-        _this.totalRows = _this.saskaitos.length;
-        console.log(response.data.saskaitos);
+        _this3.totalRows = _this3.saskaitos.length; //console.log(response.data.saskaitos);
       })["catch"](function (err) {
         console.log("GET:");
         console.log(err.message);
+      });
+    },
+    edit_post: function edit_post() {
+      var _this4 = this;
+
+      axios.patch("/saskaitos/".concat(this.saskaitos.id, "/update"), {
+        operacija: this.saskaitos.operacija,
+        pinigai: this.saskaitos.pinigai,
+        imones_id: this.saskaitos.imones_pavadinimas,
+        data: this.saskaitos.data,
+        numeris: this.saskaitos.numeris,
+        op_pavadinimas: this.saskaitos.op_pavadinimas,
+        kiekis: this.saskaitos.kiekis,
+        suma: this.saskaitos.suma,
+        pvm: this.saskaitos.pvm
+      }).then(function (response) {
+        //console.log(response.data.saskaitos);
+        _this4.$bvToast.toast("S\u0105skaitos duomenys atnaujinti s\u0117kmingai", {
+          title: "Atlikta",
+          variant: "info",
+          solid: true
+        });
+
+        _this4.getSaskaitos();
+      })["catch"](function (err) {
+        console.log("POST:");
+        console.log(err.message);
+      });
+    },
+    handleOk: function handleOk(bvModalEvt) {
+      var _this5 = this;
+
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      this.edit_post(); // Trigger submit handler
+
+      this.$nextTick(function () {
+        _this5.$refs['edit_invoice'].hide();
       });
     }
   }
@@ -73769,43 +73958,34 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.saskaitos.imone,
-                                  expression: "saskaitos.imone"
+                                  value: _vm.imone,
+                                  expression: "imone"
                                 }
                               ],
                               attrs: { type: "checkbox" },
                               domProps: {
-                                checked: Array.isArray(_vm.saskaitos.imone)
-                                  ? _vm._i(_vm.saskaitos.imone, null) > -1
-                                  : _vm.saskaitos.imone
+                                checked: Array.isArray(_vm.imone)
+                                  ? _vm._i(_vm.imone, null) > -1
+                                  : _vm.imone
                               },
                               on: {
                                 change: function($event) {
-                                  var $$a = _vm.saskaitos.imone,
+                                  var $$a = _vm.imone,
                                     $$el = $event.target,
                                     $$c = $$el.checked ? true : false
                                   if (Array.isArray($$a)) {
                                     var $$v = null,
                                       $$i = _vm._i($$a, $$v)
                                     if ($$el.checked) {
-                                      $$i < 0 &&
-                                        _vm.$set(
-                                          _vm.saskaitos,
-                                          "imone",
-                                          $$a.concat([$$v])
-                                        )
+                                      $$i < 0 && (_vm.imone = $$a.concat([$$v]))
                                     } else {
                                       $$i > -1 &&
-                                        _vm.$set(
-                                          _vm.saskaitos,
-                                          "imone",
-                                          $$a
-                                            .slice(0, $$i)
-                                            .concat($$a.slice($$i + 1))
-                                        )
+                                        (_vm.imone = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
                                     }
                                   } else {
-                                    _vm.$set(_vm.saskaitos, "imone", $$c)
+                                    _vm.imone = $$c
                                   }
                                 }
                               }
@@ -73813,7 +73993,7 @@ var render = function() {
                           ])
                         ]),
                         _vm._v(" "),
-                        _vm.saskaitos.imone
+                        _vm.imone
                           ? _c("b-form-select", {
                               attrs: {
                                 options: _vm.imones,
@@ -74504,166 +74684,647 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "content-header" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "card" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "card-body" },
-          [
-            _c(
-              "b-row",
-              [
-                _c(
-                  "b-col",
-                  { staticClass: "my-1", attrs: { sm: "5", md: "6" } },
-                  [
-                    _c(
-                      "b-form-group",
-                      {
-                        staticClass: "mb-0",
-                        attrs: {
-                          label: "Rodyti:",
-                          "label-cols-sm": "6",
-                          "label-cols-md": "4",
-                          "label-cols-lg": "3",
-                          "label-align-sm": "right",
-                          "label-size": "sm",
-                          "label-for": "perPageSelect"
-                        }
-                      },
-                      [
-                        _c("b-form-select", {
-                          attrs: {
-                            id: "perPageSelect",
-                            size: "sm",
-                            options: _vm.pageOptions
-                          },
-                          model: {
-                            value: _vm.perPage,
-                            callback: function($$v) {
-                              _vm.perPage = $$v
-                            },
-                            expression: "perPage"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-col",
-                  { staticClass: "my-1", attrs: { sm: "7", md: "6" } },
-                  [
-                    _c("b-pagination", {
-                      staticClass: "my-0",
-                      attrs: {
-                        "total-rows": _vm.totalRows,
-                        "per-page": _vm.perPage,
-                        align: "fill",
-                        size: "sm"
-                      },
-                      model: {
-                        value: _vm.currentPage,
-                        callback: function($$v) {
-                          _vm.currentPage = $$v
-                        },
-                        expression: "currentPage"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("b-table", {
-              attrs: {
-                "show-empty": "",
-                small: "",
-                stacked: "md",
-                items: _vm.saskaitos,
-                fields: _vm.fields,
-                "current-page": _vm.currentPage,
-                "per-page": _vm.perPage,
-                "sort-by": _vm.sortBy,
-                "sort-desc": _vm.sortDesc,
-                "sort-direction": _vm.sortDirection
-              },
-              on: {
-                "update:sortBy": function($event) {
-                  _vm.sortBy = $event
-                },
-                "update:sort-by": function($event) {
-                  _vm.sortBy = $event
-                },
-                "update:sortDesc": function($event) {
-                  _vm.sortDesc = $event
-                },
-                "update:sort-desc": function($event) {
-                  _vm.sortDesc = $event
-                }
-              },
-              scopedSlots: _vm._u([
-                {
-                  key: "cell(name)",
-                  fn: function(row) {
-                    return [
-                      _vm._v(
-                        "\r\n                    " +
-                          _vm._s(row.value.first) +
-                          " " +
-                          _vm._s(row.value.last) +
-                          "\r\n                "
-                      )
-                    ]
-                  }
-                },
-                {
-                  key: "cell(actions)",
-                  fn: function(row) {
-                    return [
+  return _c(
+    "div",
+    { staticClass: "content-header" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c(
+                "b-row",
+                [
+                  _c(
+                    "b-col",
+                    { staticClass: "my-1", attrs: { sm: "5", md: "6" } },
+                    [
                       _c(
-                        "b-button",
+                        "b-form-group",
                         {
-                          staticClass: "mr-1",
-                          attrs: { size: "sm", variant: "info" }
+                          staticClass: "mb-0",
+                          attrs: {
+                            label: "Rodyti:",
+                            "label-cols-sm": "6",
+                            "label-cols-md": "4",
+                            "label-cols-lg": "3",
+                            "label-align-sm": "right",
+                            "label-size": "sm",
+                            "label-for": "perPageSelect"
+                          }
                         },
                         [
-                          _vm._v(
-                            "\r\n                    Redaguoti\r\n                    "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "b-button",
-                        { attrs: { variant: "danger", size: "sm" } },
-                        [
-                          _vm._v(
-                            "\r\n                    Ištrinti\r\n                    "
-                          )
-                        ]
+                          _c("b-form-select", {
+                            attrs: {
+                              id: "perPageSelect",
+                              size: "sm",
+                              options: _vm.pageOptions
+                            },
+                            model: {
+                              value: _vm.perPage,
+                              callback: function($$v) {
+                                _vm.perPage = $$v
+                              },
+                              expression: "perPage"
+                            }
+                          })
+                        ],
+                        1
                       )
-                    ]
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "my-1", attrs: { sm: "7", md: "6" } },
+                    [
+                      _c("b-pagination", {
+                        staticClass: "my-0",
+                        attrs: {
+                          "total-rows": _vm.totalRows,
+                          "per-page": _vm.perPage,
+                          align: "fill",
+                          size: "sm"
+                        },
+                        model: {
+                          value: _vm.currentPage,
+                          callback: function($$v) {
+                            _vm.currentPage = $$v
+                          },
+                          expression: "currentPage"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("b-table", {
+                attrs: {
+                  "show-empty": "",
+                  small: "",
+                  stacked: "md",
+                  items: _vm.saskaita,
+                  fields: _vm.fields,
+                  "current-page": _vm.currentPage,
+                  "per-page": _vm.perPage,
+                  "sort-by": _vm.sortBy,
+                  "sort-desc": _vm.sortDesc,
+                  "sort-direction": _vm.sortDirection
+                },
+                on: {
+                  "update:sortBy": function($event) {
+                    _vm.sortBy = $event
+                  },
+                  "update:sort-by": function($event) {
+                    _vm.sortBy = $event
+                  },
+                  "update:sortDesc": function($event) {
+                    _vm.sortDesc = $event
+                  },
+                  "update:sort-desc": function($event) {
+                    _vm.sortDesc = $event
                   }
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "cell(name)",
+                    fn: function(row) {
+                      return [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(row.value.first) +
+                            " " +
+                            _vm._s(row.value.last) +
+                            "\n                "
+                        )
+                      ]
+                    }
+                  },
+                  {
+                    key: "cell(actions)",
+                    fn: function(row) {
+                      return [
+                        _c(
+                          "b-button",
+                          {
+                            attrs: { size: "sm", variant: "info" },
+                            on: {
+                              click: function($event) {
+                                return _vm.edit_invoice(row.item)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                    Redaguoti\n                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-button",
+                          {
+                            attrs: { variant: "danger", size: "sm" },
+                            on: {
+                              click: function($event) {
+                                return _vm.delete_invoice(row.item)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                    Ištrinti\n                    "
+                            )
+                          ]
+                        )
+                      ]
+                    }
+                  }
+                ])
+              })
+            ],
+            1
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "edit_invoice",
+          attrs: {
+            size: "lg",
+            title: "Sąskaitos redagavimas",
+            "ok-title": "Išsaugoti",
+            "cancel-title": "Uždaryti",
+            "no-close-on-esc": "",
+            "no-close-on-backdrop": ""
+          },
+          on: { ok: _vm.handleOk }
+        },
+        [
+          _c(
+            "form",
+            {
+              staticClass: "form-horizontal",
+              on: {
+                submit: function($event) {
+                  $event.stopPropagation()
+                  $event.preventDefault()
+                  return _vm.handleSubmit($event)
                 }
+              }
+            },
+            [
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                  _vm._v("Operacija:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.saskaitos.operacija,
+                          expression: "saskaitos.operacija"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: { type: "radio", value: "1" },
+                      domProps: {
+                        checked: _vm._q(_vm.saskaitos.operacija, "1")
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(_vm.saskaitos, "operacija", "1")
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-check-label" }, [
+                      _vm._v("Pardavimai")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.saskaitos.operacija,
+                          expression: "saskaitos.operacija"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: { type: "radio", value: "2" },
+                      domProps: {
+                        checked: _vm._q(_vm.saskaitos.operacija, "2")
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(_vm.saskaitos, "operacija", "2")
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-check-label" }, [
+                      _vm._v("Pirkimai")
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                  _vm._v("Pinigai:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.saskaitos.pinigai,
+                          expression: "saskaitos.pinigai"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: { type: "radio", value: "1" },
+                      domProps: { checked: _vm._q(_vm.saskaitos.pinigai, "1") },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(_vm.saskaitos, "pinigai", "1")
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-check-label" }, [
+                      _vm._v("Kasa")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.saskaitos.pinigai,
+                          expression: "saskaitos.pinigai"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: { type: "radio", value: "2" },
+                      domProps: { checked: _vm._q(_vm.saskaitos.pinigai, "2") },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(_vm.saskaitos, "pinigai", "2")
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-check-label" }, [
+                      _vm._v("Bankas")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-check form-check-inline" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.saskaitos.pinigai,
+                          expression: "saskaitos.pinigai"
+                        }
+                      ],
+                      staticClass: "form-check-input",
+                      attrs: { type: "radio", value: "3" },
+                      domProps: { checked: _vm._q(_vm.saskaitos.pinigai, "3") },
+                      on: {
+                        change: function($event) {
+                          return _vm.$set(_vm.saskaitos, "pinigai", "3")
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { staticClass: "form-check-label" }, [
+                      _vm._v("Skola")
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                  _vm._v("Imonė:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c(
+                    "div",
+                    { staticClass: "input-group" },
+                    [
+                      _c("div", { staticClass: "input-group-prepend" }, [
+                        _c("span", { staticClass: "input-group-text" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.imone,
+                                expression: "imone"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.imone)
+                                ? _vm._i(_vm.imone, null) > -1
+                                : _vm.imone
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.imone,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 && (_vm.imone = $$a.concat([$$v]))
+                                  } else {
+                                    $$i > -1 &&
+                                      (_vm.imone = $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1)))
+                                  }
+                                } else {
+                                  _vm.imone = $$c
+                                }
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.imone
+                        ? _c("b-form-select", {
+                            attrs: {
+                              options: _vm.imones,
+                              "value-field": "id",
+                              "text-field": "imones_pavadinimas"
+                            },
+                            model: {
+                              value: _vm.saskaitos.imones_pavadinimas,
+                              callback: function($$v) {
+                                _vm.$set(
+                                  _vm.saskaitos,
+                                  "imones_pavadinimas",
+                                  $$v
+                                )
+                              },
+                              expression: "saskaitos.imones_pavadinimas"
+                            }
+                          })
+                        : _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.saskaitos.imones_pavadinimas,
+                                expression: "saskaitos.imones_pavadinimas"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.saskaitos.imones_pavadinimas
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.saskaitos,
+                                  "imones_pavadinimas",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                    ],
+                    1
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                  _vm._v("Data:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.saskaitos.data,
+                        expression: "saskaitos.data"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "date" },
+                    domProps: { value: _vm.saskaitos.data },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.saskaitos, "data", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                  _vm._v("Sąskaitos numeris:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.saskaitos.numeris,
+                        expression: "saskaitos.numeris"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.saskaitos.numeris },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.saskaitos, "numeris", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                  _vm._v("Op. pavadinimas:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.saskaitos.op_pavadinimas,
+                        expression: "saskaitos.op_pavadinimas"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.saskaitos.op_pavadinimas },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.saskaitos,
+                          "op_pavadinimas",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                  _vm._v("Kiekis, mat. vnt:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.saskaitos.kiekis,
+                        expression: "saskaitos.kiekis"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.saskaitos.kiekis },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.saskaitos, "kiekis", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                  _vm._v("Suma:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.saskaitos.suma,
+                        expression: "saskaitos.suma"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.saskaitos.suma },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.saskaitos, "suma", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                  _vm._v("PVM:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.saskaitos.pvm,
+                        expression: "saskaitos.pvm"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.saskaitos.pvm },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.saskaitos, "pvm", $event.target.value)
+                      }
+                    }
+                  })
+                ])
               ])
-            })
-          ],
-          1
-        )
-      ])
-    ])
-  ])
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -90923,8 +91584,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\wamp64\www\1-1\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\wamp64\www\1-1\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\AdminLTE3\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\AdminLTE3\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

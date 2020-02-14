@@ -79,10 +79,10 @@
                             <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                <input v-model="saskaitos.imone" type="checkbox">
+                                <input v-model="imone" type="checkbox">
                                 </span>
                             </div>
-                            <b-form-select v-if="saskaitos.imone" v-model="saskaitos.imones_pavadinimas" 
+                            <b-form-select v-if="imone" v-model="saskaitos.imones_pavadinimas" 
                             :options="imones"
                             value-field="id"
                             text-field="imones_pavadinimas">
@@ -324,7 +324,6 @@
                     pvm_kodas: ''
                 },
                 saskaitos: {
-                    imone: true,
                     operacija: '',
                     pinigai: '',
                     imones_pavadinimas: '',
@@ -337,6 +336,7 @@
                 },
                 //ivesti, arba pasirinkti imonę is saraso
                 //ivedus, nauj1 imone, ja irasyti i duomenu baze, ir priskirti jai ID
+                imone: true,
                 imones: [],
                 saskaitos: [],
                 name: '',
