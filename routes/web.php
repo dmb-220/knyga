@@ -33,7 +33,7 @@ Route::prefix('/imones')->group(function () {
     Route::get('', 'ImonesController@index');
     Route::get('{imones}', 'ImonesController@show');
     Route::post('store', 'ImonesController@store');
-    Route::patch('{imones}', 'ImonesController@update');
+    Route::patch('{imones}/update', 'ImonesController@update');
     Route::delete('{imones}/destroy', 'ImonesController@destroy');
 });
 Route::prefix('/saskaitos')->group(function () {

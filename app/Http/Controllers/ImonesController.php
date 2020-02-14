@@ -81,7 +81,17 @@ class ImonesController extends Controller
      */
     public function update(Request $request, Imones $imones)
     {
-        //
+        $update = [
+            'imones_pavadinimas' => $request->pavadinimas, 
+            'imones_kodas' => $request->kodas,
+            'pvm_kodas' => $request->pvm,
+        ];
+        Imones::where('id',$imones->id)->update($update);
+
+        return response()->json([
+            'status' => true,
+            //'saskaitos' => $request->all()
+        ]);
     }
 
     /**
@@ -92,6 +102,10 @@ class ImonesController extends Controller
      */
     public function destroy(Imones $imones)
     {
-        //
+        Imones::where('id',$imones->id)->delete();
+        return response()->json([
+            'status' => true,
+            //'saskaitos' => $request->all()
+        ]);
     }
 }

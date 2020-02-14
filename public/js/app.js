@@ -2126,10 +2126,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       imones_sukurimas: {
+        id: '',
         imones_pavadinimas: '',
         imones_kodas: '',
         pvm_kodas: ''
@@ -2170,26 +2198,71 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   created: function created() {
-    this.getData();
+    this.getImones();
   },
   methods: {
-    getData: function getData() {
+    edit_company: function edit_company(row) {
+      this.$refs['edit_company'].show();
+      this.imones_sukurimas.imones_pavadinimas = row.imones_pavadinimas;
+      this.imones_sukurimas.imones_kodas = row.imones_kodas;
+      this.imones_sukurimas.pvm_kodas = row.pvm_kodas;
+      this.imones_sukurimas.id = row.id; //console.log(row.id);
+    },
+    delete_company: function delete_company(row) {
       var _this = this;
+
+      axios["delete"]("/imones/".concat(row.id, "/destroy"), {}).then(function (response) {
+        //console.log(response.data.saskaitos);
+        _this.$bvToast.toast("\u012Emon\u0117s duomenys i\u0161trinti s\u0117kmingai", {
+          title: "Atlikta",
+          variant: "info",
+          solid: true
+        });
+
+        _this.getImones();
+      })["catch"](function (err) {
+        console.log("DELETE:");
+        console.log(err.message);
+      });
+    },
+    getImones: function getImones() {
+      var _this2 = this;
 
       //this.isLoading = true
       this.axios.get('/imones').then(function (response) {
         //this.isLoading = false
-        _this.imones = response.data.imones; //sukaiciuojam kiek irasu, puslapiavimui
+        _this2.imones = response.data.imones; //sukaiciuojam kiek irasu, puslapiavimui
 
-        _this.totalRows = _this.imones.length;
+        _this2.totalRows = _this2.imones.length;
         console.log(response.data.imones);
       })["catch"](function (err) {
         console.log("GET:");
         console.log(err.message);
       });
     },
+    edit_post: function edit_post() {
+      var _this3 = this;
+
+      axios.patch("/imones/".concat(this.imones_sukurimas.id, "/update"), {
+        pavadinimas: this.imones_sukurimas.imones_pavadinimas,
+        kodas: this.imones_sukurimas.imones_kodas,
+        pvm: this.imones_sukurimas.pvm_kodas
+      }).then(function (response) {
+        //console.log(response.data.saskaitos);
+        _this3.$bvToast.toast("\u012Emon\u0117s duomenys atnaujinti s\u0117kmingai", {
+          title: "Atlikta",
+          variant: "info",
+          solid: true
+        });
+
+        _this3.getImones();
+      })["catch"](function (err) {
+        console.log("POST:");
+        console.log(err.message);
+      });
+    },
     imones_post: function imones_post() {
-      var _this2 = this;
+      var _this4 = this;
 
       axios.post("/imones/store", {
         pavadinimas: this.imones_sukurimas.imones_pavadinimas,
@@ -2198,21 +2271,32 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         console.log(response.data.status);
 
-        _this2.getData();
+        _this4.getData();
       })["catch"](function (err) {
         console.log("POST:");
         console.log(err.message);
       });
     },
     imoneOk: function imoneOk(bvModalEvt) {
-      var _this3 = this;
+      var _this5 = this;
 
       // Prevent modal from closing
       bvModalEvt.preventDefault();
       this.imones_post(); // Trigger submit handler
 
       this.$nextTick(function () {
-        _this3.$bvModal.hide('imoniu_ikelimas');
+        _this5.$bvModal.hide('imoniu_ikelimas');
+      });
+    },
+    imoneEdit: function imoneEdit(bvModalEvt) {
+      var _this6 = this;
+
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      this.edit_post(); // Trigger submit handler
+
+      this.$nextTick(function () {
+        _this6.$refs['edit_company'].hide();
       });
     }
   }
@@ -3005,7 +3089,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios["delete"]("/saskaitos/".concat(row.id, "/destroy"), {}).then(function (response) {
         //console.log(response.data.saskaitos);
-        _this.$bvToast.toast("S\u0105skaitos duomenys i6trinti s\u0117kmingai", {
+        _this.$bvToast.toast("S\u0105skaitos duomenys i\u0161trinti s\u0117kmingai", {
           title: "Atlikta",
           variant: "info",
           solid: true
@@ -73524,8 +73608,12 @@ var render = function() {
                         _c(
                           "b-button",
                           {
-                            staticClass: "mr-1",
-                            attrs: { size: "sm", variant: "info" }
+                            attrs: { size: "sm", variant: "info" },
+                            on: {
+                              click: function($event) {
+                                return _vm.edit_company(row.item)
+                              }
+                            }
                           },
                           [
                             _vm._v(
@@ -73536,7 +73624,14 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "b-button",
-                          { attrs: { variant: "danger", size: "sm" } },
+                          {
+                            attrs: { variant: "danger", size: "sm" },
+                            on: {
+                              click: function($event) {
+                                return _vm.delete_company(row.item)
+                              }
+                            }
+                          },
                           [
                             _vm._v(
                               "\r\n                    Ištrinti\r\n                    "
@@ -73567,6 +73662,127 @@ var render = function() {
             "no-close-on-backdrop": ""
           },
           on: { ok: _vm.imoneOk }
+        },
+        [
+          _c("form", { staticClass: "form-horizontal" }, [
+            _c("div", { staticClass: "form-group row" }, [
+              _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                _vm._v("Pavadinimas:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-9" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.imones_sukurimas.imones_pavadinimas,
+                      expression: "imones_sukurimas.imones_pavadinimas"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.imones_sukurimas.imones_pavadinimas },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.imones_sukurimas,
+                        "imones_pavadinimas",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                _vm._v("Įmonės kodas:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-9" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.imones_sukurimas.imones_kodas,
+                      expression: "imones_sukurimas.imones_kodas"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.imones_sukurimas.imones_kodas },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.imones_sukurimas,
+                        "imones_kodas",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                _vm._v("PVM kodas:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-9" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.imones_sukurimas.pvm_kodas,
+                      expression: "imones_sukurimas.pvm_kodas"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.imones_sukurimas.pvm_kodas },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.imones_sukurimas,
+                        "pvm_kodas",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "edit_company",
+          attrs: {
+            size: "lg",
+            title: "Įmonių redagavimas",
+            "ok-title": "Išsaugoti",
+            "cancel-title": "Uždaryti",
+            "no-close-on-esc": "",
+            "no-close-on-backdrop": ""
+          },
+          on: { ok: _vm.imoneEdit }
         },
         [
           _c("form", { staticClass: "form-horizontal" }, [

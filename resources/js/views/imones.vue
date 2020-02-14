@@ -64,10 +64,10 @@
                 </template>
 
                 <template v-slot:cell(actions)="row">
-                    <b-button size="sm" variant="info" class="mr-1">
+                    <b-button @click='edit_company(row.item)' size="sm" variant="info">
                     Redaguoti
                     </b-button>
-                    <b-button variant="danger" size="sm">
+                    <b-button @click='delete_company(row.item)' variant="danger" size="sm">
                     Ištrinti
                     </b-button>
                 </template>
@@ -102,6 +102,33 @@
             </div>
         </form>
     </b-modal>
+    <b-modal ref="edit_company" size="lg" title="Įmonių redagavimas"
+        ok-title="Išsaugoti"
+        cancel-title="Uždaryti"
+        no-close-on-esc
+        no-close-on-backdrop
+        @ok="imoneEdit">
+        <form class="form-horizontal">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Pavadinimas:</label>
+                <div class="col-sm-9">
+                <input type="text" v-model="imones_sukurimas.imones_pavadinimas" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Įmonės kodas:</label>
+                <div class="col-sm-9">
+                <input type="text" v-model="imones_sukurimas.imones_kodas" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">PVM kodas:</label>
+                <div class="col-sm-9">
+                <input type="text" v-model='imones_sukurimas.pvm_kodas' class="form-control">
+                </div>
+            </div>
+        </form>
+    </b-modal>
 </div>
 </template>
 
@@ -110,6 +137,7 @@ export default {
     data() {
         return {
             imones_sukurimas: {
+                id: '',
                 imones_pavadinimas: '',
                 imones_kodas: '',
                 pvm_kodas: ''
@@ -136,11 +164,37 @@ export default {
     mounted() {},
 
     created() {
-        this.getData()
+        this.getImones()
     },
 
     methods: {
-        getData () {
+        edit_company(row){
+            this.$refs['edit_company'].show()
+            this.imones_sukurimas.imones_pavadinimas = row.imones_pavadinimas;
+            this.imones_sukurimas.imones_kodas = row.imones_kodas;
+            this.imones_sukurimas.pvm_kodas = row.pvm_kodas;
+            this.imones_sukurimas.id = row.id;
+            //console.log(row.id);
+        },
+        delete_company(row){
+            axios
+            .delete(`/imones/${row.id}/destroy`, {
+                })
+            .then(response => {
+                //console.log(response.data.saskaitos);
+                this.$bvToast.toast(`Įmonės duomenys ištrinti sėkmingai`, {
+                    title: `Atlikta`,
+                    variant: "info",
+                    solid: true
+                })
+                this.getImones()
+            })
+            .catch( err => {
+            console.log("DELETE:");
+            console.log(err.message);
+            })
+        },
+        getImones () {
         //this.isLoading = true
         this.axios
         .get('/imones')
@@ -153,6 +207,27 @@ export default {
         })
         .catch( err => {
             console.log("GET:");
+            console.log(err.message);
+            })
+        },
+        edit_post(){
+            axios
+            .patch(`/imones/${this.imones_sukurimas.id}/update`, {
+                pavadinimas: this.imones_sukurimas.imones_pavadinimas,
+                kodas: this.imones_sukurimas.imones_kodas,
+                pvm: this.imones_sukurimas.pvm_kodas,
+                })
+            .then(response => {
+                //console.log(response.data.saskaitos);
+                this.$bvToast.toast(`Įmonės duomenys atnaujinti sėkmingai`, {
+                    title: `Atlikta`,
+                    variant: "info",
+                    solid: true
+                })
+                this.getImones()
+            })
+            .catch( err => {
+            console.log("POST:");
             console.log(err.message);
             })
         },
@@ -179,6 +254,15 @@ export default {
             // Trigger submit handler
             this.$nextTick(() => {
             this.$bvModal.hide('imoniu_ikelimas')
+            })
+        }, 
+        imoneEdit(bvModalEvt) {
+            // Prevent modal from closing
+            bvModalEvt.preventDefault()
+            this.edit_post();
+            // Trigger submit handler
+            this.$nextTick(() => {
+                this.$refs['edit_company'].hide()
             })
         }, 
     }
