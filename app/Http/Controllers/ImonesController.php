@@ -50,6 +50,7 @@ class ImonesController extends Controller
         ]);
     }
 
+    
     /**
      * Display the specified resource.
      *
