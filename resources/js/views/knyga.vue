@@ -219,7 +219,7 @@
                         </tr>
                         <tr v-for="(idx, key) in sortedData" :key='key'>
                             <td>{{ key+1 }}</td>
-                            <td>{{idx.data.split('-')[2] }}</td>    
+                            <td>{{ idx.data.split('-')[2] }}</td>    
                             <td>{{ idx.numeris }}</td>
                             <td>{{ idx.op_pavadinimas }}</td>
                             <td>{{ idx.kiekis }}</td>
@@ -254,8 +254,8 @@
                             <td v-else> </td>
                             <td> </td>
 
-                            <td> </td> 
-                            <td> </td> 
+                            <td>{{ idx.imones.imones_pavadinimas }}</td> 
+                            <td>{{ idx.imones.imones_kodas }}</td> 
                         </tr> 
                         <tr class="bg-teal">
                             <td class="bg-white border-0" colspan="2"></td>

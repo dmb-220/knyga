@@ -74568,9 +74568,9 @@ var render = function() {
                       _vm._v(" "),
                       _c("td"),
                       _vm._v(" "),
-                      _c("td"),
+                      _c("td", [_vm._v(_vm._s(idx.imones.imones_pavadinimas))]),
                       _vm._v(" "),
-                      _c("td")
+                      _c("td", [_vm._v(_vm._s(idx.imones.imones_kodas))])
                     ])
                   }),
                   _vm._v(" "),
@@ -75017,11 +75017,11 @@ var render = function() {
                     fn: function(row) {
                       return [
                         _vm._v(
-                          "\n                    " +
+                          "\r\n                    " +
                             _vm._s(row.value.first) +
                             " " +
                             _vm._s(row.value.last) +
-                            "\n                "
+                            "\r\n                "
                         )
                       ]
                     }
@@ -75042,7 +75042,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Redaguoti\n                    "
+                              "\r\n                    Redaguoti\r\n                    "
                             )
                           ]
                         ),
@@ -75059,7 +75059,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Ištrinti\n                    "
+                              "\r\n                    Ištrinti\r\n                    "
                             )
                           ]
                         )
@@ -91800,8 +91800,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\AdminLTE3\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\AdminLTE3\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\wamp64\www\1-1\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\wamp64\www\1-1\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
