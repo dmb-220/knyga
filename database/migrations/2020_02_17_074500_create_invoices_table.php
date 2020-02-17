@@ -24,7 +24,6 @@ class CreateInvoicesTable extends Migration
             $table->string('invoice_number');
             $table->text('operation_name');
             $table->string('invoice_amount');
-            $table->string('invoice_amount');
             $table->float('invoice_suma', 8, 2);
             $table->float('invoice_pvm', 8, 2);
             $table->timestamps();

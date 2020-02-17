@@ -16,7 +16,7 @@ class CompanyController extends Controller
     {
         return response()->json([
             'status' => true,
-            'imones' => Company::all(),
+            'company' => Company::all(),
         ]);
     }
 

@@ -12,14 +12,14 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $data = $request->all();
 
         $query = Invoice::with(['company']);
         //jei nurodytas menesis
         if(array_key_exists('month', $data) && $data['month']){
-            $query->whereMonth('data', $data['month']);
+            $query->whereMonth('invoice_data', $data['month']);
         }
         $invoice = $query->get();
 

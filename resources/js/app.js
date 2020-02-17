@@ -25,7 +25,7 @@ window.Vue = Vue;
 import Form from "./utilities/Form";
 window.Form = Form;
 
-import router from './routes';
+import router from './router';
 
 
 // 3. Update the new Vue intance at the bottom of the file.

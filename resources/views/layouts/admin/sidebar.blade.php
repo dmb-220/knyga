@@ -37,6 +37,12 @@
                     </router-link>
                 </li>
                 <li class="nav-item">
+                    <router-link tag="a" to="/books" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>Green Book</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
                     <router-link tag="a" to="/users" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Vartotojai</p>
