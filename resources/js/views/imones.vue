@@ -9,12 +9,25 @@
         </div>
         <div class="container-fluid">
             <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Valdymas</h3>
+                </div>
+
+                <div class="card-body text-left">
+                    <router-link tag="a" to="/" class="btn btn-app">
+                        <i class="fa fa-arrow-left"></i> Atgal
+                    </router-link>
+                    <button type="button" v-b-modal.imoniu_ikelimas class="btn btn-app btn-info">
+                        <i class="far fa-plus-square"></i> Nauja įmonė
+                        </button>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Įmonių sąrašas</h3>
               </div>
               <div class="card-body">
-                <button type="button" v-b-modal.imoniu_ikelimas class="btn btn-info">Nauja įmonė</button>
-                <hr>
                 <b-row>
                 <b-col sm="5" md="6" class="my-1">
                     <b-form-group

@@ -25,32 +25,16 @@
                      with font-awesome or any other icon font library -->
 
                 <li class="nav-item">
-                    <router-link tag="a" to="/" class="nav-link">
+                    <router-link tag="a" to="/dashboard" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>Į pradžią</p>
                     </router-link>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-book"></i>
-                    <p>Žalia knyga <i class="fas fa-angle-left right"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <router-link tag="a" to="/knyga" class="nav-link">
-                            <i class="nav-icon far fa-circle"></i>
-                            <p>Knyga</p>
-                        </router-link>
-                        <router-link tag="a" to="/saskaitos" class="nav-link">
-                            <i class="nav-icon far fa-circle"></i>
-                            <p>Sąskaitos</p>
-                        </router-link>
-                        <router-link tag="a" to="/imones" class="nav-link">
-                            <i class="nav-icon far fa-circle"></i>
-                            <p>Įmonės</p>
-                        </router-link>
-                    </li>
-                    </ul>
+                <li class="nav-item">
+                    <router-link tag="a" to="/" class="nav-link">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>Žalia knyga</p>
+                    </router-link>
                 </li>
                 <li class="nav-item">
                     <router-link tag="a" to="/users" class="nav-link">

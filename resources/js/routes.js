@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 
 let routes = [
     {
-        path: '/',
+        path: '/dashboard',
         component: require('./views/dashboard').default
     },
     {
@@ -19,14 +19,14 @@ let routes = [
         component: require('./views/imones').default
     },
     {
-        path: '/knyga',
+        path: '/',
         component: require('./views/knyga').default
     }
 ];
 
 
 export default new VueRouter({
-    base: '/admin/',
+    //base: '/admin/',
     //mode: 'history',
     routes,
     //linkActiveClass: 'active'

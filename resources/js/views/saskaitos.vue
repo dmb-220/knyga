@@ -9,6 +9,17 @@
         </div>
         <div class="container-fluid">
             <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Valdymas</h3>
+                </div>
+
+                <div class="card-body text-left">
+                    <router-link tag="a" to="/" class="btn btn-app">
+                        <i class="fa fa-arrow-left"></i> Atgal
+                    </router-link>
+                </div>
+            </div>
+            <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Sąskaitų sąrašas</h3>
               </div>

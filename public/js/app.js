@@ -2153,6 +2153,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2315,6 +2328,15 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2795,6 +2817,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -73469,8 +73502,17 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "card-body" },
+            { staticClass: "card-body text-left" },
             [
+              _c(
+                "router-link",
+                { staticClass: "btn btn-app", attrs: { tag: "a", to: "/" } },
+                [
+                  _c("i", { staticClass: "fa fa-arrow-left" }),
+                  _vm._v(" Atgal\r\n                    ")
+                ]
+              ),
+              _vm._v(" "),
               _c(
                 "button",
                 {
@@ -73481,14 +73523,26 @@ var render = function() {
                       modifiers: { imoniu_ikelimas: true }
                     }
                   ],
-                  staticClass: "btn btn-info",
+                  staticClass: "btn btn-app btn-info",
                   attrs: { type: "button" }
                 },
-                [_vm._v("Nauja įmonė")]
-              ),
-              _vm._v(" "),
-              _c("hr"),
-              _vm._v(" "),
+                [
+                  _c("i", { staticClass: "far fa-plus-square" }),
+                  _vm._v(" Nauja įmonė\r\n                        ")
+                ]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
               _c(
                 "b-row",
                 [
@@ -73912,6 +73966,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Valdymas")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
       _c("h3", { staticClass: "card-title" }, [_vm._v("Įmonių sąrašas")])
     ])
   }
@@ -73947,35 +74009,66 @@ var render = function() {
         _c("div", { staticClass: "card" }, [
           _vm._m(1),
           _vm._v(" "),
-          _c("div", { staticClass: "card-body text-center" }, [
-            _c(
-              "a",
-              {
-                directives: [
-                  {
-                    name: "b-modal",
-                    rawName: "v-b-modal.saskaitu_ikelimas",
-                    modifiers: { saskaitu_ikelimas: true }
-                  }
-                ],
-                staticClass: "btn btn-app"
-              },
-              [
-                _c("i", { staticClass: "fa fa-edit" }),
-                _vm._v(" Įkelti sąskaitą\n                    ")
-              ]
-            ),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _vm._m(3),
-            _vm._v(" "),
-            _vm._m(4),
-            _vm._v(" "),
-            _vm._m(5),
-            _vm._v(" "),
-            _vm._m(6)
-          ])
+          _c(
+            "div",
+            { staticClass: "card-body text-center" },
+            [
+              _c(
+                "a",
+                {
+                  directives: [
+                    {
+                      name: "b-modal",
+                      rawName: "v-b-modal.saskaitu_ikelimas",
+                      modifiers: { saskaitu_ikelimas: true }
+                    }
+                  ],
+                  staticClass: "btn btn-app"
+                },
+                [
+                  _c("i", { staticClass: "fas fa-file-invoice" }),
+                  _vm._v(" Įkelti sąskaitą\n                    ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "btn btn-app",
+                  attrs: { tag: "a", to: "/saskaitos" }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-th-list" }),
+                  _vm._v(" Sąskaitos\n                    ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "btn btn-app",
+                  attrs: { tag: "a", to: "/imones" }
+                },
+                [
+                  _c("i", { staticClass: "fa fa-address-card" }),
+                  _vm._v(" Įmonės\n                    ")
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _vm._m(4),
+              _vm._v(" "),
+              _vm._m(5),
+              _vm._v(" "),
+              _vm._m(6),
+              _vm._v(" "),
+              _vm._m(7)
+            ],
+            1
+          )
         ]),
         _vm._v(" "),
         _c(
@@ -74454,7 +74547,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "card" }, [
-          _vm._m(7),
+          _vm._m(8),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
@@ -74491,14 +74584,14 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "card-body text-center" }, [
             _c("table", { staticClass: "table table-sm" }, [
-              _vm._m(8),
+              _vm._m(9),
               _vm._v(" "),
               _c(
                 "tbody",
                 [
-                  _vm._m(9),
-                  _vm._v(" "),
                   _vm._m(10),
+                  _vm._v(" "),
+                  _vm._m(11),
                   _vm._v(" "),
                   _vm._l(_vm.sortedData, function(idx, key) {
                     return _c("tr", { key: key }, [
@@ -74574,9 +74667,9 @@ var render = function() {
                     ])
                   }),
                   _vm._v(" "),
-                  _vm._m(11),
+                  _vm._m(12),
                   _vm._v(" "),
-                  _vm._m(12)
+                  _vm._m(13)
                 ],
                 2
               )
@@ -74614,7 +74707,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "btn btn-app" }, [
-      _c("i", { staticClass: "fa fa-repeat" }),
+      _c("i", { staticClass: "fas fa-piggy-bank" }),
       _vm._v(" Bankas\n                    ")
     ])
   },
@@ -74623,7 +74716,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "btn btn-app" }, [
-      _c("i", { staticClass: "fa fa-pause" }),
+      _c("i", { staticClass: "fas fa-cash-register" }),
       _vm._v(" Kasa\n                    ")
     ])
   },
@@ -74632,7 +74725,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "btn btn-app" }, [
-      _c("i", { staticClass: "fa fa-save" }),
+      _c("i", { staticClass: "fas fa-hand-holding-usd" }),
       _vm._v(" Skolos\n                    ")
     ])
   },
@@ -74641,8 +74734,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "btn btn-app" }, [
-      _c("i", { staticClass: "fa fa-inbox" }),
-      _vm._v("Ūkininko duomenys\n                    ")
+      _c("i", { staticClass: "fas fa-tractor" }),
+      _vm._v("Ūkininkas\n                    ")
     ])
   },
   function() {
@@ -74650,8 +74743,17 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { staticClass: "btn btn-app" }, [
-      _c("i", { staticClass: "fa fa-envelope" }),
+      _c("i", { staticClass: "fas fa-clipboard-check" }),
       _vm._v(" Veiklos ataskaita\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "btn btn-app" }, [
+      _c("i", { staticClass: "fas fa-tools" }),
+      _vm._v("Nustatymai\n                    ")
     ])
   },
   function() {
@@ -74912,6 +75014,26 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
+            { staticClass: "card-body text-left" },
+            [
+              _c(
+                "router-link",
+                { staticClass: "btn btn-app", attrs: { tag: "a", to: "/" } },
+                [
+                  _c("i", { staticClass: "fa fa-arrow-left" }),
+                  _vm._v(" Atgal\n                    ")
+                ]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c(
+            "div",
             { staticClass: "card-body" },
             [
               _c(
@@ -75017,11 +75139,11 @@ var render = function() {
                     fn: function(row) {
                       return [
                         _vm._v(
-                          "\r\n                    " +
+                          "\n                    " +
                             _vm._s(row.value.first) +
                             " " +
                             _vm._s(row.value.last) +
-                            "\r\n                "
+                            "\n                "
                         )
                       ]
                     }
@@ -75042,7 +75164,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\r\n                    Redaguoti\r\n                    "
+                              "\n                    Redaguoti\n                    "
                             )
                           ]
                         ),
@@ -75059,7 +75181,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\r\n                    Ištrinti\r\n                    "
+                              "\n                    Ištrinti\n                    "
                             )
                           ]
                         )
@@ -75553,6 +75675,14 @@ var staticRenderFns = [
           _c("h1", { staticClass: "m-0 text-dark" }, [_vm._v("Sąskaitos")])
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Valdymas")])
     ])
   },
   function() {
@@ -91131,7 +91261,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 
 var routes = [{
-  path: '/',
+  path: '/dashboard',
   component: __webpack_require__(/*! ./views/dashboard */ "./resources/js/views/dashboard.vue")["default"]
 }, {
   path: '/users',
@@ -91143,11 +91273,11 @@ var routes = [{
   path: '/imones',
   component: __webpack_require__(/*! ./views/imones */ "./resources/js/views/imones.vue")["default"]
 }, {
-  path: '/knyga',
+  path: '/',
   component: __webpack_require__(/*! ./views/knyga */ "./resources/js/views/knyga.vue")["default"]
 }];
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
-  base: '/admin/',
+  //base: '/admin/',
   //mode: 'history',
   routes: routes //linkActiveClass: 'active'
 
@@ -91800,8 +91930,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\wamp64\www\1-1\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\wamp64\www\1-1\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\AdminLTE3\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\AdminLTE3\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

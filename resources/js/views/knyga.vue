@@ -15,22 +15,31 @@
 
                 <div class="card-body text-center">
                     <a v-b-modal.saskaitu_ikelimas class="btn btn-app">
-                        <i class="fa fa-edit"></i> Įkelti sąskaitą
+                        <i class="fas fa-file-invoice"></i> Įkelti sąskaitą
+                    </a>
+                    <router-link tag="a" to="/saskaitos" class="btn btn-app">
+                        <i class="fas fa-th-list"></i> Sąskaitos
+                    </router-link>
+                    <router-link tag="a" to="/imones" class="btn btn-app">
+                        <i class="fa fa-address-card"></i> Įmonės
+                    </router-link>
+                    <a class="btn btn-app">
+                        <i class="fas fa-piggy-bank"></i> Bankas
                     </a>
                     <a class="btn btn-app">
-                        <i class="fa fa-repeat"></i> Bankas
+                        <i class="fas fa-cash-register"></i> Kasa
                     </a>
                     <a class="btn btn-app">
-                        <i class="fa fa-pause"></i> Kasa
+                        <i class="fas fa-hand-holding-usd"></i> Skolos
                     </a>
                     <a class="btn btn-app">
-                        <i class="fa fa-save"></i> Skolos
+                        <i class="fas fa-tractor"></i>Ūkininkas
                     </a>
                     <a class="btn btn-app">
-                        <i class="fa fa-inbox"></i>Ūkininko duomenys
+                        <i class="fas fa-clipboard-check"></i> Veiklos ataskaita
                     </a>
                     <a class="btn btn-app">
-                        <i class="fa fa-envelope"></i> Veiklos ataskaita
+                        <i class="fas fa-tools"></i>Nustatymai
                     </a>
                 </div>
                 <!-- /.card-body -->
