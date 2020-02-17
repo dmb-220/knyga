@@ -261,7 +261,7 @@ export default {
         },
         delete_invoice(row){
             axios
-            .delete(`/saskaitos/${row.id}/destroy`, {
+            .delete(`/invoice/${row.id}/destroy`, {
                 })
             .then(response => {
                 //console.log(response.data.saskaitos);
@@ -280,7 +280,7 @@ export default {
         getImones () {
             //this.isLoading = true
             this.axios
-            .get('/imones')
+            .get('/company')
             .then(response => {
                 //this.isLoading = false
                 this.imones = response.data.imones;
@@ -294,7 +294,7 @@ export default {
         getSaskaitos () {
         //this.isLoading = true
         this.axios
-        .get('/saskaitos')
+        .get('/invoice')
         .then(response => {
             //this.isLoading = false
             this.saskaita = response.data.saskaitos;
@@ -309,7 +309,7 @@ export default {
         },
         edit_post(){
             axios
-            .patch(`/saskaitos/${this.saskaitos.id}/update`, {
+            .patch(`/invoice/${this.saskaitos.id}`, {
                 operacija: this.saskaitos.operacija,
                 pinigai: this.saskaitos.pinigai,
                 imones_id: this.saskaitos.imones_pavadinimas,

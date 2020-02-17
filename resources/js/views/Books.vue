@@ -17,10 +17,10 @@
                     <a v-b-modal.saskaitu_ikelimas class="btn btn-app">
                         <i class="fas fa-file-invoice"></i> Įkelti sąskaitą
                     </a>
-                    <router-link tag="a" to="/invoice" class="btn btn-app">
+                    <router-link tag="a" to="/invoices" class="btn btn-app">
                         <i class="fas fa-th-list"></i> Sąskaitos
                     </router-link>
-                    <router-link tag="a" to="/company" class="btn btn-app">
+                    <router-link tag="a" to="/companies" class="btn btn-app">
                         <i class="fa fa-address-card"></i> Įmonės
                     </router-link>
                     <a class="btn btn-app">

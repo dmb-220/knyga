@@ -312,7 +312,7 @@ __webpack_require__.r(__webpack_exports__);
     delete_invoice: function delete_invoice(row) {
       var _this = this;
 
-      axios["delete"]("/saskaitos/".concat(row.id, "/destroy"), {}).then(function (response) {
+      axios["delete"]("/invoice/".concat(row.id, "/destroy"), {}).then(function (response) {
         //console.log(response.data.saskaitos);
         _this.$bvToast.toast("S\u0105skaitos duomenys i\u0161trinti s\u0117kmingai", {
           title: "Atlikta",
@@ -330,7 +330,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       //this.isLoading = true
-      this.axios.get('/imones').then(function (response) {
+      this.axios.get('/company').then(function (response) {
         //this.isLoading = false
         _this2.imones = response.data.imones; //console.log(response.data.imones);
       })["catch"](function (err) {
@@ -342,7 +342,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       //this.isLoading = true
-      this.axios.get('/saskaitos').then(function (response) {
+      this.axios.get('/invoice').then(function (response) {
         //this.isLoading = false
         _this3.saskaita = response.data.saskaitos; //sukaiciuojam kiek irasu, puslapiavimui
 
@@ -355,7 +355,7 @@ __webpack_require__.r(__webpack_exports__);
     edit_post: function edit_post() {
       var _this4 = this;
 
-      axios.patch("/saskaitos/".concat(this.saskaitos.id, "/update"), {
+      axios.patch("/invoice/".concat(this.saskaitos.id), {
         operacija: this.saskaitos.operacija,
         pinigai: this.saskaitos.pinigai,
         imones_id: this.saskaitos.imones_pavadinimas,

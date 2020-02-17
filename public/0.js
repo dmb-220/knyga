@@ -584,7 +584,7 @@ var render = function() {
                 "router-link",
                 {
                   staticClass: "btn btn-app",
-                  attrs: { tag: "a", to: "/invoice" }
+                  attrs: { tag: "a", to: "/invoices" }
                 },
                 [
                   _c("i", { staticClass: "fas fa-th-list" }),
@@ -596,7 +596,7 @@ var render = function() {
                 "router-link",
                 {
                   staticClass: "btn btn-app",
-                  attrs: { tag: "a", to: "/company" }
+                  attrs: { tag: "a", to: "/companies" }
                 },
                 [
                   _c("i", { staticClass: "fa fa-address-card" }),

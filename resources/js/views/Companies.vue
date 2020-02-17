@@ -191,7 +191,7 @@ export default {
         },
         delete_company(row){
             axios
-            .delete(`/imones/${row.id}/destroy`, {
+            .delete(`/company/${row.id}/destroy`, {
                 })
             .then(response => {
                 //console.log(response.data.saskaitos);
@@ -210,7 +210,7 @@ export default {
         getImones () {
         //this.isLoading = true
         this.axios
-        .get('/imones')
+        .get('/company')
         .then(response => {
             //this.isLoading = false
             this.imones = response.data.imones;
@@ -225,7 +225,7 @@ export default {
         },
         edit_post(){
             axios
-            .patch(`/imones/${this.imones_sukurimas.id}/update`, {
+            .patch(`/company/${this.imones_sukurimas.id}`, {
                 pavadinimas: this.imones_sukurimas.imones_pavadinimas,
                 kodas: this.imones_sukurimas.imones_kodas,
                 pvm: this.imones_sukurimas.pvm_kodas,
@@ -246,7 +246,7 @@ export default {
         },
         imones_post(){
             axios
-            .post(`/imones/store`, {
+            .post(`/company/store`, {
                 pavadinimas: this.imones_sukurimas.imones_pavadinimas,
                 kodas: this.imones_sukurimas.imones_kodas,
                 pvm: this.imones_sukurimas.pvm_kodas

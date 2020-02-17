@@ -214,7 +214,7 @@ __webpack_require__.r(__webpack_exports__);
     delete_company: function delete_company(row) {
       var _this = this;
 
-      axios["delete"]("/imones/".concat(row.id, "/destroy"), {}).then(function (response) {
+      axios["delete"]("/company/".concat(row.id, "/destroy"), {}).then(function (response) {
         //console.log(response.data.saskaitos);
         _this.$bvToast.toast("\u012Emon\u0117s duomenys i\u0161trinti s\u0117kmingai", {
           title: "Atlikta",
@@ -232,7 +232,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       //this.isLoading = true
-      this.axios.get('/imones').then(function (response) {
+      this.axios.get('/company').then(function (response) {
         //this.isLoading = false
         _this2.imones = response.data.imones; //sukaiciuojam kiek irasu, puslapiavimui
 
@@ -246,7 +246,7 @@ __webpack_require__.r(__webpack_exports__);
     edit_post: function edit_post() {
       var _this3 = this;
 
-      axios.patch("/imones/".concat(this.imones_sukurimas.id, "/update"), {
+      axios.patch("/company/".concat(this.imones_sukurimas.id), {
         pavadinimas: this.imones_sukurimas.imones_pavadinimas,
         kodas: this.imones_sukurimas.imones_kodas,
         pvm: this.imones_sukurimas.pvm_kodas
@@ -267,7 +267,7 @@ __webpack_require__.r(__webpack_exports__);
     imones_post: function imones_post() {
       var _this4 = this;
 
-      axios.post("/imones/store", {
+      axios.post("/company/store", {
         pavadinimas: this.imones_sukurimas.imones_pavadinimas,
         kodas: this.imones_sukurimas.imones_kodas,
         pvm: this.imones_sukurimas.pvm_kodas
