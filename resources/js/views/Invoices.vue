@@ -60,7 +60,7 @@
                     show-empty
                     small
                     stacked="md"
-                    :items="saskaita"
+                    :items="invoices"
                     :fields="fields"
                     :current-page="currentPage"
                     :per-page="perPage"
@@ -96,11 +96,11 @@
                     <label class="col-sm-3 col-form-label">Operacija:</label>
                     <div class="col-sm-9">
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" v-model='saskaitos.operacija' value="1">
+                        <input class="form-check-input" type="radio" v-model='invoice.operation' value="1">
                         <label class="form-check-label">Pardavimai</label>
                         </div>
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" v-model='saskaitos.operacija' value="2">
+                        <input class="form-check-input" type="radio" v-model='invoice.operation' value="2">
                         <label class="form-check-label">Pirkimai</label>
                         </div>
                     </div>
@@ -109,15 +109,15 @@
                     <label class="col-sm-3 col-form-label">Pinigai:</label>
                     <div class="col-sm-9">
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" v-model='saskaitos.pinigai' value="1">
+                        <input class="form-check-input" type="radio" v-model='invoice.money' value="1">
                         <label class="form-check-label">Kasa</label>
                         </div>
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" v-model='saskaitos.pinigai' value="2">
+                        <input class="form-check-input" type="radio" v-model='invoice.money' value="2">
                         <label class="form-check-label">Bankas</label>
                         </div>
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" v-model='saskaitos.pinigai' value="3">
+                        <input class="form-check-input" type="radio" v-model='invoice.money' value="3">
                         <label class="form-check-label">Skola</label>
                         </div>
                     </div>
@@ -131,50 +131,50 @@
                             <input v-model="imone" type="checkbox">
                             </span>
                         </div>
-                        <b-form-select v-if="imone" v-model="saskaitos.imones_pavadinimas" 
-                        :options="imones"
+                        <b-form-select v-if="imone" v-model="invoice.company_id" 
+                        :options="companies"
                         value-field="id"
-                        text-field="imones_pavadinimas">
+                        text-field="company_name">
                         </b-form-select>
                         <!-- PAdaryti 3 input ivesti naujai imonei, arba issokanti langa kur ivesime imone nauja -->
-                        <input v-else type="text" v-model="saskaitos.imones_pavadinimas" class="form-control">
+                        <input v-else type="text" v-model="invoice.company_id" class="form-control">
                         </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Data:</label>
                     <div class="col-sm-9">
-                    <input type="date" v-model='saskaitos.data' class="form-control">
+                    <input type="date" v-model='invoice.invoice_data' class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Sąskaitos numeris:</label>
                     <div class="col-sm-9">
-                    <input type="text" v-model='saskaitos.numeris' class="form-control">
+                    <input type="text" v-model='invoice.invoice_number' class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Op. pavadinimas:</label>
                     <div class="col-sm-9">
-                    <input type="text" v-model='saskaitos.op_pavadinimas' class="form-control">
+                    <input type="text" v-model='invoice.operation_name' class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Kiekis, mat. vnt:</label>
                     <div class="col-sm-9">
-                    <input type="text" v-model='saskaitos.kiekis' class="form-control">
+                    <input type="text" v-model='invoice.invoice_amount' class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Suma:</label>
                     <div class="col-sm-9">
-                    <input type="text" v-model='saskaitos.suma' class="form-control">
+                    <input type="text" v-model='invoice.invoice_sum' class="form-control">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">PVM:</label>
                     <div class="col-sm-9">
-                    <input type="text" v-model='saskaitos.pvm' class="form-control">
+                    <input type="text" v-model='invoice.invoice_pvm' class="form-control">
                     </div>
                 </div>
             </form>
@@ -186,44 +186,45 @@
 export default {
     data() {
         return {
-            saskaitos: {
-                id: '',
-                operacija: '',
-                pinigai: '',
-                imones_pavadinimas: '',
-                data: '',
-                numeris: '',
-                op_pavadinimas: '',
-                kiekis: '',
-                suma: '',
-                pvm: ''
-            },
+            invoice: {
+                    operation: '',
+                    money: '',
+                    company_id: '',
+                    invoice_data: '',
+                    invoice_number: '',
+                    operation_name: '',
+                    invoice_amount: '',
+                    invoice_unit: '',
+                    invoice_sum: '',
+                    invoice_pvm: ''
+                },
 
             imone: true,
-            imones: [],
-            saskaita: [],
+            companies: [],
+            invoices: [],
             fields: [
                 { key: 'id', label: 'ID', sortable: true, sortDirection: 'desc' },
-                { key: 'operacija', label: 'Operacija', sortable: true, 
+                { key: 'operation', label: 'Operacija', sortable: true, 
                     formatter: (value, key, item) => {
                         if(value == 1){return "Pardavimas";}
                         if(value == 2){return "Pirkimas";}
                         },
                     },
-                { key: 'pinigai', label: 'Pinigai', sortable: true,
+                { key: 'money', label: 'Pinigai', sortable: true,
                     formatter: (value, key, item) => {
                         if(value == 1){return "Kasa";}
                         if(value == 2){return "Bankas";}
                         if(value == 3){return "Skola";}
                         },
                     },
-                { key: 'imones.imones_pavadinimas', label: 'Įmonės pavadinimas', sortable: true, class: 'text-center' },
-                { key: 'data', label: 'Data', sortable: true},
-                { key: 'numeris', label: 'Sąskaitos numeris', sortable: false},
-                { key: 'op_pavadinimas', label: 'Operacijos pavadinimas', sortable: true},
-                { key: 'kiekis', label: 'Kiekis', sortable: false},
-                { key: 'suma', label: 'Suma', sortable: false},
-                { key: 'pvm', label: 'PVM', sortable: false},
+                { key: 'companies.company_name', label: 'Įmonės pavadinimas', sortable: true, class: 'text-center' },
+                { key: 'invoice_data', label: 'Data', sortable: true},
+                { key: 'invoice_number', label: 'Sąskaitos numeris', sortable: false},
+                { key: 'operation_name', label: 'Operacijos pavadinimas', sortable: true},
+                { key: 'invoice_amount', label: 'Kiekis', sortable: false},
+                { key: 'invoice_unit', label: 'Mat. vnt.', sortable: false},
+                { key: 'invoice_sum', label: 'Suma', sortable: false},
+                { key: 'invoice_pvm', label: 'PVM', sortable: false},
                 { key: 'actions', label: 'Veiksmai' }
             ],
             totalRows: 1,
@@ -240,23 +241,24 @@ export default {
     mounted() {},
 
     created() {
-        this.getSaskaitos();
-        this.getImones();
+        this.getInvoices();
+        this.getCompanies();
     },
 
     methods: {
         edit_invoice(row){
             this.$refs['edit_invoice'].show()
-            this.saskaitos.operacija = row.operacija;
-            this.saskaitos.pinigai = row.pinigai;
-            this.saskaitos.imones_pavadinimas = row.imones_id;
-            this.saskaitos.numeris = row.numeris;
-            this.saskaitos.data = row.data;
-            this.saskaitos.op_pavadinimas = row.op_pavadinimas;
-            this.saskaitos.kiekis = row.kiekis;
-            this.saskaitos.suma = row.suma;
-            this.saskaitos.pvm = row.pvm;
-            this.saskaitos.id = row.id;
+            this.invoice.operation = row.operation;
+            this.invoice.money = row.money;
+            this.invoice.company_id = row.company_id;
+            this.invoice.invoice_number = row.invoice_number;
+            this.invoice.invoice_data = row.invoice_data;
+            this.invoice.operation_name = row.oeration_name;
+            this.invoice.invoice_amount = row.invoice_amount;
+            this.invoice.invoice_unit = row.invoice_unit;
+            this.invoice.invoice_sum = row.invoice_sum;
+            this.invoice.invoice_pvm = row.invoice_pvm;
+            this.invoice.id = row.id;
             //console.log(row.id);
         },
         delete_invoice(row){
@@ -270,20 +272,20 @@ export default {
                     variant: "info",
                     solid: true
                 })
-                this.getSaskaitos()
+                this.getInvoices()
             })
             .catch( err => {
             console.log("DELETE:");
             console.log(err.message);
             })
         },
-        getImones () {
+        getCompanies() {
             //this.isLoading = true
             this.axios
             .get('/company')
             .then(response => {
                 //this.isLoading = false
-                this.imones = response.data.imones;
+                this.companies = response.data.company;
                 //console.log(response.data.imones);
             })
             .catch( err => {
@@ -291,15 +293,15 @@ export default {
                 console.log(err.message);
                 })
             },
-        getSaskaitos () {
+        getInvoices() {
         //this.isLoading = true
         this.axios
         .get('/invoice')
         .then(response => {
             //this.isLoading = false
-            this.saskaita = response.data.saskaitos;
+            this.invoices = response.data.invoice;
             //sukaiciuojam kiek irasu, puslapiavimui
-            this.totalRows = this.saskaitos.length
+            this.totalRows = this.invoices.length
             //console.log(response.data.saskaitos);
         })
         .catch( err => {
@@ -310,15 +312,16 @@ export default {
         edit_post(){
             axios
             .patch(`/invoice/${this.saskaitos.id}`, {
-                operacija: this.saskaitos.operacija,
-                pinigai: this.saskaitos.pinigai,
-                imones_id: this.saskaitos.imones_pavadinimas,
-                data: this.saskaitos.data,
-                numeris: this.saskaitos.numeris,
-                op_pavadinimas: this.saskaitos.op_pavadinimas,
-                kiekis: this.saskaitos.kiekis,
-                suma: this.saskaitos.suma,
-                pvm: this.saskaitos.pvm
+                operation: this.invoice.operation,
+                money: this.invoice.money,
+                company_id: this.invoice.company_id,
+                invoice_data: this.invoice.invoice_data,
+                invoice_number: this.invoice.invoice_number,
+                operation_name: this.invoice.operation_name,
+                invoice_amount: this.invoice.invoice_amount,
+                invoice_unit: this.invoice.invoice_unit,
+                invoice_sum: this.invoice.invoice_sum,
+                invoice_pvm: this.invoice.invoice_pvm
                 })
             .then(response => {
                 //console.log(response.data.saskaitos);
@@ -327,7 +330,7 @@ export default {
                     variant: "info",
                     solid: true
                 })
-                this.getSaskaitos()
+                this.getInvoices()
             })
             .catch( err => {
             console.log("POST:");

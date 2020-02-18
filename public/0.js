@@ -850,7 +850,7 @@ var render = function() {
                               attrs: {
                                 options: _vm.companies,
                                 "value-field": "id",
-                                "text-field": "imones_pavadinimas"
+                                "text-field": "company_name"
                               },
                               model: {
                                 value: _vm.invoice.company_name,

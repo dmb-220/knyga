@@ -17,7 +17,7 @@
                     <router-link tag="a" to="/" class="btn btn-app">
                         <i class="fa fa-arrow-left"></i> Atgal
                     </router-link>
-                    <button type="button" v-b-modal.imoniu_ikelimas class="btn btn-app btn-info">
+                    <button type="button" v-b-modal.create_company class="btn btn-app btn-warning">
                         <i class="far fa-plus-square"></i> Nauja įmonė
                         </button>
                 </div>
@@ -64,7 +64,7 @@
                     show-empty
                     small
                     stacked="md"
-                    :items="imones"
+                    :items="companies"
                     :fields="fields"
                     :current-page="currentPage"
                     :per-page="perPage"
@@ -88,29 +88,29 @@
               </div>
             </div>
         </div>
-        <b-modal id="imoniu_ikelimas" size="lg" title="Įmonių įkėlimas"
+        <b-modal id="create_company" size="lg" title="Įmonių įkėlimas"
         ok-title="Išsaugoti"
         cancel-title="Uždaryti"
         no-close-on-esc
         no-close-on-backdrop
-        @ok="imoneOk">
+        @ok="companyOk">
         <form class="form-horizontal">
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Pavadinimas:</label>
                 <div class="col-sm-9">
-                <input type="text" v-model="imones_sukurimas.imones_pavadinimas" class="form-control">
+                <input type="text" v-model="company.company_name" class="form-control">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Įmonės kodas:</label>
                 <div class="col-sm-9">
-                <input type="text" v-model="imones_sukurimas.imones_kodas" class="form-control">
+                <input type="text" v-model="company.company_code" class="form-control">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">PVM kodas:</label>
                 <div class="col-sm-9">
-                <input type="text" v-model='imones_sukurimas.pvm_kodas' class="form-control">
+                <input type="text" v-model='company.pvm_code' class="form-control">
                 </div>
             </div>
         </form>
@@ -120,24 +120,24 @@
         cancel-title="Uždaryti"
         no-close-on-esc
         no-close-on-backdrop
-        @ok="imoneEdit">
+        @ok="companyEdit">
         <form class="form-horizontal">
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Pavadinimas:</label>
                 <div class="col-sm-9">
-                <input type="text" v-model="imones_sukurimas.imones_pavadinimas" class="form-control">
+                <input type="text" v-model="company.company_name" class="form-control">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Įmonės kodas:</label>
                 <div class="col-sm-9">
-                <input type="text" v-model="imones_sukurimas.imones_kodas" class="form-control">
+                <input type="text" v-model="company.company_code" class="form-control">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">PVM kodas:</label>
                 <div class="col-sm-9">
-                <input type="text" v-model='imones_sukurimas.pvm_kodas' class="form-control">
+                <input type="text" v-model='company.pvm_code' class="form-control">
                 </div>
             </div>
         </form>
@@ -149,18 +149,18 @@
 export default {
     data() {
         return {
-            imones_sukurimas: {
+            company: {
                 id: '',
-                imones_pavadinimas: '',
-                imones_kodas: '',
-                pvm_kodas: ''
+                company_name: '',
+                company_code: '',
+                pvm_code: ''
             },
-            imones: [],
+            companies: [],
             fields: [
                 { key: 'id', label: 'ID', sortable: true, sortDirection: 'desc' },
-                { key: 'imones_pavadinimas', label: 'Įmonės pavadinimas', sortable: true, class: 'text-center' },
-                { key: 'imones_kodas', label: 'Įmonės kodas', sortable: false},
-                { key: 'pvm_kodas', label: 'PVM kodas', sortable: false},
+                { key: 'company_name', label: 'Įmonės pavadinimas', sortable: true, class: 'text-center' },
+                { key: 'company_code', label: 'Įmonės kodas', sortable: false},
+                { key: 'pvm_code', label: 'PVM kodas', sortable: false},
                 { key: 'actions', label: 'Veiksmai' }
             ],
             totalRows: 1,
@@ -177,16 +177,16 @@ export default {
     mounted() {},
 
     created() {
-        this.getImones()
+        this.getCompanies()
     },
 
     methods: {
         edit_company(row){
             this.$refs['edit_company'].show()
-            this.imones_sukurimas.imones_pavadinimas = row.imones_pavadinimas;
-            this.imones_sukurimas.imones_kodas = row.imones_kodas;
-            this.imones_sukurimas.pvm_kodas = row.pvm_kodas;
-            this.imones_sukurimas.id = row.id;
+            this.company.company_name = row.company_name;
+            this.company.company_code = row.company_code;
+            this.company.pvm_code = row.pvm_code;
+            this.company.id = row.id;
             //console.log(row.id);
         },
         delete_company(row){
@@ -200,23 +200,23 @@ export default {
                     variant: "info",
                     solid: true
                 })
-                this.getImones()
+                this.getCompanies()
             })
             .catch( err => {
             console.log("DELETE:");
             console.log(err.message);
             })
         },
-        getImones () {
+        getCompanies() {
         //this.isLoading = true
         this.axios
         .get('/company')
         .then(response => {
             //this.isLoading = false
-            this.imones = response.data.imones;
+            this.companies = response.data.company;
             //sukaiciuojam kiek irasu, puslapiavimui
-            this.totalRows = this.imones.length
-            console.log(response.data.imones);
+            this.totalRows = this.companies.length
+            console.log(response.data.company);
         })
         .catch( err => {
             console.log("GET:");
@@ -225,10 +225,10 @@ export default {
         },
         edit_post(){
             axios
-            .patch(`/company/${this.imones_sukurimas.id}`, {
-                pavadinimas: this.imones_sukurimas.imones_pavadinimas,
-                kodas: this.imones_sukurimas.imones_kodas,
-                pvm: this.imones_sukurimas.pvm_kodas,
+            .patch(`/company/${this.company.id}`, {
+                company_name: this.company.company_name,
+                company_code: this.company.company_code,
+                pvm_code: this.company.pvm_code,
                 })
             .then(response => {
                 //console.log(response.data.saskaitos);
@@ -237,39 +237,39 @@ export default {
                     variant: "info",
                     solid: true
                 })
-                this.getImones()
+                this.getCompanies()
             })
             .catch( err => {
             console.log("POST:");
             console.log(err.message);
             })
         },
-        imones_post(){
+        companies_post(){
             axios
             .post(`/company/store`, {
-                pavadinimas: this.imones_sukurimas.imones_pavadinimas,
-                kodas: this.imones_sukurimas.imones_kodas,
-                pvm: this.imones_sukurimas.pvm_kodas
+                company_name: this.company.company_name,
+                company_code: this.company.company_code,
+                pvm_code: this.company.pvm_code,
                 })
             .then(response => {
                 console.log(response.data.status)
-                this.getData()
+                this.getCompanies()
             })
             .catch( err => {
             console.log("POST:");
             console.log(err.message);
             })
         },
-        imoneOk(bvModalEvt) {
+        companyOk(bvModalEvt) {
             // Prevent modal from closing
             bvModalEvt.preventDefault()
-            this.imones_post();
+            this.companies_post();
             // Trigger submit handler
             this.$nextTick(() => {
-            this.$bvModal.hide('imoniu_ikelimas')
+            this.$bvModal.hide('create_company')
             })
         }, 
-        imoneEdit(bvModalEvt) {
+        companyEdit(bvModalEvt) {
             // Prevent modal from closing
             bvModalEvt.preventDefault()
             this.edit_post();

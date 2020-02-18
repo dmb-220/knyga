@@ -196,28 +196,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      saskaitos: {
-        id: '',
-        operacija: '',
-        pinigai: '',
-        imones_pavadinimas: '',
-        data: '',
-        numeris: '',
-        op_pavadinimas: '',
-        kiekis: '',
-        suma: '',
-        pvm: ''
+      invoice: {
+        operation: '',
+        money: '',
+        company_id: '',
+        invoice_data: '',
+        invoice_number: '',
+        operation_name: '',
+        invoice_amount: '',
+        invoice_unit: '',
+        invoice_sum: '',
+        invoice_pvm: ''
       },
       imone: true,
-      imones: [],
-      saskaita: [],
+      companies: [],
+      invoices: [],
       fields: [{
         key: 'id',
         label: 'ID',
         sortable: true,
         sortDirection: 'desc'
       }, {
-        key: 'operacija',
+        key: 'operation',
         label: 'Operacija',
         sortable: true,
         formatter: function formatter(value, key, item) {
@@ -230,7 +230,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }, {
-        key: 'pinigai',
+        key: 'money',
         label: 'Pinigai',
         sortable: true,
         formatter: function formatter(value, key, item) {
@@ -247,32 +247,36 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }, {
-        key: 'imones.imones_pavadinimas',
+        key: 'companies.company_name',
         label: 'Įmonės pavadinimas',
         sortable: true,
         "class": 'text-center'
       }, {
-        key: 'data',
+        key: 'invoice_data',
         label: 'Data',
         sortable: true
       }, {
-        key: 'numeris',
+        key: 'invoice_number',
         label: 'Sąskaitos numeris',
         sortable: false
       }, {
-        key: 'op_pavadinimas',
+        key: 'operation_name',
         label: 'Operacijos pavadinimas',
         sortable: true
       }, {
-        key: 'kiekis',
+        key: 'invoice_amount',
         label: 'Kiekis',
         sortable: false
       }, {
-        key: 'suma',
+        key: 'invoice_unit',
+        label: 'Mat. vnt.',
+        sortable: false
+      }, {
+        key: 'invoice_sum',
         label: 'Suma',
         sortable: false
       }, {
-        key: 'pvm',
+        key: 'invoice_pvm',
         label: 'PVM',
         sortable: false
       }, {
@@ -292,22 +296,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {},
   created: function created() {
-    this.getSaskaitos();
-    this.getImones();
+    this.getInvoices();
+    this.getCompanies();
   },
   methods: {
     edit_invoice: function edit_invoice(row) {
       this.$refs['edit_invoice'].show();
-      this.saskaitos.operacija = row.operacija;
-      this.saskaitos.pinigai = row.pinigai;
-      this.saskaitos.imones_pavadinimas = row.imones_id;
-      this.saskaitos.numeris = row.numeris;
-      this.saskaitos.data = row.data;
-      this.saskaitos.op_pavadinimas = row.op_pavadinimas;
-      this.saskaitos.kiekis = row.kiekis;
-      this.saskaitos.suma = row.suma;
-      this.saskaitos.pvm = row.pvm;
-      this.saskaitos.id = row.id; //console.log(row.id);
+      this.invoice.operation = row.operation;
+      this.invoice.money = row.money;
+      this.invoice.company_id = row.company_id;
+      this.invoice.invoice_number = row.invoice_number;
+      this.invoice.invoice_data = row.invoice_data;
+      this.invoice.operation_name = row.oeration_name;
+      this.invoice.invoice_amount = row.invoice_amount;
+      this.invoice.invoice_unit = row.invoice_unit;
+      this.invoice.invoice_sum = row.invoice_sum;
+      this.invoice.invoice_pvm = row.invoice_pvm;
+      this.invoice.id = row.id; //console.log(row.id);
     },
     delete_invoice: function delete_invoice(row) {
       var _this = this;
@@ -320,33 +325,33 @@ __webpack_require__.r(__webpack_exports__);
           solid: true
         });
 
-        _this.getSaskaitos();
+        _this.getInvoices();
       })["catch"](function (err) {
         console.log("DELETE:");
         console.log(err.message);
       });
     },
-    getImones: function getImones() {
+    getCompanies: function getCompanies() {
       var _this2 = this;
 
       //this.isLoading = true
       this.axios.get('/company').then(function (response) {
         //this.isLoading = false
-        _this2.imones = response.data.imones; //console.log(response.data.imones);
+        _this2.companies = response.data.company; //console.log(response.data.imones);
       })["catch"](function (err) {
         console.log("GET:");
         console.log(err.message);
       });
     },
-    getSaskaitos: function getSaskaitos() {
+    getInvoices: function getInvoices() {
       var _this3 = this;
 
       //this.isLoading = true
       this.axios.get('/invoice').then(function (response) {
         //this.isLoading = false
-        _this3.saskaita = response.data.saskaitos; //sukaiciuojam kiek irasu, puslapiavimui
+        _this3.invoices = response.data.invoice; //sukaiciuojam kiek irasu, puslapiavimui
 
-        _this3.totalRows = _this3.saskaitos.length; //console.log(response.data.saskaitos);
+        _this3.totalRows = _this3.invoices.length; //console.log(response.data.saskaitos);
       })["catch"](function (err) {
         console.log("GET:");
         console.log(err.message);
@@ -356,15 +361,16 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       axios.patch("/invoice/".concat(this.saskaitos.id), {
-        operacija: this.saskaitos.operacija,
-        pinigai: this.saskaitos.pinigai,
-        imones_id: this.saskaitos.imones_pavadinimas,
-        data: this.saskaitos.data,
-        numeris: this.saskaitos.numeris,
-        op_pavadinimas: this.saskaitos.op_pavadinimas,
-        kiekis: this.saskaitos.kiekis,
-        suma: this.saskaitos.suma,
-        pvm: this.saskaitos.pvm
+        operation: this.invoice.operation,
+        money: this.invoice.money,
+        company_id: this.invoice.company_id,
+        invoice_data: this.invoice.invoice_data,
+        invoice_number: this.invoice.invoice_number,
+        operation_name: this.invoice.operation_name,
+        invoice_amount: this.invoice.invoice_amount,
+        invoice_unit: this.invoice.invoice_unit,
+        invoice_sum: this.invoice.invoice_sum,
+        invoice_pvm: this.invoice.invoice_pvm
       }).then(function (response) {
         //console.log(response.data.saskaitos);
         _this4.$bvToast.toast("S\u0105skaitos duomenys atnaujinti s\u0117kmingai", {
@@ -373,7 +379,7 @@ __webpack_require__.r(__webpack_exports__);
           solid: true
         });
 
-        _this4.getSaskaitos();
+        _this4.getInvoices();
       })["catch"](function (err) {
         console.log("POST:");
         console.log(err.message);
@@ -519,7 +525,7 @@ var render = function() {
                   "show-empty": "",
                   small: "",
                   stacked: "md",
-                  items: _vm.saskaita,
+                  items: _vm.invoices,
                   fields: _vm.fields,
                   "current-page": _vm.currentPage,
                   "per-page": _vm.perPage,
@@ -644,18 +650,16 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.saskaitos.operacija,
-                          expression: "saskaitos.operacija"
+                          value: _vm.invoice.operation,
+                          expression: "invoice.operation"
                         }
                       ],
                       staticClass: "form-check-input",
                       attrs: { type: "radio", value: "1" },
-                      domProps: {
-                        checked: _vm._q(_vm.saskaitos.operacija, "1")
-                      },
+                      domProps: { checked: _vm._q(_vm.invoice.operation, "1") },
                       on: {
                         change: function($event) {
-                          return _vm.$set(_vm.saskaitos, "operacija", "1")
+                          return _vm.$set(_vm.invoice, "operation", "1")
                         }
                       }
                     }),
@@ -671,18 +675,16 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.saskaitos.operacija,
-                          expression: "saskaitos.operacija"
+                          value: _vm.invoice.operation,
+                          expression: "invoice.operation"
                         }
                       ],
                       staticClass: "form-check-input",
                       attrs: { type: "radio", value: "2" },
-                      domProps: {
-                        checked: _vm._q(_vm.saskaitos.operacija, "2")
-                      },
+                      domProps: { checked: _vm._q(_vm.invoice.operation, "2") },
                       on: {
                         change: function($event) {
-                          return _vm.$set(_vm.saskaitos, "operacija", "2")
+                          return _vm.$set(_vm.invoice, "operation", "2")
                         }
                       }
                     }),
@@ -706,16 +708,16 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.saskaitos.pinigai,
-                          expression: "saskaitos.pinigai"
+                          value: _vm.invoice.money,
+                          expression: "invoice.money"
                         }
                       ],
                       staticClass: "form-check-input",
                       attrs: { type: "radio", value: "1" },
-                      domProps: { checked: _vm._q(_vm.saskaitos.pinigai, "1") },
+                      domProps: { checked: _vm._q(_vm.invoice.money, "1") },
                       on: {
                         change: function($event) {
-                          return _vm.$set(_vm.saskaitos, "pinigai", "1")
+                          return _vm.$set(_vm.invoice, "money", "1")
                         }
                       }
                     }),
@@ -731,16 +733,16 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.saskaitos.pinigai,
-                          expression: "saskaitos.pinigai"
+                          value: _vm.invoice.money,
+                          expression: "invoice.money"
                         }
                       ],
                       staticClass: "form-check-input",
                       attrs: { type: "radio", value: "2" },
-                      domProps: { checked: _vm._q(_vm.saskaitos.pinigai, "2") },
+                      domProps: { checked: _vm._q(_vm.invoice.money, "2") },
                       on: {
                         change: function($event) {
-                          return _vm.$set(_vm.saskaitos, "pinigai", "2")
+                          return _vm.$set(_vm.invoice, "money", "2")
                         }
                       }
                     }),
@@ -756,16 +758,16 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.saskaitos.pinigai,
-                          expression: "saskaitos.pinigai"
+                          value: _vm.invoice.money,
+                          expression: "invoice.money"
                         }
                       ],
                       staticClass: "form-check-input",
                       attrs: { type: "radio", value: "3" },
-                      domProps: { checked: _vm._q(_vm.saskaitos.pinigai, "3") },
+                      domProps: { checked: _vm._q(_vm.invoice.money, "3") },
                       on: {
                         change: function($event) {
-                          return _vm.$set(_vm.saskaitos, "pinigai", "3")
+                          return _vm.$set(_vm.invoice, "money", "3")
                         }
                       }
                     }),
@@ -832,20 +834,16 @@ var render = function() {
                       _vm.imone
                         ? _c("b-form-select", {
                             attrs: {
-                              options: _vm.imones,
+                              options: _vm.companies,
                               "value-field": "id",
-                              "text-field": "imones_pavadinimas"
+                              "text-field": "company_name"
                             },
                             model: {
-                              value: _vm.saskaitos.imones_pavadinimas,
+                              value: _vm.invoice.company_id,
                               callback: function($$v) {
-                                _vm.$set(
-                                  _vm.saskaitos,
-                                  "imones_pavadinimas",
-                                  $$v
-                                )
+                                _vm.$set(_vm.invoice, "company_id", $$v)
                               },
-                              expression: "saskaitos.imones_pavadinimas"
+                              expression: "invoice.company_id"
                             }
                           })
                         : _c("input", {
@@ -853,23 +851,21 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.saskaitos.imones_pavadinimas,
-                                expression: "saskaitos.imones_pavadinimas"
+                                value: _vm.invoice.company_id,
+                                expression: "invoice.company_id"
                               }
                             ],
                             staticClass: "form-control",
                             attrs: { type: "text" },
-                            domProps: {
-                              value: _vm.saskaitos.imones_pavadinimas
-                            },
+                            domProps: { value: _vm.invoice.company_id },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
                                 _vm.$set(
-                                  _vm.saskaitos,
-                                  "imones_pavadinimas",
+                                  _vm.invoice,
+                                  "company_id",
                                   $event.target.value
                                 )
                               }
@@ -892,19 +888,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.saskaitos.data,
-                        expression: "saskaitos.data"
+                        value: _vm.invoice.invoice_data,
+                        expression: "invoice.invoice_data"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "date" },
-                    domProps: { value: _vm.saskaitos.data },
+                    domProps: { value: _vm.invoice.invoice_data },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.saskaitos, "data", $event.target.value)
+                        _vm.$set(
+                          _vm.invoice,
+                          "invoice_data",
+                          $event.target.value
+                        )
                       }
                     }
                   })
@@ -922,19 +922,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.saskaitos.numeris,
-                        expression: "saskaitos.numeris"
+                        value: _vm.invoice.invoice_number,
+                        expression: "invoice.invoice_number"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "text" },
-                    domProps: { value: _vm.saskaitos.numeris },
+                    domProps: { value: _vm.invoice.invoice_number },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.saskaitos, "numeris", $event.target.value)
+                        _vm.$set(
+                          _vm.invoice,
+                          "invoice_number",
+                          $event.target.value
+                        )
                       }
                     }
                   })
@@ -952,21 +956,21 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.saskaitos.op_pavadinimas,
-                        expression: "saskaitos.op_pavadinimas"
+                        value: _vm.invoice.operation_name,
+                        expression: "invoice.operation_name"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "text" },
-                    domProps: { value: _vm.saskaitos.op_pavadinimas },
+                    domProps: { value: _vm.invoice.operation_name },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
                         _vm.$set(
-                          _vm.saskaitos,
-                          "op_pavadinimas",
+                          _vm.invoice,
+                          "operation_name",
                           $event.target.value
                         )
                       }
@@ -986,19 +990,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.saskaitos.kiekis,
-                        expression: "saskaitos.kiekis"
+                        value: _vm.invoice.invoice_amount,
+                        expression: "invoice.invoice_amount"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "text" },
-                    domProps: { value: _vm.saskaitos.kiekis },
+                    domProps: { value: _vm.invoice.invoice_amount },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.saskaitos, "kiekis", $event.target.value)
+                        _vm.$set(
+                          _vm.invoice,
+                          "invoice_amount",
+                          $event.target.value
+                        )
                       }
                     }
                   })
@@ -1016,19 +1024,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.saskaitos.suma,
-                        expression: "saskaitos.suma"
+                        value: _vm.invoice.invoice_sum,
+                        expression: "invoice.invoice_sum"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "text" },
-                    domProps: { value: _vm.saskaitos.suma },
+                    domProps: { value: _vm.invoice.invoice_sum },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.saskaitos, "suma", $event.target.value)
+                        _vm.$set(
+                          _vm.invoice,
+                          "invoice_sum",
+                          $event.target.value
+                        )
                       }
                     }
                   })
@@ -1046,19 +1058,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.saskaitos.pvm,
-                        expression: "saskaitos.pvm"
+                        value: _vm.invoice.invoice_pvm,
+                        expression: "invoice.invoice_pvm"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: { type: "text" },
-                    domProps: { value: _vm.saskaitos.pvm },
+                    domProps: { value: _vm.invoice.invoice_pvm },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.saskaitos, "pvm", $event.target.value)
+                        _vm.$set(
+                          _vm.invoice,
+                          "invoice_pvm",
+                          $event.target.value
+                        )
                       }
                     }
                   })

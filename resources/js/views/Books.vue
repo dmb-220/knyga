@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="card-body text-center">
-                    <a v-b-modal.saskaitu_ikelimas class="btn btn-app">
+                    <a v-b-modal.create_invoice class="btn btn-app">
                         <i class="fas fa-file-invoice"></i> Įkelti sąskaitą
                     </a>
                     <router-link tag="a" to="/invoices" class="btn btn-app">
@@ -45,7 +45,7 @@
                 <!-- /.card-body -->
             </div>
             
-            <b-modal id="saskaitu_ikelimas" size="lg" title="Sąskaitų įkėlimas"
+            <b-modal id="create_invoice" size="lg" title="Sąskaitų įkėlimas"
                 ok-title="Išsaugoti"
                 cancel-title="Uždaryti"
                 no-close-on-esc
@@ -94,7 +94,7 @@
                             <b-form-select v-if="imone" v-model="invoice.company_name" 
                             :options="companies"
                             value-field="id"
-                            text-field="imones_pavadinimas">
+                            text-field="company_name">
                             </b-form-select>
                             <!-- PAdaryti 3 input ivesti naujai imonei, arba issokanti langa kur ivesime imone nauja -->
                             <input v-else type="text" v-model="invoice.company_names" class="form-control">
@@ -366,8 +366,8 @@
         },
 
         created() {
-            this.getImones();
-            this.getSaskaitos();
+            this.getCompannies();
+            this.getInvoices();
         },
 
         methods: {
@@ -376,7 +376,7 @@
                 if(this.metai == this.set_metai){
                     if(menesis <= this.men){
                         this.menuo = menesis;
-                        this.getSaskaitos ();
+                        this.getInvoices();
                         this.$bvToast.toast(`${this.menesiai[menesis]} pasirinktas`, {
                             title: `Atlikta`,
                             variant: "info",
@@ -391,7 +391,7 @@
                     }
                 }else{
                     this.menuo = menesis;
-                    this.getSaskaitos ();
+                    this.getInvoices();
                     this.$bvToast.toast(`${this.menesiai[menesis]} pasirinktas`, {
                         title: `Atlikta`,
                         variant: "info",
@@ -399,7 +399,7 @@
                     })
                 }
             },
-            getImones () {
+            getCompanies() {
             //this.isLoading = true
             this.axios
             .get('/company')
@@ -413,7 +413,7 @@
                 console.log(err.message);
                 })
             },
-            getSaskaitos () {
+            getInvoices() {
             this.axios
             .get(`/invoice?month=${this.menuo+1}`)
             .then(response => {
@@ -427,18 +427,19 @@
                     }) 
                 })
             },
-            saskaitos_post(){
+            invoice_post(){
                 axios
                 .post(`/invoice/store`, {
-                    operacija: this.saskaitos.operacija,
-                    pinigai: this.saskaitos.pinigai,
-                    imones_pavadinimas: this.saskaitos.imones_pavadinimas,
-                    data: this.saskaitos.data,
-                    numeris: this.saskaitos.numeris,
-                    op_pavadinimas: this.saskaitos.op_pavadinimas,
-                    kiekis: this.saskaitos.kiekis,
-                    suma: this.saskaitos.suma,
-                    pvm: this.saskaitos.pvm
+                    operation: this.invoice.operation,
+                    money: this.invoice.money,
+                    company_id: this.invoice.company_id,
+                    invoice_data: this.invoice.invoice_data,
+                    invoice_number: this.invoice.invoice_number,
+                    operation_name: this.invoice.operation_name,
+                    invoice_amount: this.invoice.invoice_amount,
+                    invoice_unit: this.invoice.invoice_unit,
+                    invoice_sum: this.invoice.invoice_sum,
+                    invoice_pvm: this.invoice.invoice_pvm
                     })
                 .then(response => {
                     this.$bvToast.toast(`Nauja sąskaita įkelta`, {
@@ -446,7 +447,7 @@
                         variant: "info",
                         solid: true
                     })
-                    this.getSaskaitos()
+                    this.getInvoices()
                 })
                 .catch( err => {
                 console.log("POST:");
@@ -473,10 +474,10 @@
             handleOk(bvModalEvt) {
                 // Prevent modal from closing
                 bvModalEvt.preventDefault()
-                this.saskaitos_post();
+                this.invoice_post();
                 // Trigger submit handler
                 this.$nextTick(() => {
-                this.$bvModal.hide('saskaitu_ikelimas')
+                this.$bvModal.hide('create_invoice')
                 })
             },        
         }
