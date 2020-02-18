@@ -367,8 +367,8 @@ __webpack_require__.r(__webpack_exports__);
     this.menuo = this.men;
   },
   created: function created() {
-    this.getImones();
-    this.getSaskaitos();
+    this.getCompanies();
+    this.getInvoices();
   },
   methods: {
     pasirinkti_menesi: function pasirinkti_menesi(menesis) {
@@ -376,7 +376,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.metai == this.set_metai) {
         if (menesis <= this.men) {
           this.menuo = menesis;
-          this.getSaskaitos();
+          this.getInvoices();
           this.$bvToast.toast("".concat(this.menesiai[menesis], " pasirinktas"), {
             title: "Atlikta",
             variant: "info",
@@ -391,7 +391,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       } else {
         this.menuo = menesis;
-        this.getSaskaitos();
+        this.getInvoices();
         this.$bvToast.toast("".concat(this.menesiai[menesis], " pasirinktas"), {
           title: "Atlikta",
           variant: "info",
@@ -399,7 +399,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    getImones: function getImones() {
+    getCompanies: function getCompanies() {
       var _this = this;
 
       //this.isLoading = true
@@ -412,7 +412,7 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err.message);
       });
     },
-    getSaskaitos: function getSaskaitos() {
+    getInvoices: function getInvoices() {
       var _this2 = this;
 
       this.axios.get("/invoice?month=".concat(this.menuo + 1)).then(function (response) {
@@ -425,19 +425,20 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    saskaitos_post: function saskaitos_post() {
+    invoice_post: function invoice_post() {
       var _this3 = this;
 
       axios.post("/invoice/store", {
-        operacija: this.saskaitos.operacija,
-        pinigai: this.saskaitos.pinigai,
-        imones_pavadinimas: this.saskaitos.imones_pavadinimas,
-        data: this.saskaitos.data,
-        numeris: this.saskaitos.numeris,
-        op_pavadinimas: this.saskaitos.op_pavadinimas,
-        kiekis: this.saskaitos.kiekis,
-        suma: this.saskaitos.suma,
-        pvm: this.saskaitos.pvm
+        operation: this.invoice.operation,
+        money: this.invoice.money,
+        company_id: this.invoice.company_id,
+        invoice_data: this.invoice.invoice_data,
+        invoice_number: this.invoice.invoice_number,
+        operation_name: this.invoice.operation_name,
+        invoice_amount: this.invoice.invoice_amount,
+        invoice_unit: this.invoice.invoice_unit,
+        invoice_sum: this.invoice.invoice_sum,
+        invoice_pvm: this.invoice.invoice_pvm
       }).then(function (response) {
         _this3.$bvToast.toast("Nauja s\u0105skaita \u012Fkelta", {
           title: "Atlikta",
@@ -445,7 +446,7 @@ __webpack_require__.r(__webpack_exports__);
           solid: true
         });
 
-        _this3.getSaskaitos();
+        _this3.getInvoices();
       })["catch"](function (err) {
         console.log("POST:");
         console.log(err.message);
@@ -473,10 +474,10 @@ __webpack_require__.r(__webpack_exports__);
 
       // Prevent modal from closing
       bvModalEvt.preventDefault();
-      this.saskaitos_post(); // Trigger submit handler
+      this.invoice_post(); // Trigger submit handler
 
       this.$nextTick(function () {
-        _this4.$bvModal.hide('saskaitu_ikelimas');
+        _this4.$bvModal.hide('create_invoice');
       });
     }
   }
@@ -568,8 +569,8 @@ var render = function() {
                   directives: [
                     {
                       name: "b-modal",
-                      rawName: "v-b-modal.saskaitu_ikelimas",
-                      modifiers: { saskaitu_ikelimas: true }
+                      rawName: "v-b-modal.create_invoice",
+                      modifiers: { create_invoice: true }
                     }
                   ],
                   staticClass: "btn btn-app"
@@ -624,7 +625,7 @@ var render = function() {
           "b-modal",
           {
             attrs: {
-              id: "saskaitu_ikelimas",
+              id: "create_invoice",
               size: "lg",
               title: "Sąskaitų įkėlimas",
               "ok-title": "Išsaugoti",

@@ -366,7 +366,7 @@
         },
 
         created() {
-            this.getCompannies();
+            this.getCompanies();
             this.getInvoices();
         },
 
