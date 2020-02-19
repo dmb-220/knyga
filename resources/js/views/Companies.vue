@@ -94,11 +94,12 @@
         no-close-on-esc
         no-close-on-backdrop
         @ok="companyOk">
-        <form class="form-horizontal">
-            <div class="form-group row">
+        <form class="form-horizontal"> 
+            <div class="form-group row" :class="{error: validation.hasError('company_name')}">
                 <label class="col-sm-3 col-form-label">Pavadinimas:</label>
                 <div class="col-sm-9">
-                <input type="text" v-model="company.company_name" class="form-control">
+                    <input type="text" v-model.trim="company_name" class="form-control"/>
+                    <div class="error">{{ validation.firstError('company_name') }}</div>
                 </div>
             </div>
             <div class="form-group row">
@@ -146,9 +147,11 @@
 </template>
 
 <script>
+import { Validator } from 'simple-vue-validator';
 export default {
     data() {
         return {
+            company_name: '',
             company: {
                 id: '',
                 company_name: '',
@@ -173,6 +176,11 @@ export default {
             filter: null,
             filterOn: [],
         }
+    },
+    validators: {
+      company_name(value) {
+        return Validator.value(value).required().email();
+      },
     },
     mounted() {},
 
@@ -263,11 +271,22 @@ export default {
         companyOk(bvModalEvt) {
             // Prevent modal from closing
             bvModalEvt.preventDefault()
-            this.companies_post();
+            this.$validate()
+            .then(function (success) {
+                if (success) {
+                    //this.companies_post();
+                    // Trigger submit handler
+                    this.$nextTick(() => {
+                    this.$bvModal.hide('create_company')
+                    })
+                alert('Validation succeeded!');
+                }
+            });
+            //this.companies_post();
             // Trigger submit handler
-            this.$nextTick(() => {
-            this.$bvModal.hide('create_company')
-            })
+            //this.$nextTick(() => {
+            //this.$bvModal.hide('create_company')
+            //})
         }, 
         companyEdit(bvModalEvt) {
             // Prevent modal from closing

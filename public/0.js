@@ -325,6 +325,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -341,7 +350,7 @@ __webpack_require__.r(__webpack_exports__);
         invoice_number: '',
         operation_name: '',
         invoice_amount: '',
-        invoice_unit: '',
+        invoice_unit: '0',
         invoice_sum: '',
         invoice_pvm: ''
       },
@@ -355,8 +364,8 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     sortedData: function sortedData() {
       function compare(a, b) {
-        if (a.data < b.data) return -1;
-        if (a.data > b.data) return 1;
+        if (a.invoice_data < b.invoice_data) return -1;
+        if (a.invoice_data > b.invoice_data) return 1;
         return 0;
       }
 
@@ -452,23 +461,6 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err.message);
       });
     },
-
-    /*imones_post(){
-        axios
-        .post(`/imones/store`, {
-            pavadinimas: this.imones_sukurimas.imones_pavadinimas,
-            kodas: this.imones_sukurimas.imones_kodas,
-            pvm: this.imones_sukurimas.pvm_kodas
-            })
-        .then(response => {
-            console.log(response.data.status)
-            //this.getData()
-        })
-        .catch( err => {
-        console.log("POST:");
-        console.log(err.message);
-        })
-    },*/
     handleOk: function handleOk(bvModalEvt) {
       var _this4 = this;
 
@@ -854,11 +846,11 @@ var render = function() {
                                 "text-field": "company_name"
                               },
                               model: {
-                                value: _vm.invoice.company_name,
+                                value: _vm.invoice.company_id,
                                 callback: function($$v) {
-                                  _vm.$set(_vm.invoice, "company_name", $$v)
+                                  _vm.$set(_vm.invoice, "company_id", $$v)
                                 },
-                                expression: "invoice.company_name"
+                                expression: "invoice.company_id"
                               }
                             })
                           : _c("input", {
@@ -866,13 +858,13 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.invoice.company_names,
-                                  expression: "invoice.company_names"
+                                  value: _vm.invoice.company_id,
+                                  expression: "invoice.company_id"
                                 }
                               ],
                               staticClass: "form-control",
                               attrs: { type: "text" },
-                              domProps: { value: _vm.invoice.company_names },
+                              domProps: { value: _vm.invoice.company_id },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -880,7 +872,7 @@ var render = function() {
                                   }
                                   _vm.$set(
                                     _vm.invoice,
-                                    "company_names",
+                                    "company_id",
                                     $event.target.value
                                   )
                                 }
@@ -996,10 +988,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group row" }, [
                   _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-                    _vm._v("Kiekis, mat. vnt:")
+                    _vm._v("Kiekis, mato. vnt:")
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-9" }, [
+                  _c("div", { staticClass: "col-sm-5" }, [
                     _c("input", {
                       directives: [
                         {
@@ -1025,6 +1017,63 @@ var render = function() {
                         }
                       }
                     })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-4" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.invoice.invoice_unit,
+                            expression: "invoice.invoice_unit"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.invoice,
+                              "invoice_unit",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "0", disabled: "" } }, [
+                          _vm._v("Pasirinkite")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("Vienetai")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2" } }, [
+                          _vm._v("Litrai")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "3" } }, [
+                          _vm._v("Kilogramai")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "4" } }, [
+                          _vm._v("Kubai")
+                        ])
+                      ]
+                    )
                   ])
                 ]),
                 _vm._v(" "),
@@ -1199,18 +1248,10 @@ var render = function() {
                         ? _c("td", { staticClass: "bg-danger" }, [
                             _vm._v(_vm._s(idx.invoice_sum))
                           ])
-                        : idx.money == 2 && idx.operation == 1
-                        ? _c("td", { staticClass: "bg-success" }, [
-                            _vm._v(_vm._s(idx.invoice_sum))
-                          ])
                         : _c("td"),
                       _vm._v(" "),
                       idx.money == 3 && idx.operation == 2
                         ? _c("td", { staticClass: "bg-danger" }, [
-                            _vm._v(_vm._s(idx.invoice_sum))
-                          ])
-                        : idx.money == 2 && idx.operation == 2
-                        ? _c("td", { staticClass: "bg-success" }, [
                             _vm._v(_vm._s(idx.invoice_sum))
                           ])
                         : _c("td"),
@@ -1539,6 +1580,113 @@ var staticRenderFns = [
 ]
 render._withStripped = true
 
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
 
 
 /***/ }),

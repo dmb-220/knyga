@@ -16,7 +16,7 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('farmer_id');
-            $table->unsignedBigInteger('imones_id');
+            $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('invoice_unit');
             $table->integer('operation');
             $table->integer('money');
@@ -24,7 +24,7 @@ class CreateInvoicesTable extends Migration
             $table->string('invoice_number');
             $table->text('operation_name');
             $table->string('invoice_amount');
-            $table->float('invoice_suma', 8, 2);
+            $table->float('invoice_sum', 8, 2);
             $table->float('invoice_pvm', 8, 2);
             $table->timestamps();
         });

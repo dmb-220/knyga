@@ -2,13 +2,15 @@ require('./bootstrap');
 
 import Vue from 'vue';
 
+import SimpleVueValidation from 'simple-vue-validator';
+Vue.use(SimpleVueValidation);
+
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 Vue.use(VueAxios, axios);
-
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 

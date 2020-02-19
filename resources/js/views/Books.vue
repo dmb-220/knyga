@@ -91,13 +91,13 @@
                                 <input v-model="imone" type="checkbox">
                                 </span>
                             </div>
-                            <b-form-select v-if="imone" v-model="invoice.company_name" 
+                            <b-form-select v-if="imone" v-model="invoice.company_id" 
                             :options="companies"
                             value-field="id"
                             text-field="company_name">
                             </b-form-select>
                             <!-- PAdaryti 3 input ivesti naujai imonei, arba issokanti langa kur ivesime imone nauja -->
-                            <input v-else type="text" v-model="invoice.company_names" class="form-control">
+                            <input v-else type="text" v-model="invoice.company_id" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -120,9 +120,18 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Kiekis, mat. vnt:</label>
-                        <div class="col-sm-9">
-                        <input type="text" v-model='invoice.invoice_amount' class="form-control">
+                        <label class="col-sm-3 col-form-label">Kiekis, mato. vnt:</label>
+                        <div class="col-sm-5">
+                            <input type="text" v-model='invoice.invoice_amount' class="form-control">
+                        </div>
+                        <div class="col-sm-4">
+                            <select v-model='invoice.invoice_unit'  class="form-control">
+                                <option value="0" disabled>Pasirinkite</option>
+                                <option value="1">Vienetai</option>
+                                <option value="2">Litrai</option>
+                                <option value="3">Kilogramai</option>
+                                <option value="4">Kubai</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -256,10 +265,10 @@
                             <td v-else> </td>
                             <!-- SKOLOS -->
                             <td class="bg-danger" v-if="idx.money == 3 && idx.operation == 1">{{ idx.invoice_sum }}</td>
-                            <td class="bg-success" v-else-if="idx.money == 2 && idx.operation == 1">{{ idx.invoice_sum }}</td>
+                            <!-- <td class="bg-success" v-else-if="idx.money == 2 && idx.operation == 1">{{ idx.invoice_sum }} €</td> -->
                             <td v-else> </td>
                             <td class="bg-danger" v-if="idx.money == 3 && idx.operation == 2">{{ idx.invoice_sum }}</td>
-                            <td class="bg-success" v-else-if="idx.money == 2 && idx.operation == 2">{{ idx.invoice_sum }}</td>
+                            <!-- <td class="bg-success" v-else-if="idx.money == 2 && idx.operation == 2">{{ idx.invoice_sum }}</td> -->
                             <td v-else> </td>
                             <td> </td>
 
@@ -336,7 +345,7 @@
                     invoice_number: '',
                     operation_name: '',
                     invoice_amount: '',
-                    invoice_unit: '',
+                    invoice_unit: '0',
                     invoice_sum: '',
                     invoice_pvm: ''
                 },
@@ -346,14 +355,13 @@
                 companies: [],
                 invoices: [],
             }
-
         },
         computed: {
             sortedData: function() {
             function compare(a, b) {
-                if (a.data < b.data)
+                if (a.invoice_data < b.invoice_data)
                 return -1;
-                if (a.data > b.data)
+                if (a.invoice_data > b.invoice_data)
                 return 1;
                 return 0;
             }
@@ -454,22 +462,6 @@
                 console.log(err.message);
                 })
             },
-            /*imones_post(){
-                axios
-                .post(`/imones/store`, {
-                    pavadinimas: this.imones_sukurimas.imones_pavadinimas,
-                    kodas: this.imones_sukurimas.imones_kodas,
-                    pvm: this.imones_sukurimas.pvm_kodas
-                    })
-                .then(response => {
-                    console.log(response.data.status)
-                    //this.getData()
-                })
-                .catch( err => {
-                console.log("POST:");
-                console.log(err.message);
-                })
-            },*/
               
             handleOk(bvModalEvt) {
                 // Prevent modal from closing

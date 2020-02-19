@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Pagrindinis from './views/knyga.vue'
 
 Vue.use(Router)
 
@@ -8,32 +7,17 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'pagrindinis',
-      component: Pagrindinis
-    },
-    {
-      path: '/saskaitos',
-      name: 'Sąskaitos',
-      component: () => import('./views/saskaitos.vue')
-    },
-    {
-      path: '/imones',
-      name: 'Įmonės',
-      component: () => import('./views/imones.vue'),
-    },
-    {
       path: '/users',
       name: 'Vartotojai',
       component: () => import('./views/users.vue')
     },
     {
       path: '/dashboard',
-      name: 'kazkas',
+      name: 'Dashboard',
       component: () => import('./views/dashboard.vue')
     },
     {
-      path: '/books',
+      path: '/',
       name: 'Green book',
       component: () => import('./views/Books.vue')
     },
