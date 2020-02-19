@@ -429,7 +429,7 @@ var render = function() {
                 { staticClass: "btn btn-app", attrs: { tag: "a", to: "/" } },
                 [
                   _c("i", { staticClass: "fa fa-arrow-left" }),
-                  _vm._v(" Atgal\n                    ")
+                  _vm._v(" Atgal\r\n                    ")
                 ]
               )
             ],
@@ -547,11 +547,11 @@ var render = function() {
                     fn: function(row) {
                       return [
                         _vm._v(
-                          "\n                    " +
+                          "\r\n                    " +
                             _vm._s(row.value.first) +
                             " " +
                             _vm._s(row.value.last) +
-                            "\n                "
+                            "\r\n                "
                         )
                       ]
                     }
@@ -572,7 +572,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Redaguoti\n                    "
+                              "\r\n                    Redaguoti\r\n                    "
                             )
                           ]
                         ),
@@ -589,7 +589,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Ištrinti\n                    "
+                              "\r\n                    Ištrinti\r\n                    "
                             )
                           ]
                         )
