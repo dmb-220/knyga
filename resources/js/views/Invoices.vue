@@ -253,7 +253,7 @@ export default {
             this.invoice.company_id = row.company_id;
             this.invoice.invoice_number = row.invoice_number;
             this.invoice.invoice_data = row.invoice_data;
-            this.invoice.operation_name = row.oeration_name;
+            this.invoice.operation_name = row.operation_name;
             this.invoice.invoice_amount = row.invoice_amount;
             this.invoice.invoice_unit = row.invoice_unit;
             this.invoice.invoice_sum = row.invoice_sum;
@@ -311,7 +311,7 @@ export default {
         },
         edit_post(){
             axios
-            .patch(`/invoice/${this.saskaitos.id}`, {
+            .patch(`/invoice/${this.invoice.id}`, {
                 operation: this.invoice.operation,
                 money: this.invoice.money,
                 company_id: this.invoice.company_id,

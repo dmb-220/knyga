@@ -9,6 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simple-vue-validator */ "./node_modules/simple-vue-validator/src/index.js");
+/* harmony import */ var simple_vue_validator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -156,9 +158,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      company_name: '',
       company: {
         id: '',
         company_name: '',
@@ -198,6 +203,11 @@ __webpack_require__.r(__webpack_exports__);
       filter: null,
       filterOn: []
     };
+  },
+  validators: {
+    company_name: function company_name(value) {
+      return simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__["Validator"].value(value).required().email();
+    }
   },
   mounted: function mounted() {},
   created: function created() {
@@ -281,15 +291,24 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     companyOk: function companyOk(bvModalEvt) {
-      var _this5 = this;
-
       // Prevent modal from closing
       bvModalEvt.preventDefault();
-      this.companies_post(); // Trigger submit handler
+      this.$validate().then(function (success) {
+        var _this5 = this;
 
-      this.$nextTick(function () {
-        _this5.$bvModal.hide('create_company');
-      });
+        if (success) {
+          //this.companies_post();
+          // Trigger submit handler
+          this.$nextTick(function () {
+            _this5.$bvModal.hide('create_company');
+          });
+          alert('Validation succeeded!');
+        }
+      }); //this.companies_post();
+      // Trigger submit handler
+      //this.$nextTick(() => {
+      //this.$bvModal.hide('create_company')
+      //})
     },
     companyEdit: function companyEdit(bvModalEvt) {
       var _this6 = this;
@@ -551,35 +570,50 @@ var render = function() {
         },
         [
           _c("form", { staticClass: "form-horizontal" }, [
-            _c("div", { staticClass: "form-group row" }, [
-              _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-                _vm._v("Pavadinimas:")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-9" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.company.company_name,
-                      expression: "company.company_name"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.company.company_name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+            _c(
+              "div",
+              {
+                staticClass: "form-group row",
+                class: { error: _vm.validation.hasError("company_name") }
+              },
+              [
+                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                  _vm._v("Pavadinimas:")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-9" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model.trim",
+                        value: _vm.company_name,
+                        expression: "company_name",
+                        modifiers: { trim: true }
                       }
-                      _vm.$set(_vm.company, "company_name", $event.target.value)
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.company_name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.company_name = $event.target.value.trim()
+                      },
+                      blur: function($event) {
+                        return _vm.$forceUpdate()
+                      }
                     }
-                  }
-                })
-              ])
-            ]),
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "error" }, [
+                    _vm._v(_vm._s(_vm.validation.firstError("company_name")))
+                  ])
+                ])
+              ]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "form-group row" }, [
               _c("label", { staticClass: "col-sm-3 col-form-label" }, [
@@ -788,6 +822,113 @@ var staticRenderFns = [
 ]
 render._withStripped = true
 
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
 
 
 /***/ }),

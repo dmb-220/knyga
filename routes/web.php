@@ -43,20 +43,5 @@ Route::prefix('/invoice')->group(function () {
 });
 
 
-Route::prefix('/imones')->group(function () {
-    Route::get('', 'ImonesController@index');
-    Route::get('{imones}', 'ImonesController@show');
-    Route::post('store', 'ImonesController@store');
-    Route::patch('{imones}/update', 'ImonesController@update');
-    Route::delete('{imones}/destroy', 'ImonesController@destroy');
-});
-Route::prefix('/saskaitos')->group(function () {
-    Route::get('', 'SaskaitosController@index');
-    Route::get('{saskaitos}', 'SaskaitosController@show');
-    Route::post('store', 'SaskaitosController@store');
-    Route::patch('{saskaitos}/update', 'SaskaitosController@update');
-    Route::delete('{saskaitos}/destroy', 'SaskaitosController@destroy');
-});
-
 Route::get('/users', 'UsersController@index');
 Route::post('/users', 'UsersController@create');
