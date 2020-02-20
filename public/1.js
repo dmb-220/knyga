@@ -159,11 +159,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      company_name: '',
+      ok: false,
       company: {
         id: '',
         company_name: '',
@@ -205,8 +210,14 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   validators: {
-    company_name: function company_name(value) {
-      return simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__["Validator"].value(value).required().email();
+    'company.company_name': function companyCompany_name(value) {
+      return simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__["Validator"].value(value).minLength(5, 'Per trumpas pavadinimas').required('Įrašykite įmonės pavadinimą'); //.regex('^[A-Za-z0-9 -]*$', 'Naudojami neleistini simboliai');
+    },
+    'company.company_code': function companyCompany_code(value) {
+      return simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__["Validator"].value(value).minLength(9, 'Per trumpas kodas').required('Įrašykite įmonės kodą').regex('^[0-9]*$', 'Naudojami neleistini simboliai');
+    },
+    'company.pvm_code': function companyPvm_code(value) {
+      return simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__["Validator"].value(value).minLength(11, 'Per trumpas PVM kodas').required('Įrašykite PVM kodą').regex('^[A-Za-z0-9]*$', 'Naudojami neleistini simboliai');
     }
   },
   mounted: function mounted() {},
@@ -291,24 +302,34 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     companyOk: function companyOk(bvModalEvt) {
+      var _this5 = this;
+
       // Prevent modal from closing
       bvModalEvt.preventDefault();
       this.$validate().then(function (success) {
-        var _this5 = this;
-
         if (success) {
-          //this.companies_post();
-          // Trigger submit handler
-          this.$nextTick(function () {
-            _this5.$bvModal.hide('create_company');
-          });
-          alert('Validation succeeded!');
+          this.ok = true;
+          console.log("VEIKIA");
+        } else {
+          console.log("NEVEIKIA");
         }
-      }); //this.companies_post();
+      });
+
+      if (this.ok) {
+        this.companies_post(); // Trigger submit handler
+
+        console.log("VEIKIA 2");
+        console.log(this.ok);
+        this.$nextTick(function () {
+          _this5.$bvModal.hide('create_company');
+        });
+        console.log("VEIKIA 3");
+      } //this.companies_post();
       // Trigger submit handler
       //this.$nextTick(() => {
       //this.$bvModal.hide('create_company')
       //})
+
     },
     companyEdit: function companyEdit(bvModalEvt) {
       var _this6 = this;
@@ -570,50 +591,54 @@ var render = function() {
         },
         [
           _c("form", { staticClass: "form-horizontal" }, [
-            _c(
-              "div",
-              {
-                staticClass: "form-group row",
-                class: { error: _vm.validation.hasError("company_name") }
-              },
-              [
-                _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-                  _vm._v("Pavadinimas:")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-9" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model.trim",
-                        value: _vm.company_name,
-                        expression: "company_name",
-                        modifiers: { trim: true }
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.company_name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.company_name = $event.target.value.trim()
-                      },
-                      blur: function($event) {
-                        return _vm.$forceUpdate()
-                      }
+            _c("div", { staticClass: "form-group row" }, [
+              _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                _vm._v("Pavadinimas:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-9" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.trim",
+                      value: _vm.company.company_name,
+                      expression: "company.company_name",
+                      modifiers: { trim: true }
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "error" }, [
-                    _vm._v(_vm._s(_vm.validation.firstError("company_name")))
-                  ])
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.validation.hasError(
+                      "company.company_name"
+                    )
+                  },
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.company.company_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.company,
+                        "company_name",
+                        $event.target.value.trim()
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    _vm._s(_vm.validation.firstError("company.company_name"))
+                  )
                 ])
-              ]
-            ),
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group row" }, [
               _c("label", { staticClass: "col-sm-3 col-form-label" }, [
@@ -625,12 +650,18 @@ var render = function() {
                   directives: [
                     {
                       name: "model",
-                      rawName: "v-model",
+                      rawName: "v-model.trim",
                       value: _vm.company.company_code,
-                      expression: "company.company_code"
+                      expression: "company.company_code",
+                      modifiers: { trim: true }
                     }
                   ],
                   staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.validation.hasError(
+                      "company.company_code"
+                    )
+                  },
                   attrs: { type: "text" },
                   domProps: { value: _vm.company.company_code },
                   on: {
@@ -638,10 +669,23 @@ var render = function() {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.company, "company_code", $event.target.value)
+                      _vm.$set(
+                        _vm.company,
+                        "company_code",
+                        $event.target.value.trim()
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    _vm._s(_vm.validation.firstError("company.company_code"))
+                  )
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -655,12 +699,16 @@ var render = function() {
                   directives: [
                     {
                       name: "model",
-                      rawName: "v-model",
+                      rawName: "v-model.trim",
                       value: _vm.company.pvm_code,
-                      expression: "company.pvm_code"
+                      expression: "company.pvm_code",
+                      modifiers: { trim: true }
                     }
                   ],
                   staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.validation.hasError("company.pvm_code")
+                  },
                   attrs: { type: "text" },
                   domProps: { value: _vm.company.pvm_code },
                   on: {
@@ -668,10 +716,21 @@ var render = function() {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.company, "pvm_code", $event.target.value)
+                      _vm.$set(
+                        _vm.company,
+                        "pvm_code",
+                        $event.target.value.trim()
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-danger" }, [
+                  _vm._v(_vm._s(_vm.validation.firstError("company.pvm_code")))
+                ])
               ])
             ])
           ])
