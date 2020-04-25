@@ -95,23 +95,28 @@
         no-close-on-backdrop
         @ok="companyOk">
         <form class="form-horizontal"> 
-            <div class="form-group row" :class="{error: validation.hasError('company_name')}">
+            <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Pavadinimas:</label>
                 <div class="col-sm-9">
-                    <input type="text" v-model.trim="company_name" class="form-control"/>
-                    <div class="error">{{ validation.firstError('company_name') }}</div>
+                    <input type="text" v-model.trim="company.company_name" class="form-control"
+                    :class="{'is-invalid': validation.hasError('company.company_name')}">
+                    <div class="text-danger">{{ validation.firstError('company.company_name') }}</div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Įmonės kodas:</label>
                 <div class="col-sm-9">
-                <input type="text" v-model="company.company_code" class="form-control">
+                <input type="text" v-model.trim="company.company_code" class="form-control"
+                    :class="{'is-invalid': validation.hasError('company.company_code')}">
+                    <div class="text-danger">{{ validation.firstError('company.company_code') }}</div>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3 col-form-label">PVM kodas:</label>
                 <div class="col-sm-9">
-                <input type="text" v-model='company.pvm_code' class="form-control">
+                <input type="text" v-model.trim="company.pvm_code" class="form-control"
+                    :class="{'is-invalid': validation.hasError('company.pvm_code')}">
+                    <div class="text-danger">{{ validation.firstError('company.pvm_code') }}</div>
                 </div>
             </div>
         </form>
@@ -151,7 +156,7 @@ import { Validator } from 'simple-vue-validator';
 export default {
     data() {
         return {
-            company_name: '',
+            ok: false,
             company: {
                 id: '',
                 company_name: '',
@@ -178,8 +183,23 @@ export default {
         }
     },
     validators: {
-      company_name(value) {
-        return Validator.value(value).required().email();
+      'company.company_name': function(value) {
+        return Validator.value(value)
+        .minLength(5, 'Per trumpas pavadinimas')
+        .required('Įrašykite įmonės pavadinimą');
+        //.regex('^[A-Za-z0-9 -]*$', 'Naudojami neleistini simboliai');
+      },
+      'company.company_code': function(value) {
+        return Validator.value(value)
+        .minLength(9, 'Per trumpas kodas')
+        .required('Įrašykite įmonės kodą')
+        .regex('^[0-9]*$', 'Naudojami neleistini simboliai');
+      },
+      'company.pvm_code': function(value) {
+        return Validator.value(value)
+        .minLength(11, 'Per trumpas PVM kodas')
+        .required('Įrašykite PVM kodą')
+        .regex('^[A-Za-z0-9]*$', 'Naudojami neleistini simboliai');
       },
     },
     mounted() {},
@@ -274,14 +294,20 @@ export default {
             this.$validate()
             .then(function (success) {
                 if (success) {
-                    //this.companies_post();
+                    this.ok = true;
+                    console.log("VEIKIA");
+                }else{console.log("NEVEIKIA");}
+            });
+            if(this.ok){
+                this.companies_post();
                     // Trigger submit handler
+                    console.log("VEIKIA 2");
+                    console.log(this.ok);
                     this.$nextTick(() => {
                     this.$bvModal.hide('create_company')
                     })
-                alert('Validation succeeded!');
-                }
-            });
+                    console.log("VEIKIA 3");
+            }
             //this.companies_post();
             // Trigger submit handler
             //this.$nextTick(() => {
