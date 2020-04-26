@@ -14,6 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
+
+
 Route::redirect('/', '/adm');
 
 Auth::routes();
@@ -22,10 +28,22 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::redirect('/home', '/adm');
 
 Route::get('/adm/', function () {
-    if (Auth::check()) {return view('admin');}
+    if (Auth::check()) {
+        return view('admin');
+    }
     return redirect('/login');
 });
 
+//Ukininkai
+Route::prefix('/farmer')->group(function () {
+    Route::get('', 'FarmerController@index');
+    Route::get('{farmer}', 'FarmerController@show');
+    Route::post('store', 'FarmerController@store');
+    Route::patch('{farmer}', 'FarmerController@update');
+    Route::delete('{farmer}/destroy', 'FarmerController@destroy');
+});
+
+//Imones
 Route::prefix('/company')->group(function () {
     Route::get('', 'CompanyController@index');
     Route::get('{company}', 'CompanyController@show');
@@ -34,6 +52,7 @@ Route::prefix('/company')->group(function () {
     Route::delete('{company}/destroy', 'CompanyController@destroy');
 });
 
+//Saskaitos
 Route::prefix('/invoice')->group(function () {
     Route::get('', 'InvoiceController@index');
     Route::get('{invoice}', 'InvoiceController@show');

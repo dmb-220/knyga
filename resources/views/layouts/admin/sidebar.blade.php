@@ -31,6 +31,12 @@
                     </router-link>
                 </li>
                 <li class="nav-item">
+                    <router-link tag="a" to="/farmers" class="nav-link">
+                        <i class="nav-icon fas fa-apple-alt"></i>
+                        <p>Ūkininkai</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
                     <router-link tag="a" to="/" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
                         <p>Žalia knyga</p>

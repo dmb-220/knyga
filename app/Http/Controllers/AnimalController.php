@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Farmer;
+use App\Animal;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class FarmerController extends Controller
+class AnimalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +14,7 @@ class FarmerController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            'status' => true,
-            'farmers' => Farmer::where('user_id', Auth::id())->get(),
-        ]);
+        //
     }
 
     /**
@@ -45,10 +41,10 @@ class FarmerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Farmer  $farmer
+     * @param  \App\Animal  $animal
      * @return \Illuminate\Http\Response
      */
-    public function show(Farmer $farmer)
+    public function show(Animal $animal)
     {
         //
     }
@@ -56,10 +52,10 @@ class FarmerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Farmer  $farmer
+     * @param  \App\Animal  $animal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Farmer $farmer)
+    public function edit(Animal $animal)
     {
         //
     }
@@ -68,10 +64,10 @@ class FarmerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Farmer  $farmer
+     * @param  \App\Animal  $animal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Farmer $farmer)
+    public function update(Request $request, Animal $animal)
     {
         //
     }
@@ -79,10 +75,10 @@ class FarmerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Farmer  $farmer
+     * @param  \App\Animal  $animal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Farmer $farmer)
+    public function destroy(Animal $animal)
     {
         //
     }

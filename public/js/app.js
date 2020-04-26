@@ -97280,13 +97280,13 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/users',
     name: 'Vartotojai',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/users.vue */ "./resources/js/views/users.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./views/users.vue */ "./resources/js/views/users.vue"));
     }
   }, {
     path: '/dashboard',
     name: 'Dashboard',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/dashboard.vue */ "./resources/js/views/dashboard.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/dashboard.vue */ "./resources/js/views/dashboard.vue"));
     }
   }, {
     path: '/',
@@ -97298,13 +97298,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: '/invoices',
     name: 'Invoices',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Invoices.vue */ "./resources/js/views/Invoices.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./views/Invoices.vue */ "./resources/js/views/Invoices.vue"));
     }
   }, {
     path: '/companies',
     name: 'Companies',
     component: function component() {
       return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./views/Companies.vue */ "./resources/js/views/Companies.vue"));
+    }
+  }, {
+    path: '/farmers',
+    name: 'Farmers',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/Farmers.vue */ "./resources/js/views/Farmers.vue"));
     }
   }]
 }));
