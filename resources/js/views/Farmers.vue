@@ -121,6 +121,7 @@
 </template>
 
 <script>
+import { Validator } from 'simple-vue-validator';
 export default {
     data() {
         return {
@@ -175,28 +176,16 @@ export default {
         farmerOk(bvModalEvt) {
             // Prevent modal from closing
             bvModalEvt.preventDefault()
-            /*this.$validate()
-            .then(function (success) {
+            this.$validate()
+            //.then((success) => {
+            .then((success) => {
                 if (success) {
-                    this.ok = true;
-                    console.log("VEIKIA");
-                }else{console.log("NEVEIKIA");}
-            });
-            if(this.ok){
-                //this.companies_post();
-                    // Trigger submit handler
-                    console.log("VEIKIA 2");
-                    console.log(this.ok);
+                    //this.companies_post();
                     this.$nextTick(() => {
-                    this.$bvModal.hide('create_farmer')
+                        this.$bvModal.hide('create_farmer')
                     })
-                    console.log("VEIKIA 3");
-            }*/
-            //this.companies_post();
-            // Trigger submit handler
-            this.$nextTick(() => {
-            this.$bvModal.hide('create_farmer')
-            })
+                }
+            });
         }, 
     }
 }

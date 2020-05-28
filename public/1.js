@@ -309,8 +309,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$validate() //.then((success) => {
       .then(function (success) {
         if (success) {
-          _this5.companies_post(); //alert('Validation succeeded!');
-
+          _this5.companies_post();
 
           _this5.$nextTick(function () {
             _this5.$bvModal.hide('create_company');

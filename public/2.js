@@ -9,6 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simple-vue-validator */ "./node_modules/simple-vue-validator/src/index.js");
+/* harmony import */ var simple_vue_validator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -131,6 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -149,13 +152,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   validators: {
     'company.company_name': function companyCompany_name(value) {
-      return Validator.value(value).minLength(5, 'Per trumpas pavadinimas').required('Įrašykite įmonės pavadinimą'); //.regex('^[A-Za-z0-9 -]*$', 'Naudojami neleistini simboliai');
+      return simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__["Validator"].value(value).minLength(5, 'Per trumpas pavadinimas').required('Įrašykite įmonės pavadinimą'); //.regex('^[A-Za-z0-9 -]*$', 'Naudojami neleistini simboliai');
     },
     'company.company_code': function companyCompany_code(value) {
-      return Validator.value(value).minLength(9, 'Per trumpas kodas').required('Įrašykite įmonės kodą').regex('^[0-9]*$', 'Naudojami neleistini simboliai');
+      return simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__["Validator"].value(value).minLength(9, 'Per trumpas kodas').required('Įrašykite įmonės kodą').regex('^[0-9]*$', 'Naudojami neleistini simboliai');
     },
     'company.pvm_code': function companyPvm_code(value) {
-      return Validator.value(value).minLength(11, 'Per trumpas PVM kodas').required('Įrašykite PVM kodą').regex('^[A-Za-z0-9]*$', 'Naudojami neleistini simboliai');
+      return simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__["Validator"].value(value).minLength(11, 'Per trumpas PVM kodas').required('Įrašykite PVM kodą').regex('^[A-Za-z0-9]*$', 'Naudojami neleistini simboliai');
     }
   },
   methods: {
@@ -175,28 +178,14 @@ __webpack_require__.r(__webpack_exports__);
 
       // Prevent modal from closing
       bvModalEvt.preventDefault();
-      /*this.$validate()
+      this.$validate() //.then((success) => {
       .then(function (success) {
-          if (success) {
-              this.ok = true;
-              console.log("VEIKIA");
-          }else{console.log("NEVEIKIA");}
-      });
-      if(this.ok){
+        if (success) {
           //this.companies_post();
-              // Trigger submit handler
-              console.log("VEIKIA 2");
-              console.log(this.ok);
-              this.$nextTick(() => {
-              this.$bvModal.hide('create_farmer')
-              })
-              console.log("VEIKIA 3");
-      }*/
-      //this.companies_post();
-      // Trigger submit handler
-
-      this.$nextTick(function () {
-        _this2.$bvModal.hide('create_farmer');
+          _this2.$nextTick(function () {
+            _this2.$bvModal.hide('create_farmer');
+          });
+        }
       });
     }
   }
