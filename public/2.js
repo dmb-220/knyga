@@ -95,15 +95,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      farmers: []
+      farmers: [],
+      company: {
+        id: '',
+        company_name: '',
+        company_code: '',
+        pvm_code: ''
+      }
     };
   },
   mounted: function mounted() {},
   created: function created() {
     this.getFermers();
+  },
+  validators: {
+    'company.company_name': function companyCompany_name(value) {
+      return Validator.value(value).minLength(5, 'Per trumpas pavadinimas').required('Įrašykite įmonės pavadinimą'); //.regex('^[A-Za-z0-9 -]*$', 'Naudojami neleistini simboliai');
+    },
+    'company.company_code': function companyCompany_code(value) {
+      return Validator.value(value).minLength(9, 'Per trumpas kodas').required('Įrašykite įmonės kodą').regex('^[0-9]*$', 'Naudojami neleistini simboliai');
+    },
+    'company.pvm_code': function companyPvm_code(value) {
+      return Validator.value(value).minLength(11, 'Per trumpas PVM kodas').required('Įrašykite PVM kodą').regex('^[A-Za-z0-9]*$', 'Naudojami neleistini simboliai');
+    }
   },
   methods: {
     getFermers: function getFermers() {
@@ -115,6 +168,35 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         console.log("GET:");
         console.log(err.message);
+      });
+    },
+    farmerOk: function farmerOk(bvModalEvt) {
+      var _this2 = this;
+
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      /*this.$validate()
+      .then(function (success) {
+          if (success) {
+              this.ok = true;
+              console.log("VEIKIA");
+          }else{console.log("NEVEIKIA");}
+      });
+      if(this.ok){
+          //this.companies_post();
+              // Trigger submit handler
+              console.log("VEIKIA 2");
+              console.log(this.ok);
+              this.$nextTick(() => {
+              this.$bvModal.hide('create_farmer')
+              })
+              console.log("VEIKIA 3");
+      }*/
+      //this.companies_post();
+      // Trigger submit handler
+
+      this.$nextTick(function () {
+        _this2.$bvModal.hide('create_farmer');
       });
     }
   }
@@ -137,147 +219,316 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "no" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("section", { staticClass: "content" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "card" }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-body text-center" },
-            [
-              _c(
-                "a",
-                {
-                  directives: [
-                    {
-                      name: "b-modal",
-                      rawName: "v-b-modal.create_invoice",
-                      modifiers: { create_invoice: true }
-                    }
-                  ],
-                  staticClass: "btn btn-app"
-                },
-                [
-                  _c("i", { staticClass: "fas fa-file-invoice" }),
-                  _vm._v(" Sukurti naują ūkininką\n                    ")
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                {
-                  staticClass: "btn btn-app",
-                  attrs: { tag: "a", to: "/invoices" }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-th-list" }),
-                  _vm._v(" Ūkio tipas\n                    ")
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                {
-                  staticClass: "btn btn-app",
-                  attrs: { tag: "a", to: "/companies" }
-                },
-                [
-                  _c("i", { staticClass: "fa fa-address-card" }),
-                  _vm._v(" Banda\n                    ")
-                ]
-              )
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card card-solid" }, [
-          _c("div", { staticClass: "card-body pb-0" }, [
+  return _c(
+    "div",
+    { staticClass: "no" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(1),
+            _vm._v(" "),
             _c(
               "div",
-              { staticClass: "row d-flex align-items-stretch" },
-              _vm._l(_vm.farmers, function(value, idx) {
-                return _c(
-                  "div",
+              { staticClass: "card-body text-center" },
+              [
+                _c(
+                  "a",
                   {
-                    key: idx,
-                    staticClass: "col-12 col-sm-6 col-md-4  align-items-stretch"
+                    directives: [
+                      {
+                        name: "b-modal",
+                        rawName: "v-b-modal.create_farmer",
+                        modifiers: { create_farmer: true }
+                      }
+                    ],
+                    staticClass: "btn btn-app"
                   },
                   [
-                    _c("div", { staticClass: "card bg-light" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "card-header text-muted border-bottom-0"
-                        },
-                        [
-                          _vm._v(
-                            "\n                        Valdos numeris: " +
-                              _vm._s(value.valdos_nr) +
-                              "\n                        "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-body pt-0" }, [
-                        _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-7" }, [
-                            _c("h2", { staticClass: "lead" }, [
-                              _c("b", [
-                                _vm._v(
-                                  _vm._s(value.vardas) +
-                                    " " +
-                                    _vm._s(value.pavarde)
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "text-muted text-sm" }, [
-                              _vm._v("Gyvulinkystė / Mėsiniai  ")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "ul",
-                              { staticClass: "ml-4 mb-0 fa-ul text-muted" },
-                              [
-                                _c("li", { staticClass: "small" }, [
-                                  _vm._m(2, true),
-                                  _vm._v(" " + _vm._s(value.adresas))
-                                ]),
-                                _vm._v(" "),
-                                _c("li", { staticClass: "small" }, [
-                                  _vm._m(3, true),
-                                  _vm._v(" " + _vm._s(value.telefonas))
-                                ]),
-                                _vm._v(" "),
-                                _c("li", { staticClass: "small" }, [
-                                  _vm._m(4, true),
-                                  _vm._v(" " + _vm._s(value.email))
-                                ])
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _vm._m(5, true)
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(6, true)
-                    ])
+                    _c("i", { staticClass: "fas fa-file-invoice" }),
+                    _vm._v(" Naujas ūkininkas\n                    ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-app",
+                    attrs: { tag: "a", to: "/farmers_type" }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-th-list" }),
+                    _vm._v(" Ūkio tipas\n                    ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-app",
+                    attrs: { tag: "a", to: "/farmers_herd" }
+                  },
+                  [
+                    _c("i", { staticClass: "fa fa-address-card" }),
+                    _vm._v(" Banda\n                    ")
                   ]
                 )
-              }),
-              0
+              ],
+              1
             )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card card-solid" }, [
+            _c("div", { staticClass: "card-body pb-0" }, [
+              _c(
+                "div",
+                { staticClass: "row d-flex align-items-stretch" },
+                _vm._l(_vm.farmers, function(value, idx) {
+                  return _c(
+                    "div",
+                    {
+                      key: idx,
+                      staticClass:
+                        "col-12 col-sm-6 col-md-4  align-items-stretch"
+                    },
+                    [
+                      _c("div", { staticClass: "card bg-light" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "card-header text-muted border-bottom-0"
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Valdos numeris: " +
+                                _vm._s(value.valdos_nr) +
+                                "\n                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-body pt-0" }, [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-7" }, [
+                              _c("h2", { staticClass: "lead" }, [
+                                _c("b", [
+                                  _vm._v(
+                                    _vm._s(value.vardas) +
+                                      " " +
+                                      _vm._s(value.pavarde)
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "text-muted text-sm" }, [
+                                _vm._v("Gyvulinkystė / Mėsiniai  ")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "ul",
+                                { staticClass: "ml-4 mb-0 fa-ul text-muted" },
+                                [
+                                  _c("li", { staticClass: "small" }, [
+                                    _vm._m(2, true),
+                                    _vm._v(" " + _vm._s(value.adresas))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("li", { staticClass: "small" }, [
+                                    _vm._m(3, true),
+                                    _vm._v(" " + _vm._s(value.telefonas))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("li", { staticClass: "small" }, [
+                                    _vm._m(4, true),
+                                    _vm._v(" " + _vm._s(value.email))
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(5, true)
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(6, true)
+                      ])
+                    ]
+                  )
+                }),
+                0
+              )
+            ])
           ])
         ])
-      ])
-    ])
-  ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            id: "create_farmer",
+            size: "lg",
+            title: "Naujas ūkininkas",
+            "ok-title": "Išsaugoti",
+            "cancel-title": "Uždaryti",
+            "no-close-on-esc": "",
+            "no-close-on-backdrop": ""
+          },
+          on: { ok: _vm.farmerOk }
+        },
+        [
+          _c("form", { staticClass: "form-horizontal" }, [
+            _c("div", { staticClass: "form-group row" }, [
+              _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                _vm._v("Pavadinimas:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-9" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.trim",
+                      value: _vm.company.company_name,
+                      expression: "company.company_name",
+                      modifiers: { trim: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.validation.hasError(
+                      "company.company_name"
+                    )
+                  },
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.company.company_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.company,
+                        "company_name",
+                        $event.target.value.trim()
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    _vm._s(_vm.validation.firstError("company.company_name"))
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                _vm._v("Įmonės kodas:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-9" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.trim",
+                      value: _vm.company.company_code,
+                      expression: "company.company_code",
+                      modifiers: { trim: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.validation.hasError(
+                      "company.company_code"
+                    )
+                  },
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.company.company_code },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.company,
+                        "company_code",
+                        $event.target.value.trim()
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    _vm._s(_vm.validation.firstError("company.company_code"))
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+                _vm._v("PVM kodas:")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-9" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.trim",
+                      value: _vm.company.pvm_code,
+                      expression: "company.pvm_code",
+                      modifiers: { trim: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  class: {
+                    "is-invalid": _vm.validation.hasError("company.pvm_code")
+                  },
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.company.pvm_code },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.company,
+                        "pvm_code",
+                        $event.target.value.trim()
+                      )
+                    },
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-danger" }, [
+                  _vm._v(_vm._s(_vm.validation.firstError("company.pvm_code")))
+                ])
+              ])
+            ])
+          ])
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {

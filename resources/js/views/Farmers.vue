@@ -23,13 +23,16 @@
                     </div>
 
                     <div class="card-body text-center">
-                        <a v-b-modal.create_invoice class="btn btn-app">
-                            <i class="fas fa-file-invoice"></i> Sukurti naują ūkininką
+                        <!-- Naujas ūkininkas -->
+                        <a v-b-modal.create_farmer class="btn btn-app">
+                            <i class="fas fa-file-invoice"></i> Naujas ūkininkas
                         </a>
-                        <router-link tag="a" to="/invoices" class="btn btn-app">
+                        <!-- Ūkio tipas -->
+                        <router-link tag="a" to="/farmers_type" class="btn btn-app">
                             <i class="fas fa-th-list"></i> Ūkio tipas
                         </router-link>
-                        <router-link tag="a" to="/companies" class="btn btn-app">
+                        <!-- Ūkio banda -->
+                        <router-link tag="a" to="/farmers_herd" class="btn btn-app">
                             <i class="fa fa-address-card"></i> Banda
                         </router-link>
                     </div>
@@ -76,6 +79,39 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
+        <b-modal id="create_farmer" size="lg" title="Naujas ūkininkas"
+        ok-title="Išsaugoti"
+        cancel-title="Uždaryti"
+        no-close-on-esc
+        no-close-on-backdrop
+        @ok="farmerOk">
+        <form class="form-horizontal"> 
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Pavadinimas:</label>
+                <div class="col-sm-9">
+                    <input type="text" v-model.trim="company.company_name" class="form-control"
+                    :class="{'is-invalid': validation.hasError('company.company_name')}">
+                    <div class="text-danger">{{ validation.firstError('company.company_name') }}</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Įmonės kodas:</label>
+                <div class="col-sm-9">
+                <input type="text" v-model.trim="company.company_code" class="form-control"
+                    :class="{'is-invalid': validation.hasError('company.company_code')}">
+                    <div class="text-danger">{{ validation.firstError('company.company_code') }}</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">PVM kodas:</label>
+                <div class="col-sm-9">
+                <input type="text" v-model.trim="company.pvm_code" class="form-control"
+                    :class="{'is-invalid': validation.hasError('company.pvm_code')}">
+                    <div class="text-danger">{{ validation.firstError('company.pvm_code') }}</div>
+                </div>
+            </div>
+        </form>
+    </b-modal>
 
 
         <!-- /.content -->
@@ -89,12 +125,38 @@ export default {
     data() {
         return {
             farmers: [],
+            company: {
+                id: '',
+                company_name: '',
+                company_code: '',
+                pvm_code: ''
+            },
         }
     },
     mounted() {},
 
     created() {
         this.getFermers()
+    },
+    validators: {
+      'company.company_name': function(value) {
+        return Validator.value(value)
+        .minLength(5, 'Per trumpas pavadinimas')
+        .required('Įrašykite įmonės pavadinimą');
+        //.regex('^[A-Za-z0-9 -]*$', 'Naudojami neleistini simboliai');
+      },
+      'company.company_code': function(value) {
+        return Validator.value(value)
+        .minLength(9, 'Per trumpas kodas')
+        .required('Įrašykite įmonės kodą')
+        .regex('^[0-9]*$', 'Naudojami neleistini simboliai');
+      },
+      'company.pvm_code': function(value) {
+        return Validator.value(value)
+        .minLength(11, 'Per trumpas PVM kodas')
+        .required('Įrašykite PVM kodą')
+        .regex('^[A-Za-z0-9]*$', 'Naudojami neleistini simboliai');
+      },
     },
 
     methods: {
@@ -110,6 +172,32 @@ export default {
             console.log(err.message);
             })
         },
+        farmerOk(bvModalEvt) {
+            // Prevent modal from closing
+            bvModalEvt.preventDefault()
+            /*this.$validate()
+            .then(function (success) {
+                if (success) {
+                    this.ok = true;
+                    console.log("VEIKIA");
+                }else{console.log("NEVEIKIA");}
+            });
+            if(this.ok){
+                //this.companies_post();
+                    // Trigger submit handler
+                    console.log("VEIKIA 2");
+                    console.log(this.ok);
+                    this.$nextTick(() => {
+                    this.$bvModal.hide('create_farmer')
+                    })
+                    console.log("VEIKIA 3");
+            }*/
+            //this.companies_post();
+            // Trigger submit handler
+            this.$nextTick(() => {
+            this.$bvModal.hide('create_farmer')
+            })
+        }, 
     }
 }
 </script>

@@ -302,34 +302,34 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     companyOk: function companyOk(bvModalEvt) {
-      var _this5 = this;
-
       // Prevent modal from closing
       bvModalEvt.preventDefault();
       this.$validate().then(function (success) {
+        var _this5 = this;
+
         if (success) {
-          this.ok = true;
-          console.log("VEIKIA");
-        } else {
-          console.log("NEVEIKIA");
+          alert('Validation succeeded!');
+          this.$nextTick(function () {
+            _this5.$bvModal.hide('create_company');
+          });
         }
       });
+      /*if(this.ok){
+          this.companies_post();
+              // Trigger submit handler
+              console.log("VEIKIA 2");
+              console.log(this.ok);
+              //this.$nextTick(() => {
+              //this.$bvModal.hide('create_company')
+             // })
+              console.log("VEIKIA 3");
+      }*/
 
-      if (this.ok) {
-        this.companies_post(); // Trigger submit handler
-
-        console.log("VEIKIA 2");
-        console.log(this.ok);
-        this.$nextTick(function () {
-          _this5.$bvModal.hide('create_company');
-        });
-        console.log("VEIKIA 3");
-      } //this.companies_post();
+      /*this.companies_post();
       // Trigger submit handler
-      //this.$nextTick(() => {
-      //this.$bvModal.hide('create_company')
-      //})
-
+      this.$nextTick(() => {
+      this.$bvModal.hide('create_company')
+      })*/
     },
     companyEdit: function companyEdit(bvModalEvt) {
       var _this6 = this;
