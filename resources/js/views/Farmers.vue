@@ -86,28 +86,103 @@
         no-close-on-backdrop
         @ok="farmerOk">
         <form class="form-horizontal"> 
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Pavadinimas:</label>
-                <div class="col-sm-9">
-                    <input type="text" v-model.trim="company.company_name" class="form-control"
-                    :class="{'is-invalid': validation.hasError('company.company_name')}">
-                    <div class="text-danger">{{ validation.firstError('company.company_name') }}</div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                <label>Vardas:</label>
+                <input type="text" v-model='farmer.name' class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                <label>Pavardė:</label>
+                <input type="text" v-model='farmer.subname' class="form-control">
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Įmonės kodas:</label>
-                <div class="col-sm-9">
-                <input type="text" v-model.trim="company.company_code" class="form-control"
-                    :class="{'is-invalid': validation.hasError('company.company_code')}">
-                    <div class="text-danger">{{ validation.firstError('company.company_code') }}</div>
+            <div class="form-group">
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="farmer.vic_lt">
+                <label class="form-check-label">
+                    AR TURITE PRIEIGĄ PRIE VIC.LT?
+                </label>
+                <br>
+                <small>Pažymėkitę varnelę, ir galėsite suvesti, VIC.LT prisijungimo duomenis. Jie reikalingi gauti duomanis apie laikomus galvijus ir / arba deklaruojamus plotus. </small>
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">PVM kodas:</label>
-                <div class="col-sm-9">
-                <input type="text" v-model.trim="company.pvm_code" class="form-control"
-                    :class="{'is-invalid': validation.hasError('company.pvm_code')}">
-                    <div class="text-danger">{{ validation.firstError('company.pvm_code') }}</div>
+            <div v-show="farmer.vic_lt" class="form-row">
+                <div class="form-group col-md-6">
+                <label>Vartotojo vardas:</label>
+                <input type="text" v-model='farmer.username' class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                <label>Slaptazodis:</label>
+                <input type="text" v-model='farmer.password' class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+            <label>Ūkio tipas:</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" v-model="farmer.type" value="1">
+                <label class="form-check-label">GYVULININKYSTĖ</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" v-model="farmer.type" value="2">
+                <label class="form-check-label">AUGALININKYSTĖ</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" v-model="farmer.type" value="3">
+                <label class="form-check-label">ŽUVININKYSTĖ</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" v-model="farmer.type" value="4">
+                <label class="form-check-label">MIŠKININKYSTĖ</label>
+            </div>
+            </div>
+            <div v-if="farmer.type == 1">
+                <div class="form-group">
+                    <label>Galvijų banda:</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="farmer.banda" value="1">
+                        <label class="form-check-label">MĖSINIAI</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="farmer.banda" value="2">
+                        <label class="form-check-label">PIENINIAI</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="farmer.banda" value="3">
+                        <label class="form-check-label">MIŠRŪS</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="farmer.data">
+                <label class="form-check-label">
+                    NORITE IŠKART SUVESTI PAPILDOMUS DUOMENIS?
+                </label>
+                <br>
+                <small>Pažymėkitę varnelę, ir galėsite suvesti, asmeninius ūkininko duomenis: asmens kodas, adresas, banko saskaita, el. paštas, telefonas. Galite dabar ir nepildyti, užpildysite veliau eidami "ŪKININKŲ SĄRAŠAS" ten pasirinkę ūkininką.</small>
+                </div>
+            </div>
+            <div v-show="farmer.data">
+                <div class="form-group">
+                    <label>El. paštas:</label>
+                    <input type="text" v-model='farmer.email' class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Telefonas:</label>
+                    <input type="text" v-model='farmer.phone' class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Asmens kodas:</label>
+                    <input type="text" v-model='farmer.code' class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>PVM kodas:</label>
+                    <input type="text" v-model='farmer.pvm' class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Adresas:</label>
+                    <textarea class="form-control" rows="3" placeholder="" v-model='farmer.adress'></textarea>
                 </div>
             </div>
         </form>
@@ -126,11 +201,16 @@ export default {
     data() {
         return {
             farmers: [],
-            company: {
+            farmer: {
                 id: '',
-                company_name: '',
-                company_code: '',
-                pvm_code: ''
+                name: '',
+                subname: '',
+                vic_lt: false,
+                username: '',
+                password: '',
+                type: '',
+                banda: '',
+                data: false,
             },
         }
     },
@@ -140,7 +220,7 @@ export default {
         this.getFermers()
     },
     validators: {
-      'company.company_name': function(value) {
+      /*'company.company_name': function(value) {
         return Validator.value(value)
         .minLength(5, 'Per trumpas pavadinimas')
         .required('Įrašykite įmonės pavadinimą');
@@ -157,7 +237,7 @@ export default {
         .minLength(11, 'Per trumpas PVM kodas')
         .required('Įrašykite PVM kodą')
         .regex('^[A-Za-z0-9]*$', 'Naudojami neleistini simboliai');
-      },
+      },*/
     },
 
     methods: {
