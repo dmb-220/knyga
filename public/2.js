@@ -11,6 +11,116 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simple-vue-validator */ "./node_modules/simple-vue-validator/src/index.js");
 /* harmony import */ var simple_vue_validator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -209,10 +319,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ValidationObserver: vee_validate__WEBPACK_IMPORTED_MODULE_1__["ValidationObserver"],
+    ValidationProvider: vee_validate__WEBPACK_IMPORTED_MODULE_1__["ValidationProvider"]
+  },
   data: function data() {
     return {
+      //rodyti ūkininkų sarasa
       farmers: [],
+      //naujam ukininkui sukurti
       farmer: {
         id: '',
         name: '',
@@ -222,8 +339,18 @@ __webpack_require__.r(__webpack_exports__);
         password: '',
         type: '',
         banda: '',
-        data: false
-      }
+        data: false,
+        email: '',
+        phone: '',
+        code: '',
+        pvm: ''
+      },
+      //
+      email: "",
+      password: "",
+      confirmation: "",
+      subject: "",
+      choices: []
     };
   },
   mounted: function mounted() {},
@@ -251,11 +378,26 @@ __webpack_require__.r(__webpack_exports__);
     },*/
   },
   methods: {
-    getFermers: function getFermers() {
+    onSubmit: function onSubmit() {
+      console.log("Form submitted yay!");
+    },
+    resetForm: function resetForm() {
       var _this = this;
 
+      this.email = "";
+      this.password = "";
+      this.confirmation = "";
+      this.subject = "";
+      this.choices = [];
+      requestAnimationFrame(function () {
+        _this.$refs.observer.reset();
+      });
+    },
+    getFermers: function getFermers() {
+      var _this2 = this;
+
       this.axios.get('/farmer').then(function (response) {
-        _this.farmers = response.data.farmers;
+        _this2.farmers = response.data.farmers;
         console.log(response.data.farmers);
       })["catch"](function (err) {
         console.log("GET:");
@@ -263,7 +405,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     farmerOk: function farmerOk(bvModalEvt) {
-      var _this2 = this;
+      var _this3 = this;
 
       // Prevent modal from closing
       bvModalEvt.preventDefault();
@@ -271,8 +413,8 @@ __webpack_require__.r(__webpack_exports__);
       .then(function (success) {
         if (success) {
           //this.companies_post();
-          _this2.$nextTick(function () {
-            _this2.$bvModal.hide('create_farmer');
+          _this3.$nextTick(function () {
+            _this3.$bvModal.hide('create_farmer');
           });
         }
       });
@@ -304,143 +446,525 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
-        _c("div", { staticClass: "container-fluid" }, [
-          _c("div", { staticClass: "card" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "card-body text-center" },
-              [
-                _c(
-                  "a",
-                  {
-                    directives: [
-                      {
-                        name: "b-modal",
-                        rawName: "v-b-modal.create_farmer",
-                        modifiers: { create_farmer: true }
-                      }
-                    ],
-                    staticClass: "btn btn-app"
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-file-invoice" }),
-                    _vm._v(" Naujas ūkininkas\n                    ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-app",
-                    attrs: { tag: "a", to: "/farmers_type" }
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-th-list" }),
-                    _vm._v(" Ūkio tipas\n                    ")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-app",
-                    attrs: { tag: "a", to: "/farmers_herd" }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-address-card" }),
-                    _vm._v(" Banda\n                    ")
-                  ]
-                )
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card card-solid" }, [
-            _c("div", { staticClass: "card-body pb-0" }, [
+        _c(
+          "div",
+          { staticClass: "container-fluid" },
+          [
+            _c("div", { staticClass: "card" }, [
+              _vm._m(1),
+              _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "row d-flex align-items-stretch" },
-                _vm._l(_vm.farmers, function(value, idx) {
-                  return _c(
-                    "div",
+                { staticClass: "card-body text-center" },
+                [
+                  _c(
+                    "a",
                     {
-                      key: idx,
-                      staticClass:
-                        "col-12 col-sm-6 col-md-4  align-items-stretch"
+                      directives: [
+                        {
+                          name: "b-modal",
+                          rawName: "v-b-modal.create_farmer",
+                          modifiers: { create_farmer: true }
+                        }
+                      ],
+                      staticClass: "btn btn-app"
                     },
                     [
-                      _c("div", { staticClass: "card bg-light" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "card-header text-muted border-bottom-0"
-                          },
-                          [
-                            _vm._v(
-                              "\n                        Valdos numeris: " +
-                                _vm._s(value.valdos_nr) +
-                                "\n                        "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "card-body pt-0" }, [
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-7" }, [
-                              _c("h2", { staticClass: "lead" }, [
-                                _c("b", [
-                                  _vm._v(
-                                    _vm._s(value.vardas) +
-                                      " " +
-                                      _vm._s(value.pavarde)
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("p", { staticClass: "text-muted text-sm" }, [
-                                _vm._v("Gyvulinkystė / Mėsiniai  ")
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "ul",
-                                { staticClass: "ml-4 mb-0 fa-ul text-muted" },
-                                [
-                                  _c("li", { staticClass: "small" }, [
-                                    _vm._m(2, true),
-                                    _vm._v(" " + _vm._s(value.adresas))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", { staticClass: "small" }, [
-                                    _vm._m(3, true),
-                                    _vm._v(" " + _vm._s(value.telefonas))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", { staticClass: "small" }, [
-                                    _vm._m(4, true),
-                                    _vm._v(" " + _vm._s(value.email))
-                                  ])
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _vm._m(5, true)
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _vm._m(6, true)
-                      ])
+                      _c("i", { staticClass: "fas fa-file-invoice" }),
+                      _vm._v(" Naujas ūkininkas\n                    ")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-app",
+                      attrs: { tag: "a", to: "/farmers_type" }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-th-list" }),
+                      _vm._v(" Ūkio tipas\n                    ")
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-app",
+                      attrs: { tag: "a", to: "/farmers_herd" }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-address-card" }),
+                      _vm._v(" Banda\n                    ")
                     ]
                   )
-                }),
-                0
+                ],
+                1
               )
-            ])
-          ])
-        ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card card-solid" }, [
+              _c("div", { staticClass: "card-body pb-0" }, [
+                _c(
+                  "div",
+                  { staticClass: "row d-flex align-items-stretch" },
+                  _vm._l(_vm.farmers, function(value, idx) {
+                    return _c(
+                      "div",
+                      {
+                        key: idx,
+                        staticClass:
+                          "col-12 col-sm-6 col-md-4  align-items-stretch"
+                      },
+                      [
+                        _c("div", { staticClass: "card bg-light" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "card-header text-muted border-bottom-0"
+                            },
+                            [
+                              _vm._v(
+                                "\n                        Valdos numeris: " +
+                                  _vm._s(value.valdos_nr) +
+                                  "\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "card-body pt-0" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-7" }, [
+                                _c("h2", { staticClass: "lead" }, [
+                                  _c("b", [
+                                    _vm._v(
+                                      _vm._s(value.vardas) +
+                                        " " +
+                                        _vm._s(value.pavarde)
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "text-muted text-sm" }, [
+                                  _vm._v("Gyvulinkystė / Mėsiniai  ")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "ul",
+                                  { staticClass: "ml-4 mb-0 fa-ul text-muted" },
+                                  [
+                                    _c("li", { staticClass: "small" }, [
+                                      _vm._m(2, true),
+                                      _vm._v(" " + _vm._s(value.adresas))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", { staticClass: "small" }, [
+                                      _vm._m(3, true),
+                                      _vm._v(" " + _vm._s(value.telefonas))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", { staticClass: "small" }, [
+                                      _vm._m(4, true),
+                                      _vm._v(" " + _vm._s(value.email))
+                                    ])
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _vm._m(5, true)
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._m(6, true)
+                        ])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("ValidationObserver", {
+              ref: "observer",
+              scopedSlots: _vm._u([
+                {
+                  key: "default",
+                  fn: function(ref) {
+                    var passes = ref.passes
+                    return [
+                      _c(
+                        "b-form",
+                        {
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return passes(_vm.onSubmit)
+                            },
+                            reset: _vm.resetForm
+                          }
+                        },
+                        [
+                          _c("ValidationProvider", {
+                            attrs: { rules: "required|email", name: "Email" },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "default",
+                                  fn: function(ref) {
+                                    var valid = ref.valid
+                                    var errors = ref.errors
+                                    return [
+                                      _c(
+                                        "b-form-group",
+                                        {
+                                          attrs: {
+                                            label: "Email address:",
+                                            "label-for": "exampleInput1",
+                                            description:
+                                              "We'll never share your email with anyone else."
+                                          }
+                                        },
+                                        [
+                                          _c("b-form-input", {
+                                            attrs: {
+                                              type: "email",
+                                              state: errors[0]
+                                                ? false
+                                                : valid
+                                                ? true
+                                                : null,
+                                              placeholder: "Enter email"
+                                            },
+                                            model: {
+                                              value: _vm.email,
+                                              callback: function($$v) {
+                                                _vm.email = $$v
+                                              },
+                                              expression: "email"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-form-invalid-feedback",
+                                            {
+                                              attrs: { id: "inputLiveFeedback" }
+                                            },
+                                            [_vm._v(_vm._s(errors[0]))]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  }
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c("ValidationProvider", {
+                            attrs: {
+                              rules: "required",
+                              name: "Password",
+                              vid: "password"
+                            },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "default",
+                                  fn: function(ref) {
+                                    var valid = ref.valid
+                                    var errors = ref.errors
+                                    return [
+                                      _c(
+                                        "b-form-group",
+                                        {
+                                          attrs: {
+                                            label: "Password:",
+                                            description:
+                                              "We'll never share your password with anyone else."
+                                          }
+                                        },
+                                        [
+                                          _c("b-form-input", {
+                                            attrs: {
+                                              type: "password",
+                                              state: errors[0]
+                                                ? false
+                                                : valid
+                                                ? true
+                                                : null,
+                                              placeholder: "Enter password"
+                                            },
+                                            model: {
+                                              value: _vm.password,
+                                              callback: function($$v) {
+                                                _vm.password = $$v
+                                              },
+                                              expression: "password"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-form-invalid-feedback",
+                                            {
+                                              attrs: { id: "inputLiveFeedback" }
+                                            },
+                                            [_vm._v(_vm._s(errors[0]))]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  }
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c("ValidationProvider", {
+                            attrs: {
+                              rules: "required|confirmed:password",
+                              name: "Password confirmation"
+                            },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "default",
+                                  fn: function(ref) {
+                                    var valid = ref.valid
+                                    var errors = ref.errors
+                                    return [
+                                      _c(
+                                        "b-form-group",
+                                        {
+                                          attrs: {
+                                            label: "Confirm Password:",
+                                            "label-for": "exampleInput1"
+                                          }
+                                        },
+                                        [
+                                          _c("b-form-input", {
+                                            attrs: {
+                                              type: "password",
+                                              state: errors[0]
+                                                ? false
+                                                : valid
+                                                ? true
+                                                : null,
+                                              placeholder: "Confirm Password"
+                                            },
+                                            model: {
+                                              value: _vm.confirmation,
+                                              callback: function($$v) {
+                                                _vm.confirmation = $$v
+                                              },
+                                              expression: "confirmation"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-form-invalid-feedback",
+                                            {
+                                              attrs: { id: "inputLiveFeedback" }
+                                            },
+                                            [_vm._v(_vm._s(errors[0]))]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  }
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c("ValidationProvider", {
+                            attrs: { name: "Subject", rules: "required" },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "default",
+                                  fn: function(ref) {
+                                    var valid = ref.valid
+                                    var errors = ref.errors
+                                    return [
+                                      _c(
+                                        "b-form-group",
+                                        {
+                                          attrs: {
+                                            id: "exampleInputGroup3",
+                                            label: "Subject:",
+                                            "label-for": "exampleInput3"
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-select",
+                                            {
+                                              attrs: {
+                                                id: "exampleInput3",
+                                                state: errors[0]
+                                                  ? false
+                                                  : valid
+                                                  ? true
+                                                  : null
+                                              },
+                                              model: {
+                                                value: _vm.subject,
+                                                callback: function($$v) {
+                                                  _vm.subject = $$v
+                                                },
+                                                expression: "subject"
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "option",
+                                                { attrs: { value: "" } },
+                                                [_vm._v("None")]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "option",
+                                                { attrs: { value: "S1" } },
+                                                [_vm._v("Subject 1")]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "option",
+                                                { attrs: { value: "S2" } },
+                                                [_vm._v("Subject 2")]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-form-invalid-feedback",
+                                            {
+                                              attrs: { id: "inputLiveFeedback" }
+                                            },
+                                            [_vm._v(_vm._s(errors[0]))]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  }
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c("ValidationProvider", {
+                            attrs: {
+                              name: "Drink",
+                              rules: "required|length:2"
+                            },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "default",
+                                  fn: function(ref) {
+                                    var valid = ref.valid
+                                    var errors = ref.errors
+                                    return [
+                                      _c(
+                                        "b-form-group",
+                                        { attrs: { id: "exampleGroup4" } },
+                                        [
+                                          _c(
+                                            "b-form-checkbox-group",
+                                            {
+                                              attrs: {
+                                                state: errors[0]
+                                                  ? false
+                                                  : valid
+                                                  ? true
+                                                  : null,
+                                                id: "exampleChecks"
+                                              },
+                                              model: {
+                                                value: _vm.choices,
+                                                callback: function($$v) {
+                                                  _vm.choices = $$v
+                                                },
+                                                expression: "choices"
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "b-form-checkbox",
+                                                { attrs: { value: "Coffee" } },
+                                                [_vm._v("Coffe")]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-form-checkbox",
+                                                { attrs: { value: "Tea" } },
+                                                [_vm._v("Tea")]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-form-checkbox",
+                                                { attrs: { value: "Soda" } },
+                                                [_vm._v("Soda")]
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-form-invalid-feedback",
+                                            {
+                                              attrs: { id: "inputLiveFeedback" }
+                                            },
+                                            [_vm._v(_vm._s(errors[0]))]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  }
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            { attrs: { type: "submit", variant: "primary" } },
+                            [_vm._v("Submit")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            { attrs: { type: "reset", variant: "danger" } },
+                            [_vm._v("Reset")]
+                          )
+                        ],
+                        1
+                      )
+                    ]
+                  }
+                }
+              ])
+            })
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
       _c(
@@ -458,584 +982,779 @@ var render = function() {
           on: { ok: _vm.farmerOk }
         },
         [
-          _c("form", { staticClass: "form-horizontal" }, [
-            _c("div", { staticClass: "form-row" }, [
-              _c("div", { staticClass: "form-group col-md-6" }, [
-                _c("label", [_vm._v("Vardas:")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.farmer.name,
-                      expression: "farmer.name"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.farmer.name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.farmer, "name", $event.target.value)
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-6" }, [
-                _c("label", [_vm._v("Pavardė:")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.farmer.subname,
-                      expression: "farmer.subname"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.farmer.subname },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.farmer, "subname", $event.target.value)
-                    }
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("div", { staticClass: "form-check" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.farmer.vic_lt,
-                      expression: "farmer.vic_lt"
-                    }
-                  ],
-                  staticClass: "form-check-input",
-                  attrs: { type: "checkbox" },
-                  domProps: {
-                    checked: Array.isArray(_vm.farmer.vic_lt)
-                      ? _vm._i(_vm.farmer.vic_lt, null) > -1
-                      : _vm.farmer.vic_lt
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = _vm.farmer.vic_lt,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
-                            _vm.$set(_vm.farmer, "vic_lt", $$a.concat([$$v]))
-                        } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              _vm.farmer,
-                              "vic_lt",
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
-                        }
-                      } else {
-                        _vm.$set(_vm.farmer, "vic_lt", $$c)
-                      }
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "form-check-label" }, [
-                  _vm._v(
-                    "\n                AR TURITE PRIEIGĄ PRIE VIC.LT?\n            "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("small", [
-                  _vm._v(
-                    "Pažymėkitę varnelę, ir galėsite suvesti, VIC.LT prisijungimo duomenis. Jie reikalingi gauti duomanis apie laikomus galvijus ir / arba deklaruojamus plotus. "
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
+          _c("ValidationObserver", {
+            ref: "observer",
+            scopedSlots: _vm._u([
               {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.farmer.vic_lt,
-                    expression: "farmer.vic_lt"
-                  }
-                ],
-                staticClass: "form-row"
-              },
-              [
-                _c("div", { staticClass: "form-group col-md-6" }, [
-                  _c("label", [_vm._v("Vartotojo vardas:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.farmer.username,
-                        expression: "farmer.username"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.farmer.username },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.farmer, "username", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group col-md-6" }, [
-                  _c("label", [_vm._v("Slaptazodis:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.farmer.password,
-                        expression: "farmer.password"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.farmer.password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.farmer, "password", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Ūkio tipas:")]),
-              _c("br"),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check form-check-inline" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.farmer.type,
-                      expression: "farmer.type"
-                    }
-                  ],
-                  staticClass: "form-check-input",
-                  attrs: { type: "radio", value: "1" },
-                  domProps: { checked: _vm._q(_vm.farmer.type, "1") },
-                  on: {
-                    change: function($event) {
-                      return _vm.$set(_vm.farmer, "type", "1")
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "form-check-label" }, [
-                  _vm._v("GYVULININKYSTĖ")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check form-check-inline" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.farmer.type,
-                      expression: "farmer.type"
-                    }
-                  ],
-                  staticClass: "form-check-input",
-                  attrs: { type: "radio", value: "2" },
-                  domProps: { checked: _vm._q(_vm.farmer.type, "2") },
-                  on: {
-                    change: function($event) {
-                      return _vm.$set(_vm.farmer, "type", "2")
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "form-check-label" }, [
-                  _vm._v("AUGALININKYSTĖ")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check form-check-inline" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.farmer.type,
-                      expression: "farmer.type"
-                    }
-                  ],
-                  staticClass: "form-check-input",
-                  attrs: { type: "radio", value: "3" },
-                  domProps: { checked: _vm._q(_vm.farmer.type, "3") },
-                  on: {
-                    change: function($event) {
-                      return _vm.$set(_vm.farmer, "type", "3")
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "form-check-label" }, [
-                  _vm._v("ŽUVININKYSTĖ")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check form-check-inline" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.farmer.type,
-                      expression: "farmer.type"
-                    }
-                  ],
-                  staticClass: "form-check-input",
-                  attrs: { type: "radio", value: "4" },
-                  domProps: { checked: _vm._q(_vm.farmer.type, "4") },
-                  on: {
-                    change: function($event) {
-                      return _vm.$set(_vm.farmer, "type", "4")
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "form-check-label" }, [
-                  _vm._v("MIŠKININKYSTĖ")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _vm.farmer.type == 1
-              ? _c("div", [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Galvijų banda:")]),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.farmer.banda,
-                            expression: "farmer.banda"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: { type: "radio", value: "1" },
-                        domProps: { checked: _vm._q(_vm.farmer.banda, "1") },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(_vm.farmer, "banda", "1")
-                          }
-                        }
-                      }),
+                key: "default",
+                fn: function(ref) {
+                  var passes = ref.passes
+                  return [
+                    _c("form", { staticClass: "form-horizontal" }, [
+                      _c("div", { staticClass: "form-row" }, [
+                        _c("div", { staticClass: "form-group col-md-6" }, [
+                          _c("label", [_vm._v("Vardas:")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.farmer.name,
+                                expression: "farmer.name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.farmer.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.farmer,
+                                  "name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group col-md-6" }, [
+                          _c("label", [_vm._v("Pavardė:")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.farmer.subname,
+                                expression: "farmer.subname"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.farmer.subname },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.farmer,
+                                  "subname",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
                       _vm._v(" "),
-                      _c("label", { staticClass: "form-check-label" }, [
-                        _vm._v("MĖSINIAI")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.farmer.banda,
-                            expression: "farmer.banda"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: { type: "radio", value: "2" },
-                        domProps: { checked: _vm._q(_vm.farmer.banda, "2") },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(_vm.farmer, "banda", "2")
-                          }
-                        }
-                      }),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("div", { staticClass: "form-check" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.farmer.vic_lt,
+                                expression: "farmer.vic_lt"
+                              }
+                            ],
+                            staticClass: "form-check-input",
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.farmer.vic_lt)
+                                ? _vm._i(_vm.farmer.vic_lt, null) > -1
+                                : _vm.farmer.vic_lt
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.farmer.vic_lt,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.farmer,
+                                        "vic_lt",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.farmer,
+                                        "vic_lt",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.farmer, "vic_lt", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "form-check-label" }, [
+                            _vm._v(
+                              "\n                AR TURITE PRIEIGĄ PRIE VIC.LT?\n            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("small", [
+                            _vm._v(
+                              "Pažymėkitę varnelę, ir galėsite suvesti, VIC.LT prisijungimo duomenis. Jie reikalingi gauti duomanis apie laikomus galvijus ir / arba deklaruojamus plotus. "
+                            )
+                          ])
+                        ])
+                      ]),
                       _vm._v(" "),
-                      _c("label", { staticClass: "form-check-label" }, [
-                        _vm._v("PIENINIAI")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-check form-check-inline" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.farmer.banda,
-                            expression: "farmer.banda"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        attrs: { type: "radio", value: "3" },
-                        domProps: { checked: _vm._q(_vm.farmer.banda, "3") },
-                        on: {
-                          change: function($event) {
-                            return _vm.$set(_vm.farmer, "banda", "3")
-                          }
-                        }
-                      }),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.farmer.vic_lt,
+                              expression: "farmer.vic_lt"
+                            }
+                          ],
+                          staticClass: "form-row"
+                        },
+                        [
+                          _c("div", { staticClass: "form-group col-md-6" }, [
+                            _c("label", [_vm._v("Vartotojo vardas:")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.farmer.username,
+                                  expression: "farmer.username"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.farmer.username },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.farmer,
+                                    "username",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group col-md-6" }, [
+                            _c("label", [_vm._v("Slaptazodis:")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.farmer.password,
+                                  expression: "farmer.password"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.farmer.password },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.farmer,
+                                    "password",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ]
+                      ),
                       _vm._v(" "),
-                      _c("label", { staticClass: "form-check-label" }, [
-                        _vm._v("MIŠRŪS")
-                      ])
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Ūkio tipas:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-check form-check-inline" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.farmer.type,
+                                  expression: "farmer.type"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: { type: "radio", value: "1" },
+                              domProps: {
+                                checked: _vm._q(_vm.farmer.type, "1")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(_vm.farmer, "type", "1")
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { staticClass: "form-check-label" }, [
+                              _vm._v("GYVULININKYSTĖ")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-check form-check-inline" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.farmer.type,
+                                  expression: "farmer.type"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: { type: "radio", value: "2" },
+                              domProps: {
+                                checked: _vm._q(_vm.farmer.type, "2")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(_vm.farmer, "type", "2")
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { staticClass: "form-check-label" }, [
+                              _vm._v("AUGALININKYSTĖ")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-check form-check-inline" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.farmer.type,
+                                  expression: "farmer.type"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: { type: "radio", value: "3" },
+                              domProps: {
+                                checked: _vm._q(_vm.farmer.type, "3")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(_vm.farmer, "type", "3")
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { staticClass: "form-check-label" }, [
+                              _vm._v("ŽUVININKYSTĖ")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-check form-check-inline" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.farmer.type,
+                                  expression: "farmer.type"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: { type: "radio", value: "4" },
+                              domProps: {
+                                checked: _vm._q(_vm.farmer.type, "4")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(_vm.farmer, "type", "4")
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { staticClass: "form-check-label" }, [
+                              _vm._v("MIŠKININKYSTĖ")
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.farmer.type == 1
+                        ? _c("div", [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [_vm._v("Galvijų banda:")]),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-check form-check-inline" },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.farmer.banda,
+                                        expression: "farmer.banda"
+                                      }
+                                    ],
+                                    staticClass: "form-check-input",
+                                    attrs: { type: "radio", value: "1" },
+                                    domProps: {
+                                      checked: _vm._q(_vm.farmer.banda, "1")
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.$set(
+                                          _vm.farmer,
+                                          "banda",
+                                          "1"
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { staticClass: "form-check-label" },
+                                    [_vm._v("MĖSINIAI")]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-check form-check-inline" },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.farmer.banda,
+                                        expression: "farmer.banda"
+                                      }
+                                    ],
+                                    staticClass: "form-check-input",
+                                    attrs: { type: "radio", value: "2" },
+                                    domProps: {
+                                      checked: _vm._q(_vm.farmer.banda, "2")
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.$set(
+                                          _vm.farmer,
+                                          "banda",
+                                          "2"
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { staticClass: "form-check-label" },
+                                    [_vm._v("PIENINIAI")]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "form-check form-check-inline" },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.farmer.banda,
+                                        expression: "farmer.banda"
+                                      }
+                                    ],
+                                    staticClass: "form-check-input",
+                                    attrs: { type: "radio", value: "3" },
+                                    domProps: {
+                                      checked: _vm._q(_vm.farmer.banda, "3")
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.$set(
+                                          _vm.farmer,
+                                          "banda",
+                                          "3"
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "label",
+                                    { staticClass: "form-check-label" },
+                                    [_vm._v("MIŠRŪS")]
+                                  )
+                                ]
+                              )
+                            ])
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("div", { staticClass: "form-check" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.farmer.data,
+                                expression: "farmer.data"
+                              }
+                            ],
+                            staticClass: "form-check-input",
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.farmer.data)
+                                ? _vm._i(_vm.farmer.data, null) > -1
+                                : _vm.farmer.data
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.farmer.data,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.farmer,
+                                        "data",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.farmer,
+                                        "data",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.farmer, "data", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "form-check-label" }, [
+                            _vm._v(
+                              "\n                NORITE IŠKART SUVESTI PAPILDOMUS DUOMENIS?\n            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("small", [
+                            _vm._v(
+                              'Pažymėkitę varnelę, ir galėsite suvesti, asmeninius ūkininko duomenis: asmens kodas, adresas, banko saskaita, el. paštas, telefonas. Galite dabar ir nepildyti, užpildysite veliau eidami "ŪKININKŲ SĄRAŠAS" ten pasirinkę ūkininką.'
+                            )
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.farmer.data,
+                              expression: "farmer.data"
+                            }
+                          ]
+                        },
+                        [
+                          _c("ValidationProvider", {
+                            attrs: { rules: "required|email", name: "Email" },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "default",
+                                  fn: function(ref) {
+                                    var valid = ref.valid
+                                    var errors = ref.errors
+                                    return [
+                                      _c(
+                                        "b-form-group",
+                                        {
+                                          attrs: {
+                                            label: "El.paštas:",
+                                            "label-for": "email"
+                                          }
+                                        },
+                                        [
+                                          _c("b-form-input", {
+                                            attrs: {
+                                              type: "email",
+                                              state: errors[0]
+                                                ? false
+                                                : valid
+                                                ? true
+                                                : null,
+                                              placeholder:
+                                                "Įveskite el pašto adresą"
+                                            },
+                                            model: {
+                                              value: _vm.farmer.email,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.farmer,
+                                                  "email",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "farmer.email"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-form-invalid-feedback",
+                                            {
+                                              attrs: { id: "inputLiveFeedback" }
+                                            },
+                                            [_vm._v(_vm._s(errors[0]))]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  }
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c("ValidationProvider", {
+                            attrs: {
+                              rules: {
+                                required: true,
+                                regex: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/
+                              },
+                              name: "Phone"
+                            },
+                            scopedSlots: _vm._u(
+                              [
+                                {
+                                  key: "default",
+                                  fn: function(ref) {
+                                    var valid = ref.valid
+                                    var errors = ref.errors
+                                    return [
+                                      _c(
+                                        "b-form-group",
+                                        {
+                                          attrs: {
+                                            label: "Telefonas:",
+                                            "label-for": "phone"
+                                          }
+                                        },
+                                        [
+                                          _c("b-form-input", {
+                                            attrs: {
+                                              type: "phone",
+                                              state: errors[0]
+                                                ? false
+                                                : valid
+                                                ? true
+                                                : null,
+                                              placeholder:
+                                                "Įveskite telefono numerį",
+                                              description:
+                                                "Telefono numeris: +3706..."
+                                            },
+                                            model: {
+                                              value: _vm.farmer.phone,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.farmer,
+                                                  "phone",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "farmer.phone"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "b-form-invalid-feedback",
+                                            {
+                                              attrs: { id: "inputLiveFeedback" }
+                                            },
+                                            [_vm._v(_vm._s(errors[0]))]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  }
+                                }
+                              ],
+                              null,
+                              true
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Asmens kodas:")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.farmer.code,
+                                  expression: "farmer.code"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.farmer.code },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.farmer,
+                                    "code",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("PVM kodas:")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.farmer.pvm,
+                                  expression: "farmer.pvm"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.farmer.pvm },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.farmer,
+                                    "pvm",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Adresas:")]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.farmer.adress,
+                                  expression: "farmer.adress"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { rows: "3", placeholder: "" },
+                              domProps: { value: _vm.farmer.adress },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.farmer,
+                                    "adress",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ],
+                        1
+                      )
                     ])
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("div", { staticClass: "form-check" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.farmer.data,
-                      expression: "farmer.data"
-                    }
-                  ],
-                  staticClass: "form-check-input",
-                  attrs: { type: "checkbox" },
-                  domProps: {
-                    checked: Array.isArray(_vm.farmer.data)
-                      ? _vm._i(_vm.farmer.data, null) > -1
-                      : _vm.farmer.data
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$a = _vm.farmer.data,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
-                            _vm.$set(_vm.farmer, "data", $$a.concat([$$v]))
-                        } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              _vm.farmer,
-                              "data",
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
-                        }
-                      } else {
-                        _vm.$set(_vm.farmer, "data", $$c)
-                      }
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "form-check-label" }, [
-                  _vm._v(
-                    "\n                NORITE IŠKART SUVESTI PAPILDOMUS DUOMENIS?\n            "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("small", [
-                  _vm._v(
-                    'Pažymėkitę varnelę, ir galėsite suvesti, asmeninius ūkininko duomenis: asmens kodas, adresas, banko saskaita, el. paštas, telefonas. Galite dabar ir nepildyti, užpildysite veliau eidami "ŪKININKŲ SĄRAŠAS" ten pasirinkę ūkininką.'
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.farmer.data,
-                    expression: "farmer.data"
-                  }
-                ]
-              },
-              [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("El. paštas:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.farmer.email,
-                        expression: "farmer.email"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.farmer.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.farmer, "email", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Telefonas:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.farmer.phone,
-                        expression: "farmer.phone"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.farmer.phone },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.farmer, "phone", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Asmens kodas:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.farmer.code,
-                        expression: "farmer.code"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.farmer.code },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.farmer, "code", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("PVM kodas:")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.farmer.pvm,
-                        expression: "farmer.pvm"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.farmer.pvm },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.farmer, "pvm", $event.target.value)
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Adresas:")]),
-                  _vm._v(" "),
-                  _c("textarea", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.farmer.adress,
-                        expression: "farmer.adress"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { rows: "3", placeholder: "" },
-                    domProps: { value: _vm.farmer.adress },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.farmer, "adress", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ]
-            )
-          ])
-        ]
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
       )
     ],
     1

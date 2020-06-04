@@ -29,7 +29,7 @@
         "admin-lte": "^3.0.4",
         "bootstrap-vue": "^2.12.0",
         "simple-vue-validator": "^0.16.0",
-        "vee-validate": "^3.3.0",
+        "vee-validate": "^3.3.2",
         "vue-awesome": "^4.0.2",
         "vue-axios": "^2.1.5",
         "vuelidate": "^0.7.5"

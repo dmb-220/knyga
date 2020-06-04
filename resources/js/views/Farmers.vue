@@ -77,14 +77,104 @@
                     </div>
                     </div>
                 </div>
+                  <ValidationObserver ref="observer" v-slot="{ passes }">
+                    <b-form @submit.prevent="passes(onSubmit)" @reset="resetForm">
+                    <ValidationProvider rules="required|email" name="Email" v-slot="{ valid, errors }">
+                        <b-form-group
+                        label="Email address:"
+                        label-for="exampleInput1"
+                        description="We'll never share your email with anyone else."
+                        >
+                        <b-form-input
+                            type="email"
+                            v-model="email"
+                            :state="errors[0] ? false : (valid ? true : null)"
+                            placeholder="Enter email"
+                        ></b-form-input>
+                        <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                        </b-form-group>
+                    </ValidationProvider>
+
+                    <ValidationProvider
+                        rules="required"
+                        name="Password"
+                        vid="password"
+                        v-slot="{ valid, errors }"
+                    >
+                        <b-form-group
+                        label="Password:"
+                        description="We'll never share your password with anyone else."
+                        >
+                        <b-form-input
+                            type="password"
+                            v-model="password"
+                            :state="errors[0] ? false : (valid ? true : null)"
+                            placeholder="Enter password"
+                        ></b-form-input>
+                        <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                        </b-form-group>
+                    </ValidationProvider>
+
+                    <ValidationProvider
+                        rules="required|confirmed:password"
+                        name="Password confirmation"
+                        v-slot="{ valid, errors }"
+                    >
+                        <b-form-group label="Confirm Password:" label-for="exampleInput1">
+                        <b-form-input
+                            type="password"
+                            v-model="confirmation"
+                            :state="errors[0] ? false : (valid ? true : null)"
+                            placeholder="Confirm Password"
+                        ></b-form-input>
+                        <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                        </b-form-group>
+                    </ValidationProvider>
+
+                    <ValidationProvider name="Subject" rules="required" v-slot="{ valid, errors }">
+                        <b-form-group id="exampleInputGroup3" label="Subject:" label-for="exampleInput3">
+                        <b-form-select
+                            id="exampleInput3"
+                            :state="errors[0] ? false : (valid ? true : null)"
+                            v-model="subject"
+                        >
+                            <option value>None</option>
+                            <option value="S1">Subject 1</option>
+                            <option value="S2">Subject 2</option>
+                        </b-form-select>
+                        <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                        </b-form-group>
+                    </ValidationProvider>
+
+                    <ValidationProvider name="Drink" rules="required|length:2" v-slot="{ valid, errors }">
+                        <b-form-group id="exampleGroup4">
+                        <b-form-checkbox-group
+                            :state="errors[0] ? false : (valid ? true : null)"
+                            v-model="choices"
+                            id="exampleChecks"
+                        >
+                            <b-form-checkbox value="Coffee">Coffe</b-form-checkbox>
+                            <b-form-checkbox value="Tea">Tea</b-form-checkbox>
+                            <b-form-checkbox value="Soda">Soda</b-form-checkbox>
+                        </b-form-checkbox-group>
+                        <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                        </b-form-group>
+                    </ValidationProvider>
+                    <b-button type="submit" variant="primary">Submit</b-button>
+                    <b-button type="reset" variant="danger">Reset</b-button>
+                    </b-form>
+                </ValidationObserver>
             </div><!-- /.container-fluid -->
         </section>
+
+        <!-- naujas ūkininkas, LANGAS -->
         <b-modal id="create_farmer" size="lg" title="Naujas ūkininkas"
         ok-title="Išsaugoti"
         cancel-title="Uždaryti"
         no-close-on-esc
         no-close-on-backdrop
         @ok="farmerOk">
+        <ValidationObserver ref="observer" v-slot="{ passes }">
         <form class="form-horizontal"> 
               <div class="form-row">
                 <div class="form-group col-md-6">
@@ -164,14 +254,32 @@
                 </div>
             </div>
             <div v-show="farmer.data">
-                <div class="form-group">
-                    <label>El. paštas:</label>
-                    <input type="text" v-model='farmer.email' class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Telefonas:</label>
-                    <input type="text" v-model='farmer.phone' class="form-control">
-                </div>
+                <ValidationProvider rules="required|email" name="Email" v-slot="{ valid, errors }">
+                    <b-form-group label="El.paštas:" label-for="email">
+                    <b-form-input
+                        type="email"
+                        v-model="farmer.email"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite el pašto adresą"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
+                
+                <ValidationProvider 
+                :rules="{required: true, regex: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/}" 
+                name="Phone" v-slot="{ valid, errors }">
+                    <b-form-group label="Telefonas:" label-for="phone">
+                    <b-form-input
+                        type="phone"
+                        v-model="farmer.phone"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite telefono numerį"
+                        description="Telefono numeris: +3706...">
+                        </b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
                 <div class="form-group">
                     <label>Asmens kodas:</label>
                     <input type="text" v-model='farmer.code' class="form-control">
@@ -186,6 +294,7 @@
                 </div>
             </div>
         </form>
+        </ValidationObserver>
     </b-modal>
 
 
@@ -197,10 +306,17 @@
 
 <script>
 import { Validator } from 'simple-vue-validator';
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 export default {
+    components: {
+    ValidationObserver,
+    ValidationProvider
+  },
     data() {
         return {
+            //rodyti ūkininkų sarasa
             farmers: [],
+            //naujam ukininkui sukurti
             farmer: {
                 id: '',
                 name: '',
@@ -211,7 +327,17 @@ export default {
                 type: '',
                 banda: '',
                 data: false,
+                email: '',
+                phone: '',
+                code: '',
+                pvm: ''
             },
+            //
+            email: "",
+    password: "",
+    confirmation: "",
+    subject: "",
+    choices: []
         }
     },
     mounted() {},
@@ -241,6 +367,19 @@ export default {
     },
 
     methods: {
+        onSubmit() {
+      console.log("Form submitted yay!");
+    },
+    resetForm() {
+      this.email = "";
+      this.password = "";
+      this.confirmation = "";
+      this.subject = "";
+      this.choices = [];
+      requestAnimationFrame(() => {
+        this.$refs.observer.reset();
+      });
+    },
         getFermers() {
         this.axios
         .get('/farmer')
