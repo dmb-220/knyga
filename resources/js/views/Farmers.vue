@@ -77,93 +77,6 @@
                     </div>
                     </div>
                 </div>
-                  <ValidationObserver ref="observer" v-slot="{ passes }">
-                    <b-form @submit.prevent="passes(onSubmit)" @reset="resetForm">
-                    <ValidationProvider rules="required|email" name="Email" v-slot="{ valid, errors }">
-                        <b-form-group
-                        label="Email address:"
-                        label-for="exampleInput1"
-                        description="We'll never share your email with anyone else."
-                        >
-                        <b-form-input
-                            type="email"
-                            v-model="email"
-                            :state="errors[0] ? false : (valid ? true : null)"
-                            placeholder="Enter email"
-                        ></b-form-input>
-                        <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
-                        </b-form-group>
-                    </ValidationProvider>
-
-                    <ValidationProvider
-                        rules="required"
-                        name="Password"
-                        vid="password"
-                        v-slot="{ valid, errors }"
-                    >
-                        <b-form-group
-                        label="Password:"
-                        description="We'll never share your password with anyone else."
-                        >
-                        <b-form-input
-                            type="password"
-                            v-model="password"
-                            :state="errors[0] ? false : (valid ? true : null)"
-                            placeholder="Enter password"
-                        ></b-form-input>
-                        <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
-                        </b-form-group>
-                    </ValidationProvider>
-
-                    <ValidationProvider
-                        rules="required|confirmed:password"
-                        name="Password confirmation"
-                        v-slot="{ valid, errors }"
-                    >
-                        <b-form-group label="Confirm Password:" label-for="exampleInput1">
-                        <b-form-input
-                            type="password"
-                            v-model="confirmation"
-                            :state="errors[0] ? false : (valid ? true : null)"
-                            placeholder="Confirm Password"
-                        ></b-form-input>
-                        <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
-                        </b-form-group>
-                    </ValidationProvider>
-
-                    <ValidationProvider name="Subject" rules="required" v-slot="{ valid, errors }">
-                        <b-form-group id="exampleInputGroup3" label="Subject:" label-for="exampleInput3">
-                        <b-form-select
-                            id="exampleInput3"
-                            :state="errors[0] ? false : (valid ? true : null)"
-                            v-model="subject"
-                        >
-                            <option value>None</option>
-                            <option value="S1">Subject 1</option>
-                            <option value="S2">Subject 2</option>
-                        </b-form-select>
-                        <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
-                        </b-form-group>
-                    </ValidationProvider>
-
-                    <ValidationProvider name="Drink" rules="required|length:2" v-slot="{ valid, errors }">
-                        <b-form-group id="exampleGroup4">
-                        <b-form-checkbox-group
-                            :state="errors[0] ? false : (valid ? true : null)"
-                            v-model="choices"
-                            id="exampleChecks"
-                        >
-                            <b-form-checkbox value="Coffee">Coffe</b-form-checkbox>
-                            <b-form-checkbox value="Tea">Tea</b-form-checkbox>
-                            <b-form-checkbox value="Soda">Soda</b-form-checkbox>
-                        </b-form-checkbox-group>
-                        <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
-                        </b-form-group>
-                    </ValidationProvider>
-                    <b-button type="submit" variant="primary">Submit</b-button>
-                    <b-button type="reset" variant="danger">Reset</b-button>
-                    </b-form>
-                </ValidationObserver>
             </div><!-- /.container-fluid -->
         </section>
 
@@ -178,12 +91,30 @@
         <form class="form-horizontal"> 
               <div class="form-row">
                 <div class="form-group col-md-6">
-                <label>Vardas:</label>
-                <input type="text" v-model='farmer.name' class="form-control">
+                <ValidationProvider rules="required|min:3|max:15" name="Name" v-slot="{ valid, errors }">
+                    <b-form-group label="Vardas:" label-for="name">
+                    <b-form-input
+                        type="text"
+                        v-model="farmer.name"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite vardą"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
                 </div>
                 <div class="form-group col-md-6">
-                <label>Pavardė:</label>
-                <input type="text" v-model='farmer.subname' class="form-control">
+                <ValidationProvider rules="required|min:3|max:15" name="Subname" v-slot="{ valid, errors }">
+                    <b-form-group label="Pavardė:" label-for="subname">
+                    <b-form-input
+                        type="text"
+                        v-model="farmer.subname"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite pavardę"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
                 </div>
             </div>
             <div class="form-group">
@@ -271,7 +202,6 @@
                 name="Phone" v-slot="{ valid, errors }">
                     <b-form-group label="Telefonas:" label-for="phone">
                     <b-form-input
-                        type="phone"
                         v-model="farmer.phone"
                         :state="errors[0] ? false : (valid ? true : null)"
                         placeholder="Įveskite telefono numerį"
@@ -307,6 +237,7 @@
 <script>
 import { Validator } from 'simple-vue-validator';
 import { ValidationObserver, ValidationProvider } from "vee-validate";
+
 export default {
     components: {
     ValidationObserver,

@@ -1,27 +1,38 @@
-import { required, confirmed, length, email, regex } from "vee-validate/dist/rules";
+import { required, confirmed, length, email, regex, min, max } from "vee-validate/dist/rules";
 import { extend } from "vee-validate";
+
+extend("min", {
+  ...min,
+  message: "Per mažai įvesta symbolių"
+});
+
+extend("max", {
+  ...max,
+  message: "Per daug įvesta symbolių"
+});
+
 
 extend("required", {
   ...required,
-  message: "This field is required"
+  message: "Prašome užpildyti laukelį"
 });
 
 extend("email", {
   ...email,
-  message: "This field must be a valid email"
+  message: "Įveskite teisingą el. pašto adresą"
 });
 
 extend("confirmed", {
   ...confirmed,
-  message: "This field confirmation does not match"
+  message: "neteisingai įvedėte duomenis"
 });
 
 extend('regex', {
   ...regex,
-  message: 'Numbers Only'
+  message: 'Įveskite teisingą telefono numerį'
 });
 
 extend("length", {
   ...length,
-  message: "This field must have 2 options"
+  message: "Pasirinkite 2 reikšmes"
 });

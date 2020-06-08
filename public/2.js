@@ -248,76 +248,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -446,525 +376,143 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
-        _c(
-          "div",
-          { staticClass: "container-fluid" },
-          [
-            _c("div", { staticClass: "card" }, [
-              _vm._m(1),
-              _vm._v(" "),
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-body text-center" },
+              [
+                _c(
+                  "a",
+                  {
+                    directives: [
+                      {
+                        name: "b-modal",
+                        rawName: "v-b-modal.create_farmer",
+                        modifiers: { create_farmer: true }
+                      }
+                    ],
+                    staticClass: "btn btn-app"
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-file-invoice" }),
+                    _vm._v(" Naujas ūkininkas\n                    ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-app",
+                    attrs: { tag: "a", to: "/farmers_type" }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-th-list" }),
+                    _vm._v(" Ūkio tipas\n                    ")
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-app",
+                    attrs: { tag: "a", to: "/farmers_herd" }
+                  },
+                  [
+                    _c("i", { staticClass: "fa fa-address-card" }),
+                    _vm._v(" Banda\n                    ")
+                  ]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card card-solid" }, [
+            _c("div", { staticClass: "card-body pb-0" }, [
               _c(
                 "div",
-                { staticClass: "card-body text-center" },
-                [
-                  _c(
-                    "a",
+                { staticClass: "row d-flex align-items-stretch" },
+                _vm._l(_vm.farmers, function(value, idx) {
+                  return _c(
+                    "div",
                     {
-                      directives: [
-                        {
-                          name: "b-modal",
-                          rawName: "v-b-modal.create_farmer",
-                          modifiers: { create_farmer: true }
-                        }
-                      ],
-                      staticClass: "btn btn-app"
+                      key: idx,
+                      staticClass:
+                        "col-12 col-sm-6 col-md-4  align-items-stretch"
                     },
                     [
-                      _c("i", { staticClass: "fas fa-file-invoice" }),
-                      _vm._v(" Naujas ūkininkas\n                    ")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-app",
-                      attrs: { tag: "a", to: "/farmers_type" }
-                    },
-                    [
-                      _c("i", { staticClass: "fas fa-th-list" }),
-                      _vm._v(" Ūkio tipas\n                    ")
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-app",
-                      attrs: { tag: "a", to: "/farmers_herd" }
-                    },
-                    [
-                      _c("i", { staticClass: "fa fa-address-card" }),
-                      _vm._v(" Banda\n                    ")
-                    ]
-                  )
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card card-solid" }, [
-              _c("div", { staticClass: "card-body pb-0" }, [
-                _c(
-                  "div",
-                  { staticClass: "row d-flex align-items-stretch" },
-                  _vm._l(_vm.farmers, function(value, idx) {
-                    return _c(
-                      "div",
-                      {
-                        key: idx,
-                        staticClass:
-                          "col-12 col-sm-6 col-md-4  align-items-stretch"
-                      },
-                      [
-                        _c("div", { staticClass: "card bg-light" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "card-header text-muted border-bottom-0"
-                            },
-                            [
-                              _vm._v(
-                                "\n                        Valdos numeris: " +
-                                  _vm._s(value.valdos_nr) +
-                                  "\n                        "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body pt-0" }, [
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-7" }, [
-                                _c("h2", { staticClass: "lead" }, [
-                                  _c("b", [
-                                    _vm._v(
-                                      _vm._s(value.vardas) +
-                                        " " +
-                                        _vm._s(value.pavarde)
-                                    )
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("p", { staticClass: "text-muted text-sm" }, [
-                                  _vm._v("Gyvulinkystė / Mėsiniai  ")
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "ul",
-                                  { staticClass: "ml-4 mb-0 fa-ul text-muted" },
-                                  [
-                                    _c("li", { staticClass: "small" }, [
-                                      _vm._m(2, true),
-                                      _vm._v(" " + _vm._s(value.adresas))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("li", { staticClass: "small" }, [
-                                      _vm._m(3, true),
-                                      _vm._v(" " + _vm._s(value.telefonas))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("li", { staticClass: "small" }, [
-                                      _vm._m(4, true),
-                                      _vm._v(" " + _vm._s(value.email))
-                                    ])
-                                  ]
-                                )
+                      _c("div", { staticClass: "card bg-light" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "card-header text-muted border-bottom-0"
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Valdos numeris: " +
+                                _vm._s(value.valdos_nr) +
+                                "\n                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-body pt-0" }, [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-7" }, [
+                              _c("h2", { staticClass: "lead" }, [
+                                _c("b", [
+                                  _vm._v(
+                                    _vm._s(value.vardas) +
+                                      " " +
+                                      _vm._s(value.pavarde)
+                                  )
+                                ])
                               ]),
                               _vm._v(" "),
-                              _vm._m(5, true)
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _vm._m(6, true)
-                        ])
-                      ]
-                    )
-                  }),
-                  0
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("ValidationObserver", {
-              ref: "observer",
-              scopedSlots: _vm._u([
-                {
-                  key: "default",
-                  fn: function(ref) {
-                    var passes = ref.passes
-                    return [
-                      _c(
-                        "b-form",
-                        {
-                          on: {
-                            submit: function($event) {
-                              $event.preventDefault()
-                              return passes(_vm.onSubmit)
-                            },
-                            reset: _vm.resetForm
-                          }
-                        },
-                        [
-                          _c("ValidationProvider", {
-                            attrs: { rules: "required|email", name: "Email" },
-                            scopedSlots: _vm._u(
-                              [
-                                {
-                                  key: "default",
-                                  fn: function(ref) {
-                                    var valid = ref.valid
-                                    var errors = ref.errors
-                                    return [
-                                      _c(
-                                        "b-form-group",
-                                        {
-                                          attrs: {
-                                            label: "Email address:",
-                                            "label-for": "exampleInput1",
-                                            description:
-                                              "We'll never share your email with anyone else."
-                                          }
-                                        },
-                                        [
-                                          _c("b-form-input", {
-                                            attrs: {
-                                              type: "email",
-                                              state: errors[0]
-                                                ? false
-                                                : valid
-                                                ? true
-                                                : null,
-                                              placeholder: "Enter email"
-                                            },
-                                            model: {
-                                              value: _vm.email,
-                                              callback: function($$v) {
-                                                _vm.email = $$v
-                                              },
-                                              expression: "email"
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-form-invalid-feedback",
-                                            {
-                                              attrs: { id: "inputLiveFeedback" }
-                                            },
-                                            [_vm._v(_vm._s(errors[0]))]
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ]
-                                  }
-                                }
-                              ],
-                              null,
-                              true
-                            )
-                          }),
-                          _vm._v(" "),
-                          _c("ValidationProvider", {
-                            attrs: {
-                              rules: "required",
-                              name: "Password",
-                              vid: "password"
-                            },
-                            scopedSlots: _vm._u(
-                              [
-                                {
-                                  key: "default",
-                                  fn: function(ref) {
-                                    var valid = ref.valid
-                                    var errors = ref.errors
-                                    return [
-                                      _c(
-                                        "b-form-group",
-                                        {
-                                          attrs: {
-                                            label: "Password:",
-                                            description:
-                                              "We'll never share your password with anyone else."
-                                          }
-                                        },
-                                        [
-                                          _c("b-form-input", {
-                                            attrs: {
-                                              type: "password",
-                                              state: errors[0]
-                                                ? false
-                                                : valid
-                                                ? true
-                                                : null,
-                                              placeholder: "Enter password"
-                                            },
-                                            model: {
-                                              value: _vm.password,
-                                              callback: function($$v) {
-                                                _vm.password = $$v
-                                              },
-                                              expression: "password"
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-form-invalid-feedback",
-                                            {
-                                              attrs: { id: "inputLiveFeedback" }
-                                            },
-                                            [_vm._v(_vm._s(errors[0]))]
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ]
-                                  }
-                                }
-                              ],
-                              null,
-                              true
-                            )
-                          }),
-                          _vm._v(" "),
-                          _c("ValidationProvider", {
-                            attrs: {
-                              rules: "required|confirmed:password",
-                              name: "Password confirmation"
-                            },
-                            scopedSlots: _vm._u(
-                              [
-                                {
-                                  key: "default",
-                                  fn: function(ref) {
-                                    var valid = ref.valid
-                                    var errors = ref.errors
-                                    return [
-                                      _c(
-                                        "b-form-group",
-                                        {
-                                          attrs: {
-                                            label: "Confirm Password:",
-                                            "label-for": "exampleInput1"
-                                          }
-                                        },
-                                        [
-                                          _c("b-form-input", {
-                                            attrs: {
-                                              type: "password",
-                                              state: errors[0]
-                                                ? false
-                                                : valid
-                                                ? true
-                                                : null,
-                                              placeholder: "Confirm Password"
-                                            },
-                                            model: {
-                                              value: _vm.confirmation,
-                                              callback: function($$v) {
-                                                _vm.confirmation = $$v
-                                              },
-                                              expression: "confirmation"
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-form-invalid-feedback",
-                                            {
-                                              attrs: { id: "inputLiveFeedback" }
-                                            },
-                                            [_vm._v(_vm._s(errors[0]))]
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ]
-                                  }
-                                }
-                              ],
-                              null,
-                              true
-                            )
-                          }),
-                          _vm._v(" "),
-                          _c("ValidationProvider", {
-                            attrs: { name: "Subject", rules: "required" },
-                            scopedSlots: _vm._u(
-                              [
-                                {
-                                  key: "default",
-                                  fn: function(ref) {
-                                    var valid = ref.valid
-                                    var errors = ref.errors
-                                    return [
-                                      _c(
-                                        "b-form-group",
-                                        {
-                                          attrs: {
-                                            id: "exampleInputGroup3",
-                                            label: "Subject:",
-                                            "label-for": "exampleInput3"
-                                          }
-                                        },
-                                        [
-                                          _c(
-                                            "b-form-select",
-                                            {
-                                              attrs: {
-                                                id: "exampleInput3",
-                                                state: errors[0]
-                                                  ? false
-                                                  : valid
-                                                  ? true
-                                                  : null
-                                              },
-                                              model: {
-                                                value: _vm.subject,
-                                                callback: function($$v) {
-                                                  _vm.subject = $$v
-                                                },
-                                                expression: "subject"
-                                              }
-                                            },
-                                            [
-                                              _c(
-                                                "option",
-                                                { attrs: { value: "" } },
-                                                [_vm._v("None")]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "option",
-                                                { attrs: { value: "S1" } },
-                                                [_vm._v("Subject 1")]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "option",
-                                                { attrs: { value: "S2" } },
-                                                [_vm._v("Subject 2")]
-                                              )
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-form-invalid-feedback",
-                                            {
-                                              attrs: { id: "inputLiveFeedback" }
-                                            },
-                                            [_vm._v(_vm._s(errors[0]))]
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ]
-                                  }
-                                }
-                              ],
-                              null,
-                              true
-                            )
-                          }),
-                          _vm._v(" "),
-                          _c("ValidationProvider", {
-                            attrs: {
-                              name: "Drink",
-                              rules: "required|length:2"
-                            },
-                            scopedSlots: _vm._u(
-                              [
-                                {
-                                  key: "default",
-                                  fn: function(ref) {
-                                    var valid = ref.valid
-                                    var errors = ref.errors
-                                    return [
-                                      _c(
-                                        "b-form-group",
-                                        { attrs: { id: "exampleGroup4" } },
-                                        [
-                                          _c(
-                                            "b-form-checkbox-group",
-                                            {
-                                              attrs: {
-                                                state: errors[0]
-                                                  ? false
-                                                  : valid
-                                                  ? true
-                                                  : null,
-                                                id: "exampleChecks"
-                                              },
-                                              model: {
-                                                value: _vm.choices,
-                                                callback: function($$v) {
-                                                  _vm.choices = $$v
-                                                },
-                                                expression: "choices"
-                                              }
-                                            },
-                                            [
-                                              _c(
-                                                "b-form-checkbox",
-                                                { attrs: { value: "Coffee" } },
-                                                [_vm._v("Coffe")]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-form-checkbox",
-                                                { attrs: { value: "Tea" } },
-                                                [_vm._v("Tea")]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "b-form-checkbox",
-                                                { attrs: { value: "Soda" } },
-                                                [_vm._v("Soda")]
-                                              )
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "b-form-invalid-feedback",
-                                            {
-                                              attrs: { id: "inputLiveFeedback" }
-                                            },
-                                            [_vm._v(_vm._s(errors[0]))]
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ]
-                                  }
-                                }
-                              ],
-                              null,
-                              true
-                            )
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            { attrs: { type: "submit", variant: "primary" } },
-                            [_vm._v("Submit")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            { attrs: { type: "reset", variant: "danger" } },
-                            [_vm._v("Reset")]
-                          )
-                        ],
-                        1
-                      )
+                              _c("p", { staticClass: "text-muted text-sm" }, [
+                                _vm._v("Gyvulinkystė / Mėsiniai  ")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "ul",
+                                { staticClass: "ml-4 mb-0 fa-ul text-muted" },
+                                [
+                                  _c("li", { staticClass: "small" }, [
+                                    _vm._m(2, true),
+                                    _vm._v(" " + _vm._s(value.adresas))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("li", { staticClass: "small" }, [
+                                    _vm._m(3, true),
+                                    _vm._v(" " + _vm._s(value.telefonas))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("li", { staticClass: "small" }, [
+                                    _vm._m(4, true),
+                                    _vm._v(" " + _vm._s(value.email))
+                                  ])
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm._m(5, true)
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(6, true)
+                      ])
                     ]
-                  }
-                }
-              ])
-            })
-          ],
-          1
-        )
+                  )
+                }),
+                0
+              )
+            ])
+          ])
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -992,65 +540,151 @@ var render = function() {
                   return [
                     _c("form", { staticClass: "form-horizontal" }, [
                       _c("div", { staticClass: "form-row" }, [
-                        _c("div", { staticClass: "form-group col-md-6" }, [
-                          _c("label", [_vm._v("Vardas:")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.farmer.name,
-                                expression: "farmer.name"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.farmer.name },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.farmer,
-                                  "name",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ]),
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-md-6" },
+                          [
+                            _c("ValidationProvider", {
+                              attrs: {
+                                rules: "required|min:3|max:15",
+                                name: "Name"
+                              },
+                              scopedSlots: _vm._u(
+                                [
+                                  {
+                                    key: "default",
+                                    fn: function(ref) {
+                                      var valid = ref.valid
+                                      var errors = ref.errors
+                                      return [
+                                        _c(
+                                          "b-form-group",
+                                          {
+                                            attrs: {
+                                              label: "Vardas:",
+                                              "label-for": "name"
+                                            }
+                                          },
+                                          [
+                                            _c("b-form-input", {
+                                              attrs: {
+                                                type: "text",
+                                                state: errors[0]
+                                                  ? false
+                                                  : valid
+                                                  ? true
+                                                  : null,
+                                                placeholder: "Įveskite vardą"
+                                              },
+                                              model: {
+                                                value: _vm.farmer.name,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.farmer,
+                                                    "name",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "farmer.name"
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-form-invalid-feedback",
+                                              {
+                                                attrs: {
+                                                  id: "inputLiveFeedback"
+                                                }
+                                              },
+                                              [_vm._v(_vm._s(errors[0]))]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ]
+                                    }
+                                  }
+                                ],
+                                null,
+                                true
+                              )
+                            })
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
-                        _c("div", { staticClass: "form-group col-md-6" }, [
-                          _c("label", [_vm._v("Pavardė:")]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.farmer.subname,
-                                expression: "farmer.subname"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: { type: "text" },
-                            domProps: { value: _vm.farmer.subname },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.farmer,
-                                  "subname",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
+                        _c(
+                          "div",
+                          { staticClass: "form-group col-md-6" },
+                          [
+                            _c("ValidationProvider", {
+                              attrs: {
+                                rules: "required|min:3|max:15",
+                                name: "Subname"
+                              },
+                              scopedSlots: _vm._u(
+                                [
+                                  {
+                                    key: "default",
+                                    fn: function(ref) {
+                                      var valid = ref.valid
+                                      var errors = ref.errors
+                                      return [
+                                        _c(
+                                          "b-form-group",
+                                          {
+                                            attrs: {
+                                              label: "Pavardė:",
+                                              "label-for": "subname"
+                                            }
+                                          },
+                                          [
+                                            _c("b-form-input", {
+                                              attrs: {
+                                                type: "text",
+                                                state: errors[0]
+                                                  ? false
+                                                  : valid
+                                                  ? true
+                                                  : null,
+                                                placeholder: "Įveskite pavardę"
+                                              },
+                                              model: {
+                                                value: _vm.farmer.subname,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.farmer,
+                                                    "subname",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "farmer.subname"
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "b-form-invalid-feedback",
+                                              {
+                                                attrs: {
+                                                  id: "inputLiveFeedback"
+                                                }
+                                              },
+                                              [_vm._v(_vm._s(errors[0]))]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ]
+                                    }
+                                  }
+                                ],
+                                null,
+                                true
+                              )
+                            })
+                          ],
+                          1
+                        )
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
@@ -1612,7 +1246,6 @@ var render = function() {
                                         [
                                           _c("b-form-input", {
                                             attrs: {
-                                              type: "phone",
                                               state: errors[0]
                                                 ? false
                                                 : valid
