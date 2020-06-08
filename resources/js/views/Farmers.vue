@@ -129,12 +129,30 @@
             </div>
             <div v-show="farmer.vic_lt" class="form-row">
                 <div class="form-group col-md-6">
-                <label>Vartotojo vardas:</label>
-                <input type="text" v-model='farmer.username' class="form-control">
+                <ValidationProvider rules="required|min:3|max:15" name="Username" v-slot="{ valid, errors }">
+                    <b-form-group label="Vartotojo vardas:" label-for="username">
+                    <b-form-input
+                        type="text"
+                        v-model="farmer.username"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite vartotojo vardą"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
                 </div>
                 <div class="form-group col-md-6">
-                <label>Slaptazodis:</label>
-                <input type="text" v-model='farmer.password' class="form-control">
+                <ValidationProvider rules="required|min:3|max:15" name="Password" v-slot="{ valid, errors }">
+                    <b-form-group label="Slaptažodis:" label-for="password">
+                    <b-form-input
+                        type="password"
+                        v-model="farmer.password"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite slaptažodį"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
                 </div>
             </div>
             <div class="form-group">
@@ -211,12 +229,31 @@
                     </b-form-group>
                 </ValidationProvider>
                 <div class="form-group">
-                    <label>Asmens kodas:</label>
-                    <input type="text" v-model='farmer.code' class="form-control">
+                    <ValidationProvider rules="required|min:11|numeric" name="Code" v-slot="{ valid, errors }">
+                    <b-form-group label="Asmens kodas:" label-for="code">
+                    <b-form-input
+                        type="text"
+                        v-model="farmer.code"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite asmens kodą"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
                 </div>
                 <div class="form-group">
                     <label>PVM kodas:</label>
-                    <input type="text" v-model='farmer.pvm' class="form-control">
+                    <ValidationProvider rules="max:15" name="Pvm" v-slot="{ valid, errors }">
+                    <b-form-group label="PVM kodas:" label-for="pvm">
+                    <b-form-input
+                        type="text"
+                        v-model="farmer.pvm"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="ĮveskitePVM kodą"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
                 </div>
                 <div class="form-group">
                     <label>Adresas:</label>

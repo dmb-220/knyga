@@ -248,6 +248,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -767,65 +804,153 @@ var render = function() {
                           staticClass: "form-row"
                         },
                         [
-                          _c("div", { staticClass: "form-group col-md-6" }, [
-                            _c("label", [_vm._v("Vartotojo vardas:")]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.farmer.username,
-                                  expression: "farmer.username"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { type: "text" },
-                              domProps: { value: _vm.farmer.username },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.farmer,
-                                    "username",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ]),
+                          _c(
+                            "div",
+                            { staticClass: "form-group col-md-6" },
+                            [
+                              _c("ValidationProvider", {
+                                attrs: {
+                                  rules: "required|min:3|max:15",
+                                  name: "Username"
+                                },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "default",
+                                      fn: function(ref) {
+                                        var valid = ref.valid
+                                        var errors = ref.errors
+                                        return [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: "Vartotojo vardas:",
+                                                "label-for": "username"
+                                              }
+                                            },
+                                            [
+                                              _c("b-form-input", {
+                                                attrs: {
+                                                  type: "text",
+                                                  state: errors[0]
+                                                    ? false
+                                                    : valid
+                                                    ? true
+                                                    : null,
+                                                  placeholder:
+                                                    "Įveskite vartotojo vardą"
+                                                },
+                                                model: {
+                                                  value: _vm.farmer.username,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.farmer,
+                                                      "username",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "farmer.username"
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-form-invalid-feedback",
+                                                {
+                                                  attrs: {
+                                                    id: "inputLiveFeedback"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(errors[0]))]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ]
+                                      }
+                                    }
+                                  ],
+                                  null,
+                                  true
+                                )
+                              })
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "form-group col-md-6" }, [
-                            _c("label", [_vm._v("Slaptazodis:")]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.farmer.password,
-                                  expression: "farmer.password"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { type: "text" },
-                              domProps: { value: _vm.farmer.password },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.farmer,
-                                    "password",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ])
+                          _c(
+                            "div",
+                            { staticClass: "form-group col-md-6" },
+                            [
+                              _c("ValidationProvider", {
+                                attrs: {
+                                  rules: "required|min:3|max:15",
+                                  name: "Password"
+                                },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "default",
+                                      fn: function(ref) {
+                                        var valid = ref.valid
+                                        var errors = ref.errors
+                                        return [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: "Slaptažodis:",
+                                                "label-for": "password"
+                                              }
+                                            },
+                                            [
+                                              _c("b-form-input", {
+                                                attrs: {
+                                                  type: "password",
+                                                  state: errors[0]
+                                                    ? false
+                                                    : valid
+                                                    ? true
+                                                    : null,
+                                                  placeholder:
+                                                    "Įveskite slaptažodį"
+                                                },
+                                                model: {
+                                                  value: _vm.farmer.password,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.farmer,
+                                                      "password",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "farmer.password"
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-form-invalid-feedback",
+                                                {
+                                                  attrs: {
+                                                    id: "inputLiveFeedback"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(errors[0]))]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ]
+                                      }
+                                    }
+                                  ],
+                                  null,
+                                  true
+                                )
+                              })
+                            ],
+                            1
+                          )
                         ]
                       ),
                       _vm._v(" "),
@@ -1288,65 +1413,152 @@ var render = function() {
                             )
                           }),
                           _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("label", [_vm._v("Asmens kodas:")]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.farmer.code,
-                                  expression: "farmer.code"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { type: "text" },
-                              domProps: { value: _vm.farmer.code },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.farmer,
-                                    "code",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ]),
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("ValidationProvider", {
+                                attrs: {
+                                  rules: "required|min:11|numeric",
+                                  name: "Code"
+                                },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "default",
+                                      fn: function(ref) {
+                                        var valid = ref.valid
+                                        var errors = ref.errors
+                                        return [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: "Asmens kodas:",
+                                                "label-for": "code"
+                                              }
+                                            },
+                                            [
+                                              _c("b-form-input", {
+                                                attrs: {
+                                                  type: "text",
+                                                  state: errors[0]
+                                                    ? false
+                                                    : valid
+                                                    ? true
+                                                    : null,
+                                                  placeholder:
+                                                    "Įveskite asmens kodą"
+                                                },
+                                                model: {
+                                                  value: _vm.farmer.code,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.farmer,
+                                                      "code",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "farmer.code"
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-form-invalid-feedback",
+                                                {
+                                                  attrs: {
+                                                    id: "inputLiveFeedback"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(errors[0]))]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ]
+                                      }
+                                    }
+                                  ],
+                                  null,
+                                  true
+                                )
+                              })
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "form-group" }, [
-                            _c("label", [_vm._v("PVM kodas:")]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.farmer.pvm,
-                                  expression: "farmer.pvm"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { type: "text" },
-                              domProps: { value: _vm.farmer.pvm },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.farmer,
-                                    "pvm",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ]),
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("PVM kodas:")]),
+                              _vm._v(" "),
+                              _c("ValidationProvider", {
+                                attrs: { rules: "max:15", name: "Pvm" },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "default",
+                                      fn: function(ref) {
+                                        var valid = ref.valid
+                                        var errors = ref.errors
+                                        return [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: "PVM kodas:",
+                                                "label-for": "pvm"
+                                              }
+                                            },
+                                            [
+                                              _c("b-form-input", {
+                                                attrs: {
+                                                  type: "text",
+                                                  state: errors[0]
+                                                    ? false
+                                                    : valid
+                                                    ? true
+                                                    : null,
+                                                  placeholder:
+                                                    "ĮveskitePVM kodą"
+                                                },
+                                                model: {
+                                                  value: _vm.farmer.pvm,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      _vm.farmer,
+                                                      "pvm",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "farmer.pvm"
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c(
+                                                "b-form-invalid-feedback",
+                                                {
+                                                  attrs: {
+                                                    id: "inputLiveFeedback"
+                                                  }
+                                                },
+                                                [_vm._v(_vm._s(errors[0]))]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ]
+                                      }
+                                    }
+                                  ],
+                                  null,
+                                  true
+                                )
+                              })
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
                           _c("div", { staticClass: "form-group" }, [
                             _c("label", [_vm._v("Adresas:")]),
