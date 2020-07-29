@@ -9,9 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simple-vue-validator */ "./node_modules/simple-vue-validator/src/index.js");
-/* harmony import */ var simple_vue_validator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(simple_vue_validator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
 //
 //
 //
@@ -285,12 +283,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    ValidationObserver: vee_validate__WEBPACK_IMPORTED_MODULE_1__["ValidationObserver"],
-    ValidationProvider: vee_validate__WEBPACK_IMPORTED_MODULE_1__["ValidationProvider"]
+    ValidationObserver: vee_validate__WEBPACK_IMPORTED_MODULE_0__["ValidationObserver"],
+    ValidationProvider: vee_validate__WEBPACK_IMPORTED_MODULE_0__["ValidationProvider"]
   },
   data: function data() {
     return {
@@ -324,26 +321,6 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.getFermers();
   },
-  validators: {
-    /*'company.company_name': function(value) {
-      return Validator.value(value)
-      .minLength(5, 'Per trumpas pavadinimas')
-      .required('Įrašykite įmonės pavadinimą');
-      //.regex('^[A-Za-z0-9 -]*$', 'Naudojami neleistini simboliai');
-    },
-    'company.company_code': function(value) {
-      return Validator.value(value)
-      .minLength(9, 'Per trumpas kodas')
-      .required('Įrašykite įmonės kodą')
-      .regex('^[0-9]*$', 'Naudojami neleistini simboliai');
-    },
-    'company.pvm_code': function(value) {
-      return Validator.value(value)
-      .minLength(11, 'Per trumpas PVM kodas')
-      .required('Įrašykite PVM kodą')
-      .regex('^[A-Za-z0-9]*$', 'Naudojami neleistini simboliai');
-    },*/
-  },
   methods: {
     onSubmit: function onSubmit() {
       console.log("Form submitted yay!");
@@ -360,11 +337,36 @@ __webpack_require__.r(__webpack_exports__);
         _this.$refs.observer.reset();
       });
     },
-    getFermers: function getFermers() {
+    farmer_post: function farmer_post() {
       var _this2 = this;
 
+      axios.post("/farmer/store", {
+        name: this.farmer.name,
+        subname: this.farmer.subname,
+        vic_lt: this.farmer.vic_lt,
+        username: this.farmer.username,
+        password: this.farmer.password,
+        type: this.farmer.type,
+        banda: this.farmer.banda,
+        data: this.farmer.data,
+        email: this.farmer.email,
+        phone: this.farmer.phone,
+        code: this.farmer.code,
+        pvm: this.farmer.pwm
+      }).then(function (response) {
+        console.log(response.data.status);
+
+        _this2.getFermers();
+      })["catch"](function (err) {
+        console.log("POST:");
+        console.log(err.message);
+      });
+    },
+    getFermers: function getFermers() {
+      var _this3 = this;
+
       this.axios.get('/farmer').then(function (response) {
-        _this2.farmers = response.data.farmers;
+        _this3.farmers = response.data.farmers;
         console.log(response.data.farmers);
       })["catch"](function (err) {
         console.log("GET:");
@@ -372,16 +374,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     farmerOk: function farmerOk(bvModalEvt) {
-      var _this3 = this;
+      var _this4 = this;
 
       // Prevent modal from closing
       bvModalEvt.preventDefault();
-      this.$validate() //.then((success) => {
-      .then(function (success) {
+      this.$refs.form.validate().then(function (success) {
         if (success) {
-          //this.companies_post();
-          _this3.$nextTick(function () {
-            _this3.$bvModal.hide('create_farmer');
+          //this.farmer_post();
+          _this4.$nextTick(function () {
+            _this4.$bvModal.hide('create_farmer');
           });
         }
       });
@@ -568,7 +569,7 @@ var render = function() {
         },
         [
           _c("ValidationObserver", {
-            ref: "observer",
+            ref: "form",
             scopedSlots: _vm._u([
               {
                 key: "default",
@@ -810,7 +811,8 @@ var render = function() {
                             [
                               _c("ValidationProvider", {
                                 attrs: {
-                                  rules: "required|min:3|max:15",
+                                  rules:
+                                    "`${farmer.vic_lt ? 'required|min:3|max:15' : ''}`",
                                   name: "Username"
                                 },
                                 scopedSlots: _vm._u(
@@ -884,7 +886,8 @@ var render = function() {
                             [
                               _c("ValidationProvider", {
                                 attrs: {
-                                  rules: "required|min:3|max:15",
+                                  rules:
+                                    "`${farmer.vic_lt ? '' : 'required|min:3|max:15'}`",
                                   name: "Password"
                                 },
                                 scopedSlots: _vm._u(
@@ -1521,7 +1524,7 @@ var render = function() {
                                                     ? true
                                                     : null,
                                                   placeholder:
-                                                    "ĮveskitePVM kodą"
+                                                    "Įveskite PVM kodą"
                                                 },
                                                 model: {
                                                   value: _vm.farmer.pvm,

@@ -15,22 +15,22 @@
         "cross-env": "^5.1",
         "jquery": "^3.5.1",
         "laravel-mix": "^5.0.4",
-        "lodash": "^4.17.13",
+        "lodash": "^4.17.19",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.26.8",
+        "sass": "^1.26.10",
         "sass-loader": "7.*",
         "vue": "^2.6.11",
-        "vue-router": "^3.3.2",
+        "vue-router": "^3.3.4",
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^5.13.0",
+        "@fortawesome/fontawesome-free": "^5.14.0",
         "admin-lte": "^3.0.5",
         "bootstrap-vue": "^2.15.0",
         "simple-vue-validator": "^0.16.0",
-        "vee-validate": "^3.3.2",
-        "vue-awesome": "^4.0.2",
+        "vee-validate": "^3.3.7",
+        "vue-awesome": "^4.1.0",
         "vue-axios": "^2.1.5",
         "vuelidate": "^0.7.5"
     }

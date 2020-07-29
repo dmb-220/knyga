@@ -87,7 +87,7 @@
         no-close-on-esc
         no-close-on-backdrop
         @ok="farmerOk">
-        <ValidationObserver ref="observer" v-slot="{ passes }">
+        <ValidationObserver ref="form" v-slot="{ passes }">
         <form class="form-horizontal"> 
               <div class="form-row">
                 <div class="form-group col-md-6">
@@ -129,7 +129,7 @@
             </div>
             <div v-show="farmer.vic_lt" class="form-row">
                 <div class="form-group col-md-6">
-                <ValidationProvider rules="required|min:3|max:15" name="Username" v-slot="{ valid, errors }">
+                <ValidationProvider rules="`${farmer.vic_lt ? 'required|min:3|max:15' : ''}`" name="Username" v-slot="{ valid, errors }">
                     <b-form-group label="Vartotojo vardas:" label-for="username">
                     <b-form-input
                         type="text"
@@ -142,7 +142,7 @@
                 </ValidationProvider>
                 </div>
                 <div class="form-group col-md-6">
-                <ValidationProvider rules="required|min:3|max:15" name="Password" v-slot="{ valid, errors }">
+                <ValidationProvider rules="`${farmer.vic_lt ? '' : 'required|min:3|max:15'}`" name="Password" v-slot="{ valid, errors }">
                     <b-form-group label="Slaptažodis:" label-for="password">
                     <b-form-input
                         type="password"
@@ -249,7 +249,7 @@
                         type="text"
                         v-model="farmer.pvm"
                         :state="errors[0] ? false : (valid ? true : null)"
-                        placeholder="ĮveskitePVM kodą"
+                        placeholder="Įveskite PVM kodą"
                     ></b-form-input>
                     <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
                     </b-form-group>
@@ -272,7 +272,6 @@
 </template>
 
 <script>
-import { Validator } from 'simple-vue-validator';
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 
 export default {
@@ -313,26 +312,6 @@ export default {
     created() {
         this.getFermers()
     },
-    validators: {
-      /*'company.company_name': function(value) {
-        return Validator.value(value)
-        .minLength(5, 'Per trumpas pavadinimas')
-        .required('Įrašykite įmonės pavadinimą');
-        //.regex('^[A-Za-z0-9 -]*$', 'Naudojami neleistini simboliai');
-      },
-      'company.company_code': function(value) {
-        return Validator.value(value)
-        .minLength(9, 'Per trumpas kodas')
-        .required('Įrašykite įmonės kodą')
-        .regex('^[0-9]*$', 'Naudojami neleistini simboliai');
-      },
-      'company.pvm_code': function(value) {
-        return Validator.value(value)
-        .minLength(11, 'Per trumpas PVM kodas')
-        .required('Įrašykite PVM kodą')
-        .regex('^[A-Za-z0-9]*$', 'Naudojami neleistini simboliai');
-      },*/
-    },
 
     methods: {
         onSubmit() {
@@ -348,32 +327,56 @@ export default {
         this.$refs.observer.reset();
       });
     },
-        getFermers() {
-        this.axios
-        .get('/farmer')
+    farmer_post(){
+        axios
+        .post(`/farmer/store`, {
+            name: this.farmer.name,
+            subname: this.farmer.subname,
+            vic_lt: this.farmer.vic_lt,
+            username: this.farmer.username,
+            password: this.farmer.password,
+            type: this.farmer.type,
+            banda: this.farmer.banda,
+            data: this.farmer.data,
+            email: this.farmer.email,
+            phone: this.farmer.phone,
+            code: this.farmer.code,
+            pvm: this.farmer.pwm
+            })
         .then(response => {
-            this.farmers = response.data.farmers;
-            console.log(response.data.farmers);
+            console.log(response.data.status)
+            this.getFermers()
         })
         .catch( err => {
-            console.log("GET:");
-            console.log(err.message);
-            })
-        },
-        farmerOk(bvModalEvt) {
-            // Prevent modal from closing
-            bvModalEvt.preventDefault()
-            this.$validate()
-            //.then((success) => {
-            .then((success) => {
-                if (success) {
-                    //this.companies_post();
-                    this.$nextTick(() => {
-                        this.$bvModal.hide('create_farmer')
-                    })
-                }
-            });
-        }, 
-    }
+        console.log("POST:");
+        console.log(err.message);
+        })
+    },
+    getFermers() {
+    this.axios
+    .get('/farmer')
+    .then(response => {
+        this.farmers = response.data.farmers;
+        console.log(response.data.farmers);
+    })
+    .catch( err => {
+        console.log("GET:");
+        console.log(err.message);
+        })
+    },
+    farmerOk(bvModalEvt) {
+        // Prevent modal from closing
+        bvModalEvt.preventDefault()
+        this.$refs.form.validate()
+        .then(success => {
+            if (success) {
+                //this.farmer_post();
+                this.$nextTick(() => {
+                    this.$bvModal.hide('create_farmer')
+                })
+            }
+        })
+    },
+}
 }
 </script>
