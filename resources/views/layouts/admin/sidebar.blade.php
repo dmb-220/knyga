@@ -32,7 +32,7 @@
                 </li>
                 <li class="nav-item">
                     <router-link tag="a" to="/farmers" class="nav-link">
-                        <i class="nav-icon fas fa-apple-alt"></i>
+                        <i class="nav-icon fas fa-user-secret"></i>
                         <p>Ūkininkai</p>
                     </router-link>
                 </li>
@@ -43,10 +43,16 @@
                     </router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link tag="a" to="/users" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>Vartotojai</p>
-                    </router-link>
+                <router-link tag="a" to="/users" class="nav-link">
+                    <i class="nav-icon fas fa-paw"></i>
+                    <p>Galvijai</p>
+                </router-link>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin" class="nav-link">
+                        <i class="nav-icon fas fa-sitemap"></i>
+                        <p>Administravimas</p>
+                    </a>
                 </li>
 
             </ul>

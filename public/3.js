@@ -435,7 +435,7 @@ var render = function() {
                 { staticClass: "btn btn-app", attrs: { tag: "a", to: "/" } },
                 [
                   _c("i", { staticClass: "fa fa-arrow-left" }),
-                  _vm._v(" Atgal\n                    ")
+                  _vm._v(" Atgal\r\n                    ")
                 ]
               )
             ],
@@ -553,11 +553,11 @@ var render = function() {
                     fn: function(row) {
                       return [
                         _vm._v(
-                          "\n                    " +
+                          "\r\n                    " +
                             _vm._s(row.value.first) +
                             " " +
                             _vm._s(row.value.last) +
-                            "\n                "
+                            "\r\n                "
                         )
                       ]
                     }
@@ -578,7 +578,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Redaguoti\n                    "
+                              "\r\n                    Redaguoti\r\n                    "
                             )
                           ]
                         ),
@@ -595,7 +595,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                    Ištrinti\n                    "
+                              "\r\n                    Ištrinti\r\n                    "
                             )
                           ]
                         )
@@ -1198,7 +1198,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 

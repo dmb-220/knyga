@@ -292,29 +292,15 @@ export default {
             // Prevent modal from closing
             bvModalEvt.preventDefault()
             this.$validate()
-  .then(function (success) {
-    if (success) {
-      alert('Validation succeeded!');
-      this.$nextTick(() => {
-          this.$bvModal.hide('create_company')
-          })
-    }
-  });
-            /*if(this.ok){
-                this.companies_post();
-                    // Trigger submit handler
-                    console.log("VEIKIA 2");
-                    console.log(this.ok);
-                    //this.$nextTick(() => {
-                    //this.$bvModal.hide('create_company')
-                   // })
-                    console.log("VEIKIA 3");
-            }*/
-            /*this.companies_post();
-            // Trigger submit handler
-            this.$nextTick(() => {
-            this.$bvModal.hide('create_company')
-            })*/
+            //.then((success) => {
+            .then((success) => {
+                if (success) {
+                    this.companies_post();
+                    this.$nextTick(() => {
+                        this.$bvModal.hide('create_company')
+                    })
+                }
+            });
         }, 
         companyEdit(bvModalEvt) {
             // Prevent modal from closing

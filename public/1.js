@@ -302,34 +302,20 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     companyOk: function companyOk(bvModalEvt) {
+      var _this5 = this;
+
       // Prevent modal from closing
       bvModalEvt.preventDefault();
-      this.$validate().then(function (success) {
-        var _this5 = this;
-
+      this.$validate() //.then((success) => {
+      .then(function (success) {
         if (success) {
-          alert('Validation succeeded!');
-          this.$nextTick(function () {
+          _this5.companies_post();
+
+          _this5.$nextTick(function () {
             _this5.$bvModal.hide('create_company');
           });
         }
       });
-      /*if(this.ok){
-          this.companies_post();
-              // Trigger submit handler
-              console.log("VEIKIA 2");
-              console.log(this.ok);
-              //this.$nextTick(() => {
-              //this.$bvModal.hide('create_company')
-             // })
-              console.log("VEIKIA 3");
-      }*/
-
-      /*this.companies_post();
-      // Trigger submit handler
-      this.$nextTick(() => {
-      this.$bvModal.hide('create_company')
-      })*/
     },
     companyEdit: function companyEdit(bvModalEvt) {
       var _this6 = this;
@@ -959,7 +945,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 

@@ -29,6 +29,7 @@ window.Form = Form;
 
 import router from './router';
 
+import "./vee-validate";
 
 // 3. Update the new Vue intance at the bottom of the file.
 new Vue({

@@ -79,38 +79,189 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
+
+        <!-- naujas ūkininkas, LANGAS -->
         <b-modal id="create_farmer" size="lg" title="Naujas ūkininkas"
         ok-title="Išsaugoti"
         cancel-title="Uždaryti"
         no-close-on-esc
         no-close-on-backdrop
         @ok="farmerOk">
+        <ValidationObserver ref="form" v-slot="{ passes }">
         <form class="form-horizontal"> 
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Pavadinimas:</label>
-                <div class="col-sm-9">
-                    <input type="text" v-model.trim="company.company_name" class="form-control"
-                    :class="{'is-invalid': validation.hasError('company.company_name')}">
-                    <div class="text-danger">{{ validation.firstError('company.company_name') }}</div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                <ValidationProvider rules="required|min:3|max:15" name="Name" v-slot="{ valid, errors }">
+                    <b-form-group label="Vardas:" label-for="name">
+                    <b-form-input
+                        type="text"
+                        v-model="farmer.name"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite vardą"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
+                </div>
+                <div class="form-group col-md-6">
+                <ValidationProvider rules="required|min:3|max:15" name="Subname" v-slot="{ valid, errors }">
+                    <b-form-group label="Pavardė:" label-for="subname">
+                    <b-form-input
+                        type="text"
+                        v-model="farmer.subname"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite pavardę"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Įmonės kodas:</label>
-                <div class="col-sm-9">
-                <input type="text" v-model.trim="company.company_code" class="form-control"
-                    :class="{'is-invalid': validation.hasError('company.company_code')}">
-                    <div class="text-danger">{{ validation.firstError('company.company_code') }}</div>
+            <div class="form-group">
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="farmer.vic_lt">
+                <label class="form-check-label">
+                    AR TURITE PRIEIGĄ PRIE VIC.LT?
+                </label>
+                <br>
+                <small>Pažymėkitę varnelę, ir galėsite suvesti, VIC.LT prisijungimo duomenis. Jie reikalingi gauti duomanis apie laikomus galvijus ir / arba deklaruojamus plotus. </small>
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-3 col-form-label">PVM kodas:</label>
-                <div class="col-sm-9">
-                <input type="text" v-model.trim="company.pvm_code" class="form-control"
-                    :class="{'is-invalid': validation.hasError('company.pvm_code')}">
-                    <div class="text-danger">{{ validation.firstError('company.pvm_code') }}</div>
+            <div v-show="farmer.vic_lt" class="form-row">
+                <div class="form-group col-md-6">
+                <ValidationProvider rules="`${farmer.vic_lt ? 'required|min:3|max:15' : ''}`" name="Username" v-slot="{ valid, errors }">
+                    <b-form-group label="Vartotojo vardas:" label-for="username">
+                    <b-form-input
+                        type="text"
+                        v-model="farmer.username"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite vartotojo vardą"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
+                </div>
+                <div class="form-group col-md-6">
+                <ValidationProvider rules="`${farmer.vic_lt ? '' : 'required|min:3|max:15'}`" name="Password" v-slot="{ valid, errors }">
+                    <b-form-group label="Slaptažodis:" label-for="password">
+                    <b-form-input
+                        type="password"
+                        v-model="farmer.password"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite slaptažodį"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
+                </div>
+            </div>
+            <div class="form-group">
+            <label>Ūkio tipas:</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" v-model="farmer.type" value="1">
+                <label class="form-check-label">GYVULININKYSTĖ</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" v-model="farmer.type" value="2">
+                <label class="form-check-label">AUGALININKYSTĖ</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" v-model="farmer.type" value="3">
+                <label class="form-check-label">ŽUVININKYSTĖ</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" v-model="farmer.type" value="4">
+                <label class="form-check-label">MIŠKININKYSTĖ</label>
+            </div>
+            </div>
+            <div v-if="farmer.type == 1">
+                <div class="form-group">
+                    <label>Galvijų banda:</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="farmer.banda" value="1">
+                        <label class="form-check-label">MĖSINIAI</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="farmer.banda" value="2">
+                        <label class="form-check-label">PIENINIAI</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" v-model="farmer.banda" value="3">
+                        <label class="form-check-label">MIŠRŪS</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="farmer.data">
+                <label class="form-check-label">
+                    NORITE IŠKART SUVESTI PAPILDOMUS DUOMENIS?
+                </label>
+                <br>
+                <small>Pažymėkitę varnelę, ir galėsite suvesti, asmeninius ūkininko duomenis: asmens kodas, adresas, banko saskaita, el. paštas, telefonas. Galite dabar ir nepildyti, užpildysite veliau eidami "ŪKININKŲ SĄRAŠAS" ten pasirinkę ūkininką.</small>
+                </div>
+            </div>
+            <div v-show="farmer.data">
+                <ValidationProvider rules="required|email" name="Email" v-slot="{ valid, errors }">
+                    <b-form-group label="El.paštas:" label-for="email">
+                    <b-form-input
+                        type="email"
+                        v-model="farmer.email"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite el pašto adresą"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
+                
+                <ValidationProvider 
+                :rules="{required: true, regex: /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/}" 
+                name="Phone" v-slot="{ valid, errors }">
+                    <b-form-group label="Telefonas:" label-for="phone">
+                    <b-form-input
+                        v-model="farmer.phone"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite telefono numerį"
+                        description="Telefono numeris: +3706...">
+                        </b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
+                <div class="form-group">
+                    <ValidationProvider rules="required|min:11|numeric" name="Code" v-slot="{ valid, errors }">
+                    <b-form-group label="Asmens kodas:" label-for="code">
+                    <b-form-input
+                        type="text"
+                        v-model="farmer.code"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite asmens kodą"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
+                </div>
+                <div class="form-group">
+                    <label>PVM kodas:</label>
+                    <ValidationProvider rules="max:15" name="Pvm" v-slot="{ valid, errors }">
+                    <b-form-group label="PVM kodas:" label-for="pvm">
+                    <b-form-input
+                        type="text"
+                        v-model="farmer.pvm"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        placeholder="Įveskite PVM kodą"
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="inputLiveFeedback">{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                </ValidationProvider>
+                </div>
+                <div class="form-group">
+                    <label>Adresas:</label>
+                    <textarea class="form-control" rows="3" placeholder="" v-model='farmer.adress'></textarea>
                 </div>
             </div>
         </form>
+        </ValidationObserver>
     </b-modal>
 
 
@@ -121,16 +272,39 @@
 </template>
 
 <script>
+import { ValidationObserver, ValidationProvider } from "vee-validate";
+
 export default {
+    components: {
+    ValidationObserver,
+    ValidationProvider
+  },
     data() {
         return {
+            //rodyti ūkininkų sarasa
             farmers: [],
-            company: {
+            //naujam ukininkui sukurti
+            farmer: {
                 id: '',
-                company_name: '',
-                company_code: '',
-                pvm_code: ''
+                name: '',
+                subname: '',
+                vic_lt: false,
+                username: '',
+                password: '',
+                type: '',
+                banda: '',
+                data: false,
+                email: '',
+                phone: '',
+                code: '',
+                pvm: ''
             },
+            //
+            email: "",
+    password: "",
+    confirmation: "",
+    subject: "",
+    choices: []
         }
     },
     mounted() {},
@@ -138,66 +312,71 @@ export default {
     created() {
         this.getFermers()
     },
-    validators: {
-      'company.company_name': function(value) {
-        return Validator.value(value)
-        .minLength(5, 'Per trumpas pavadinimas')
-        .required('Įrašykite įmonės pavadinimą');
-        //.regex('^[A-Za-z0-9 -]*$', 'Naudojami neleistini simboliai');
-      },
-      'company.company_code': function(value) {
-        return Validator.value(value)
-        .minLength(9, 'Per trumpas kodas')
-        .required('Įrašykite įmonės kodą')
-        .regex('^[0-9]*$', 'Naudojami neleistini simboliai');
-      },
-      'company.pvm_code': function(value) {
-        return Validator.value(value)
-        .minLength(11, 'Per trumpas PVM kodas')
-        .required('Įrašykite PVM kodą')
-        .regex('^[A-Za-z0-9]*$', 'Naudojami neleistini simboliai');
-      },
-    },
 
     methods: {
-        getFermers() {
-        this.axios
-        .get('/farmer')
+        onSubmit() {
+      console.log("Form submitted yay!");
+    },
+    resetForm() {
+      this.email = "";
+      this.password = "";
+      this.confirmation = "";
+      this.subject = "";
+      this.choices = [];
+      requestAnimationFrame(() => {
+        this.$refs.observer.reset();
+      });
+    },
+    farmer_post(){
+        axios
+        .post(`/farmer/store`, {
+            name: this.farmer.name,
+            subname: this.farmer.subname,
+            vic_lt: this.farmer.vic_lt,
+            username: this.farmer.username,
+            password: this.farmer.password,
+            type: this.farmer.type,
+            banda: this.farmer.banda,
+            data: this.farmer.data,
+            email: this.farmer.email,
+            phone: this.farmer.phone,
+            code: this.farmer.code,
+            pvm: this.farmer.pwm
+            })
         .then(response => {
-            this.farmers = response.data.farmers;
-            console.log(response.data.farmers);
+            console.log(response.data.status)
+            this.getFermers()
         })
         .catch( err => {
-            console.log("GET:");
-            console.log(err.message);
-            })
-        },
-        farmerOk(bvModalEvt) {
-            // Prevent modal from closing
-            bvModalEvt.preventDefault()
-            /*this.$validate()
-            .then(function (success) {
-                if (success) {
-                    this.ok = true;
-                    console.log("VEIKIA");
-                }else{console.log("NEVEIKIA");}
-            });
-            if(this.ok){
-                //this.companies_post();
-                    // Trigger submit handler
-                    console.log("VEIKIA 2");
-                    console.log(this.ok);
-                    this.$nextTick(() => {
+        console.log("POST:");
+        console.log(err.message);
+        })
+    },
+    getFermers() {
+    this.axios
+    .get('/farmer')
+    .then(response => {
+        this.farmers = response.data.farmers;
+        console.log(response.data.farmers);
+    })
+    .catch( err => {
+        console.log("GET:");
+        console.log(err.message);
+        })
+    },
+    farmerOk(bvModalEvt) {
+        // Prevent modal from closing
+        bvModalEvt.preventDefault()
+        this.$refs.form.validate()
+        .then(success => {
+            if (success) {
+                //this.farmer_post();
+                this.$nextTick(() => {
                     this.$bvModal.hide('create_farmer')
-                    })
-                    console.log("VEIKIA 3");
-            }*/
-            //this.companies_post();
-            // Trigger submit handler
-            this.$nextTick(() => {
-            this.$bvModal.hide('create_farmer')
-            })
-        }, 
-    }
+                })
+            }
+        })
+    },
+}
 }
 </script>
